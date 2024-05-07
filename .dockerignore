@@ -1,0 +1,45 @@
+# Ignorar archivos y directorios generados por Visual Studio
+.vs/
+
+# Ignorar archivos y directorios generados por Docker
+.dockerignore
+
+# Ignorar archivos de configuración de entorno
+.env
+
+# Ignorar archivos y directorios relacionados con Node.js
+node_modules/
+npm-debug.log
+
+# Ignorar archivos generados por compilación y ejecución de código
+/bin/
+/obj/
+
+# Ignorar archivos y directorios relacionados con Docker Compose
+docker-compose*
+
+# Ignorar archivos y directorios relacionados con Helm Charts
+charts/
+
+# Ignorar archivos y directorios relacionados con Azure Dev Spaces
+azds.yaml
+
+# Ignorar archivos y directorios relacionados con .NET Core SDK
+**/*.dbmdl
+**/*.jfm
+**/*.*proj.user
+
+# Ignorar archivos de configuración local de desarrollo
+secrets.dev.yaml
+values.dev.yaml
+
+# Ignorar archivos relacionados con licencias y documentación
+LICENSE
+README.md
+
+# Excepciones a las reglas de ignorar archivos .gitignore específicas
+!.gitignore
+!.git/HEAD
+!.git/config
+!.git/packed-refs
+!.git/refs/heads/**
