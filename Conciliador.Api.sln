@@ -3,7 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34714.143
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cociliador.Api", "Cociliador.Api\Cociliador.Api.csproj", "{306BE6E7-A78C-485D-BA54-48D569056171}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cociliador.Api", "Cociliador.Api\Cociliador.Api.csproj", "{306BE6E7-A78C-485D-BA54-48D569056171}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Conciliador.Datos", "Conciliador.Datos\Conciliador.Datos.csproj", "{4E50A67F-42BC-4F69-B8CA-D417E9533FE1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Conciliador.Logica", "Conciliador.Logica\Conciliador.Logica.csproj", "{96CEC55A-8EEE-479F-B8D9-2DE002A5623C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Conciliador.Modelos", "Conciliador.Modelos\Conciliador.Modelos.csproj", "{A04D189F-511A-44DE-899E-994ACAFFACAC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +21,18 @@ Global
 		{306BE6E7-A78C-485D-BA54-48D569056171}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{306BE6E7-A78C-485D-BA54-48D569056171}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{306BE6E7-A78C-485D-BA54-48D569056171}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4E50A67F-42BC-4F69-B8CA-D417E9533FE1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4E50A67F-42BC-4F69-B8CA-D417E9533FE1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4E50A67F-42BC-4F69-B8CA-D417E9533FE1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4E50A67F-42BC-4F69-B8CA-D417E9533FE1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{96CEC55A-8EEE-479F-B8D9-2DE002A5623C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{96CEC55A-8EEE-479F-B8D9-2DE002A5623C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{96CEC55A-8EEE-479F-B8D9-2DE002A5623C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{96CEC55A-8EEE-479F-B8D9-2DE002A5623C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A04D189F-511A-44DE-899E-994ACAFFACAC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A04D189F-511A-44DE-899E-994ACAFFACAC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A04D189F-511A-44DE-899E-994ACAFFACAC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A04D189F-511A-44DE-899E-994ACAFFACAC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
