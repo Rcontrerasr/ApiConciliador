@@ -1,5 +1,4 @@
 ﻿using Conciliador.Datos.Infraestructura.Entidades;
-using Conciliador.Datos.Infraestructura.Entidades;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Conciliador.Logica.Servicios.Interfaces
 {
-    public interface ITodoService
+    public interface IEmpresaService
     {
         Task<Boolean>Add(TodoEntity entity);
         Task<Boolean>Update(TodoEntity entity);
