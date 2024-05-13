@@ -14,6 +14,8 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -33,6 +35,8 @@ app.UseAuthentication(); // Add this line
 app.UseAuthorization();
 
 app.UseEndpoints(endpoints =>
+
+
 {
     endpoints.MapControllers();
 });
