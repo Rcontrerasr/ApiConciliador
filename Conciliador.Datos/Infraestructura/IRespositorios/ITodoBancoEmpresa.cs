@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Conciliador.Datos.Infraestructura.IRespositorios
 {
-    public interface IBancoEmpresaRepository:IRepositorioGenerico<BancoEmpresaEntity>
+    public interface ITodoRepository:IRepositorioGenerico<TodoEntity>
     {
     }
 }
