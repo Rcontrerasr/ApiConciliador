@@ -40,10 +40,15 @@ namespace Conciliador.Logica.Servicios.Implementaciones
             return _ConversionCentrosCostoRepository.GetById(id);
         }
 
-        public async Task<List<ConversionCentrosCostoEntity>> GetByStatus(bool status)
+        public async Task<List<ConversionCentrosCostoEntity>> GetByStatus(string status)
         {
-           var ConversionCentrosCostoList=_ConversionCentrosCostoRepository.FindBy(t=>t.Status == status).ToList();
+            var ConversionCentrosCostoList = _ConversionCentrosCostoRepository.FindBy(t => t.Estado == status).ToList();
             return ConversionCentrosCostoList;
+        }
+
+        public Task<List<ConversionCentrosCostoEntity>> GetByStatus(bool status)
+        {
+            throw new NotImplementedException();
         }
 
         public async Task<bool> Update(ConversionCentrosCostoEntity entity)

@@ -9,46 +9,46 @@ using System.Threading.Tasks;
 
 namespace Conciliador.Logica.Servicios.Implementaciones
 {
-    public class TodoService : ITodoService
+    public class BancosService : IBancosService
     {
-        private readonly ITodoRepository _todoRepository;
+        private readonly IBancosRepository _BancosRepository;
 
-        public TodoService(ITodoRepository todoRepository)
+        public BancosService(IBancosRepository BancosRepository)
         {
-            this._todoRepository = todoRepository;
+            this._BancosRepository = BancosRepository;
         }
-        public async Task<bool> Add(TodoEntity entity)
+        public async Task<bool> Add(BancosEntity entity)
         {
-            _todoRepository.Insert(entity);
+            _BancosRepository.Insert(entity);
             return true;
         }
 
         public async Task<bool> Delete(Guid id)
         {
-            _todoRepository.Delete(id);
+            _BancosRepository.Delete(id);
             return true;
         }
 
-        public async Task<List<TodoEntity>> GetAll()
+        public async Task<List<BancosEntity>> GetAll()
         {
-            return _todoRepository.GetAll().ToList();
-
+            return _BancosRepository.GetAll().ToList();
         }
 
-        public async Task<TodoEntity> GetById(Guid id)
+        public async Task<BancosEntity> GetById(Guid id)
         {
-            return _todoRepository.GetById(id);
+            return _BancosRepository.GetById(id);
         }
 
-        public async Task<List<TodoEntity>> GetByStatus(bool status)
+        public async Task<List<BancosEntity>> GetByStatus(bool isActive)
         {
-           var todoList=_todoRepository.FindBy(t=>t.Status == status).ToList();
-            return todoList;
+            var BancosList = _BancosRepository.FindBy(t => t.Estado == (isActive ? "ACTIVO" : "INACTIVO")).ToList();
+            return BancosList;
         }
 
-        public async Task<bool> Update(TodoEntity entity)
+
+        public async Task<bool> Update(BancosEntity entity)
         {
-            _todoRepository.Update(entity);
+            _BancosRepository.Update(entity);
             return true;
         }
     }

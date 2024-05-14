@@ -11,15 +11,16 @@ namespace Conciliador.Logica.Servicios.Implementaciones
 {
     public class EmpresaService : IEmpresaService
     {
-        private readonly IEmpresaRepository _EmpresaRepository;
+        private readonly IEmpresaRepository _empresaRepository;
 
-        public EmpresaService(IEmpresaRepository EmpresaRepository)
+        public EmpresaService(IEmpresaRepository empresaRepository)
         {
-            this._EmpresaRepository = EmpresaRepository;
+            _empresaRepository = empresaRepository;
         }
+
         public async Task<bool> Add(EmpresaEntity entity)
         {
-            _EmpresaRepository.Insert(entity);
+            _empresaRepository.Insert(entity);
             return true;
         }
 
@@ -30,30 +31,34 @@ namespace Conciliador.Logica.Servicios.Implementaciones
 
         public async Task<bool> Delete(Guid id)
         {
-            _EmpresaRepository.Delete(id);
+            _empresaRepository.Delete(id);
             return true;
         }
 
         public async Task<List<EmpresaEntity>> GetAll()
         {
-            return _EmpresaRepository.GetAll().ToList();
-
+            return _empresaRepository.GetAll().ToList();
         }
 
         public async Task<EmpresaEntity> GetById(Guid id)
         {
-            return _EmpresaRepository.GetById(id);
+            return _empresaRepository.GetById(id);
         }
 
-        public async Task<List<EmpresaEntity>> GetByStatus(bool status)
+        public async Task<List<EmpresaEntity>> GetByStatus(string status)
         {
-           var EmpresaList=_EmpresaRepository.FindBy(t=>t.Status == status).ToList();
-            return EmpresaList;
+            var empresas = _empresaRepository.FindBy(e => e.Estado == status).ToList();
+            return empresas;
+        }
+
+        public Task<List<TodoEntity>> GetByStatus(bool status)
+        {
+            throw new NotImplementedException();
         }
 
         public async Task<bool> Update(EmpresaEntity entity)
         {
-            _EmpresaRepository.Update(entity);
+            _empresaRepository.Update(entity);
             return true;
         }
 
@@ -68,11 +73,6 @@ namespace Conciliador.Logica.Servicios.Implementaciones
         }
 
         Task<TodoEntity> IEmpresaService.GetById(Guid id)
-        {
-            throw new NotImplementedException();
-        }
-
-        Task<List<TodoEntity>> IEmpresaService.GetByStatus(bool status)
         {
             throw new NotImplementedException();
         }
