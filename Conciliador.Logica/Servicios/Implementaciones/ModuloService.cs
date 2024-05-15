@@ -15,66 +15,45 @@ namespace Conciliador.Logica.Servicios.Implementaciones
 
         public ModuloService(IModuloRepository ModuloRepository)
         {
-            _ModuloRepository = ModuloRepository;
+            this._ModuloRepository = ModuloRepository;
         }
-
         public async Task<bool> Add(ModuloEntity entity)
         {
             _ModuloRepository.Insert(entity);
             return true;
         }
 
-        public Task<bool> Add(TodoEntity entity)
-        {
-            throw new NotImplementedException();
-        }
-
-        public async Task<bool> Delete(Guid id)
+        public async Task<bool> Delete(Int32 id)
         {
             _ModuloRepository.Delete(id);
             return true;
         }
 
+
+
         public async Task<List<ModuloEntity>> GetAll()
         {
             return _ModuloRepository.GetAll().ToList();
+
         }
 
-        public async Task<ModuloEntity> GetById(Guid id)
+        public async Task<ModuloEntity> GetById(Int32 id)
         {
             return _ModuloRepository.GetById(id);
         }
 
-        public async Task<List<ModuloEntity>> GetByStatus(string status)
-        {
-            var Modulos = _ModuloRepository.FindBy(e => e.Estado == status).ToList();
-            return Modulos;
-        }
 
-        public Task<List<TodoEntity>> GetByStatus(bool status)
+
+        public async Task<List<ModuloEntity>> GetByStatus(bool status)
         {
-            throw new NotImplementedException();
+            var ModuloList = _ModuloRepository.FindBy(t => t.Estado == "").ToList();
+            return ModuloList;
         }
 
         public async Task<bool> Update(ModuloEntity entity)
         {
             _ModuloRepository.Update(entity);
             return true;
-        }
-
-        public Task<bool> Update(TodoEntity entity)
-        {
-            throw new NotImplementedException();
-        }
-
-        Task<List<TodoEntity>> IModuloService.GetAll()
-        {
-            throw new NotImplementedException();
-        }
-
-        Task<TodoEntity> IModuloService.GetById(Guid id)
-        {
-            throw new NotImplementedException();
         }
     }
 }

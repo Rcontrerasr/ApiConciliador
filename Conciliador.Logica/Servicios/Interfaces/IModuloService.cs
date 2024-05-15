@@ -9,11 +9,11 @@ namespace Conciliador.Logica.Servicios.Interfaces
 {
     public interface IModuloService
     {
-        Task<Boolean>Add(TodoEntity entity);
-        Task<Boolean>Update(TodoEntity entity);
-        Task<Boolean>Delete(Guid id);
-        Task<List<TodoEntity>>GetAll();
-        Task<TodoEntity>GetById(Guid id);
-        Task<List<TodoEntity>>GetByStatus(Boolean status);
+        Task<Boolean>Add(ModuloEntity entity);
+        Task<Boolean>Update(ModuloEntity entity);
+        Task<Boolean>Delete(Int32 id);
+        Task<List<ModuloEntity>>GetAll();
+        Task<ModuloEntity>GetById(Int32 id);
+        Task<List<ModuloEntity>>GetByStatus(Boolean status);
     }
 }

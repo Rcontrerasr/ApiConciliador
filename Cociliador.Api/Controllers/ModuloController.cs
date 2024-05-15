@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Conciliador.Datos.Infraestructura.Entidades;
+using Conciliador.Logica.Servicios.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -9,76 +11,74 @@ using Microsoft.Identity.Web.Resource;
 
 namespace ModuloList.Controllers
 {
-    [Authorize]
     [ApiController]
+    [AllowAnonymous]
     [Route("[controller]")]
     public class ModuloController : ControllerBase
     {
         private readonly ILogger<ModuloController> _logger;
         private readonly IHttpContextAccessor _contextAccessor;
-        private static List<ModuloItem> _ModuloItems = new List<ModuloItem>();
+        private readonly IModuloService _ModuloService;
 
-        public ModuloController(ILogger<ModuloController> logger, IHttpContextAccessor contextAccessor)
+        public ModuloController(ILogger<ModuloController> logger, IHttpContextAccessor contextAccessor, IModuloService ModuloService)
         {
             _logger = logger;
             _contextAccessor = contextAccessor;
+            _ModuloService = ModuloService;
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<ModuloItem>> GetAll()
+        public ActionResult<IEnumerable<ModuloEntity>> GetAll()
         {
-            return Ok(_ModuloItems);
-        }
-
-        [HttpGet("{id}")]
-        public ActionResult<ModuloItem> GetById(Guid id)
-        {
-            var ModuloItem = _ModuloItems.FirstOrDefault(item => item.Id == id);
-            if (ModuloItem == null)
+            var ModuloEntity = _ModuloService.GetAll();
+            if (ModuloEntity == null)
             {
                 return NotFound();
             }
-            return Ok(ModuloItem);
+            return Ok(ModuloEntity);
+        }
+
+        [HttpGet("{id}")]
+        public ActionResult<ModuloEntity> GetById(Int32 id)
+        {
+            var ModuloEntity = _ModuloService.GetById(id);
+            if (ModuloEntity == null)
+            {
+                return NotFound();
+            }
+            return Ok(ModuloEntity);
         }
 
         [HttpPost]
-        public ActionResult<ModuloItem> Create(ModuloItem ModuloItem)
+        public ActionResult<ModuloEntity> Create(ModuloEntity ModuloEntity)
         {
-            ModuloItem.Id = Guid.NewGuid();
-            _ModuloItems.Add(ModuloItem);
-            return CreatedAtAction(nameof(GetById), new { id = ModuloItem.Id }, ModuloItem);
+            _ModuloService.Add(ModuloEntity);
+            return CreatedAtAction(nameof(GetById), new { id = ModuloEntity.Id }, ModuloEntity);
         }
 
         [HttpPut("{id}")]
-        public IActionResult Update(Guid id, ModuloItem ModuloItem)
+        public IActionResult Update(Int32 id, ModuloEntity ModuloEntity)
         {
-            var existingItem = _ModuloItems.FirstOrDefault(item => item.Id == id);
+            var existingItem = _ModuloService.Update(ModuloEntity);
             if (existingItem == null)
             {
                 return NotFound();
             }
-            existingItem.Name = ModuloItem.Name;
-            existingItem.IsComplete = ModuloItem.IsComplete;
+
             return NoContent();
         }
 
         [HttpDelete("{id}")]
-        public IActionResult Delete(Guid id)
+        public IActionResult Delete(Int32 id)
         {
-            var existingItem = _ModuloItems.FirstOrDefault(item => item.Id == id);
+            var existingItem = _ModuloService.Delete(id);
             if (existingItem == null)
             {
                 return NotFound();
             }
-            _ModuloItems.Remove(existingItem);
             return NoContent();
         }
     }
 
-    public class ModuloItem
-    {
-        public Guid Id { get; set; }
-        public string Name { get; set; }
-        public bool IsComplete { get; set; }
-    }
+
 }
