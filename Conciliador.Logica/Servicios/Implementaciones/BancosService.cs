@@ -23,28 +23,32 @@ namespace Conciliador.Logica.Servicios.Implementaciones
             return true;
         }
 
-        public async Task<bool> Delete(Guid id)
+        public async Task<bool> Delete(Int32 id)
         {
             _BancosRepository.Delete(id);
             return true;
         }
 
+
+
         public async Task<List<BancosEntity>> GetAll()
         {
             return _BancosRepository.GetAll().ToList();
+
         }
 
-        public async Task<BancosEntity> GetById(Guid id)
+        public async Task<BancosEntity> GetById(Int32 id)
         {
             return _BancosRepository.GetById(id);
         }
 
-        public async Task<List<BancosEntity>> GetByStatus(bool isActive)
+
+
+        public async Task<List<BancosEntity>> GetByStatus(bool status)
         {
-            var BancosList = _BancosRepository.FindBy(t => t.Estado == (isActive ? "ACTIVO" : "INACTIVO")).ToList();
+            var BancosList = _BancosRepository.FindBy(t => t.Estado == "").ToList();
             return BancosList;
         }
-
 
         public async Task<bool> Update(BancosEntity entity)
         {

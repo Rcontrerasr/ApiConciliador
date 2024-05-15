@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Conciliador.Datos.Infraestructura.Entidades;
+using Conciliador.Logica.Servicios.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -9,77 +11,74 @@ using Microsoft.Identity.Web.Resource;
 
 namespace BancosList.Controllers
 {
-    [Authorize]
     [ApiController]
+    [AllowAnonymous]
     [Route("[controller]")]
     public class BancosController : ControllerBase
     {
         private readonly ILogger<BancosController> _logger;
         private readonly IHttpContextAccessor _contextAccessor;
-        private static List<BancosItem> _BancosItems = new List<BancosItem>();
+        private readonly IBancosService _BancosService;
 
-        public BancosController(ILogger<BancosController> logger, IHttpContextAccessor contextAccessor)
+        public BancosController(ILogger<BancosController> logger, IHttpContextAccessor contextAccessor, IBancosService BancosService)
         {
             _logger = logger;
             _contextAccessor = contextAccessor;
+            _BancosService = BancosService;
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<BancosItem>> GetAll()
+        public ActionResult<IEnumerable<BancosEntity>> GetAll()
         {
-
-            return Ok(_BancosItems);
-        }
-
-        [HttpGet("{id}")]
-        public ActionResult<BancosItem> GetById(Guid id)
-        {
-            var BancosItem = _BancosItems.FirstOrDefault(item => item.Id == id);
-            if (BancosItem == null)
+            var BancosEntity = _BancosService.GetAll();
+            if (BancosEntity == null)
             {
                 return NotFound();
             }
-            return Ok(BancosItem);
+            return Ok(BancosEntity);
+        }
+
+        [HttpGet("{id}")]
+        public ActionResult<BancosEntity> GetById(Int32 id)
+        {
+            var BancosEntity = _BancosService.GetById(id);
+            if (BancosEntity == null)
+            {
+                return NotFound();
+            }
+            return Ok(BancosEntity);
         }
 
         [HttpPost]
-        public ActionResult<BancosItem> Create(BancosItem BancosItem)
+        public ActionResult<BancosEntity> Create(BancosEntity BancosEntity)
         {
-            BancosItem.Id = Guid.NewGuid();
-            _BancosItems.Add(BancosItem);
-            return CreatedAtAction(nameof(GetById), new { id = BancosItem.Id }, BancosItem);
+            _BancosService.Add(BancosEntity);
+            return CreatedAtAction(nameof(GetById), new { id = BancosEntity.Id }, BancosEntity);
         }
 
         [HttpPut("{id}")]
-        public IActionResult Update(Guid id, BancosItem BancosItem)
+        public IActionResult Update(Int32 id, BancosEntity BancosEntity)
         {
-            var existingItem = _BancosItems.FirstOrDefault(item => item.Id == id);
+            var existingItem = _BancosService.Update(BancosEntity);
             if (existingItem == null)
             {
                 return NotFound();
             }
-            existingItem.Name = BancosItem.Name;
-            existingItem.IsComplete = BancosItem.IsComplete;
+
             return NoContent();
         }
 
         [HttpDelete("{id}")]
-        public IActionResult Delete(Guid id)
+        public IActionResult Delete(Int32 id)
         {
-            var existingItem = _BancosItems.FirstOrDefault(item => item.Id == id);
+            var existingItem = _BancosService.Delete(id);
             if (existingItem == null)
             {
                 return NotFound();
             }
-            _BancosItems.Remove(existingItem);
             return NoContent();
         }
     }
 
-    public class BancosItem
-    {
-        public Guid Id { get; set; }
-        public string Name { get; set; }
-        public bool IsComplete { get; set; }
-    }
+
 }
