@@ -1,15 +1,9 @@
 ﻿using Conciliador.Datos.Infraestructura.Entidades;
-using Conciliador.Datos.Infraestructura.Entidades;
-using Conciliador.Datos.Infraestructura.Entidades;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Conciliador.Datos.Infraestructura.Repositorios;
 
 namespace Conciliador.Datos.Infraestructura.IRespositorios
 {
-    public interface IUsuariooRepository:IRepositorioGenerico<EmpresaEntity>
+    public interface IUsuarioRepository:IRepositorioGenerico<UsuarioEntity>
     {
     }
 }

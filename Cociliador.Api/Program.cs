@@ -1,12 +1,17 @@
+using Conciliador.Logica;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Identity.Web;
-using System;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddMicrosoftIdentityWebApi(builder.Configuration.GetSection("AzureAdB2C"));
+
+var connectionStr =builder.Configuration.GetConnectionString("ConciliadorConnectionString");
+
+builder.Services.AddDbContextBusiness(connectionStr);
+builder.Services.AddInfrastructureBusiness();
 
 builder.Services.AddControllers();
 
@@ -43,13 +48,5 @@ app.UseEndpoints(endpoints =>
 
 app.Run();
 
-//record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
-//{
-//    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-//}
 
-// Namespace declaration
-namespace MiProyecto
-{
-    // Namespace content (classes, interfaces, etc.)
-}
+

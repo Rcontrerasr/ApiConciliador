@@ -23,7 +23,7 @@ namespace Conciliador.Logica.Servicios.Implementaciones
             return true;
         }
 
-        public async Task<bool> Delete(Guid id)
+        public async Task<bool> Delete(Int32 id)
         {
             _todoRepository.Delete(id);
             return true;
@@ -35,7 +35,7 @@ namespace Conciliador.Logica.Servicios.Implementaciones
 
         }
 
-        public async Task<TodoEntity> GetById(Guid id)
+        public async Task<TodoEntity> GetById(Int32 id)
         {
             return _todoRepository.GetById(id);
         }

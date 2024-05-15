@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Conciliador.Datos.Infraestructura.Entidades;
+using Conciliador.Datos.Infraestructura.Repositorios;
 
 
 namespace Conciliador.Datos.Infraestructura
@@ -15,7 +16,14 @@ namespace Conciliador.Datos.Infraestructura
         }
 
 
+        public DbSet<BancoEmpresaEntity> bancoEmpresaEntities { get; set; }
+        public DbSet<BancosEntity> bancosEntities { get; set; }
+        public DbSet<ConversionCentrosCostoEntity> conversionCentrosCostoEntities { get; set; }
+        public DbSet<ModuloEntity> moduloEntities { get; set; }
+        public DbSet<ModuloRolesEntity> moduloRolesEntities { get; set; }
         public DbSet<TodoEntity> TodoEntities { get; set; }
+        public DbSet<UsuarioEntity> usuarioEntities { get; set; }
+        public DbSet<EmpresaEntity> empresaEntities { get; set; }
 
 
 

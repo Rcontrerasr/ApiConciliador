@@ -1,18 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Conciliador.Datos.Infraestructura.Entidades
+namespace Conciliador.Datos.Infraestructura.Modelos
 {
-    public class ModuloEntity
+    public class ModuloModel
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public Int32 Id { get; set; }
+        public int IdTabla { get; set; }
         public string NombreModulo { get; set; }
         public string CodigoModulo { get; set; }
         public string DireccionModulo { get; set; }

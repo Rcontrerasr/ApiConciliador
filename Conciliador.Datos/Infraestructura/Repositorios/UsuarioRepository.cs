@@ -16,9 +16,7 @@ namespace Conciliador.Datos.Infraestructura.Repositorios
         }
     }
 
-    public class UsuarioEntity
-    {
-    }
+   
 
     internal interface IUsuarioRepository
     {

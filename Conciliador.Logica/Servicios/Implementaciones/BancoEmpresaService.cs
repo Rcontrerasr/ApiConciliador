@@ -42,7 +42,7 @@ namespace Conciliador.Logica.Servicios.Implementaciones
 
         public async Task<List<BancoEmpresaEntity>> GetByStatus(bool status)
         {
-           var BancoEmpresaList=_BancoEmpresaRepository.FindBy(t=>t.Status == status).ToList();
+           var BancoEmpresaList=_BancoEmpresaRepository.FindBy(t=>t.Cuenta == "").ToList();
             return BancoEmpresaList;
         }
 

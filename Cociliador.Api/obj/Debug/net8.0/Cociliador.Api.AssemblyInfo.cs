@@ -15,7 +15,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Cociliador.Api")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a801233a31e7b25b7943ecd00a08dcff4589ba9d")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+572a772420f71729354aaa4e92e6808bf6ccb877")]
 [assembly: System.Reflection.AssemblyProductAttribute("Cociliador.Api")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Cociliador.Api")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

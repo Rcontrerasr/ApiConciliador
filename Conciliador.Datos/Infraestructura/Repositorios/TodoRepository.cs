@@ -9,10 +9,11 @@ using System.Threading.Tasks;
 
 namespace Conciliador.Datos.Infraestructura.Repositorios
 {
-    public class TodoRepository : RepositorioGenerico<TodoEntity, DataBaseContext>, ITodoRepository
+    public class TodoRepository : RepositorioGenerico<TodoEntity, DataBaseContext> ,ITodoRepository
     {
         public TodoRepository(DataBaseContext context, ILogger<TodoEntity> logger) : base(context, logger)
         {
+
         }
     }
 }

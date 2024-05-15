@@ -11,13 +11,12 @@ namespace Conciliador.Datos.Infraestructura.Entidades
     public class BancoEmpresaEntity
     {
         [Key]
-        [Column(Order = 1)]
-        [ForeignKey("Empresa")]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public Int32 Id { get; set; }
+
+
         public int IdEmpresa { get; set; }
 
-        [Key]
-        [Column(Order = 2)]
-        [ForeignKey("Bancos")]
         public int IdBanco { get; set; }
 
         public string Cuenta { get; set; }
