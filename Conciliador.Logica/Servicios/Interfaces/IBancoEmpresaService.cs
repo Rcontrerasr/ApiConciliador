@@ -11,9 +11,9 @@ namespace Conciliador.Logica.Servicios.Interfaces
     {
         Task<Boolean>Add(BancoEmpresaEntity entity);
         Task<Boolean>Update(BancoEmpresaEntity entity);
-        Task<Boolean>Delete(Guid id);
+        Task<Boolean>Delete(Int32 id);
         Task<List<BancoEmpresaEntity>>GetAll();
-        Task<BancoEmpresaEntity>GetById(Guid id);
+        Task<BancoEmpresaEntity>GetById(Int32 id);
         Task<List<BancoEmpresaEntity>>GetByStatus(Boolean status);
     }
 }

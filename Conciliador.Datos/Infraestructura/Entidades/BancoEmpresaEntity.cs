@@ -14,7 +14,6 @@ namespace Conciliador.Datos.Infraestructura.Entidades
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Int32 Id { get; set; }
 
-
         public int IdEmpresa { get; set; }
 
         public int IdBanco { get; set; }

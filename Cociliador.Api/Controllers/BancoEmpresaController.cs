@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Conciliador.Datos.Infraestructura.Entidades;
+using Conciliador.Logica.Servicios.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -9,77 +11,74 @@ using Microsoft.Identity.Web.Resource;
 
 namespace BancoEmpresaList.Controllers
 {
-    [Authorize]
     [ApiController]
+    [AllowAnonymous]
     [Route("[controller]")]
     public class BancoEmpresaController : ControllerBase
     {
         private readonly ILogger<BancoEmpresaController> _logger;
         private readonly IHttpContextAccessor _contextAccessor;
-        private static List<BancoEmpresaItem> _BancoEmpresaItems = new List<BancoEmpresaItem>();
+        private readonly IBancoEmpresaService _BancoEmpresaService;
 
-        public BancoEmpresaController(ILogger<BancoEmpresaController> logger, IHttpContextAccessor contextAccessor)
+        public BancoEmpresaController(ILogger<BancoEmpresaController> logger, IHttpContextAccessor contextAccessor, IBancoEmpresaService BancoEmpresaService)
         {
             _logger = logger;
             _contextAccessor = contextAccessor;
+            _BancoEmpresaService = BancoEmpresaService;
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<BancoEmpresaItem>> GetAll()
+        public ActionResult<IEnumerable<BancoEmpresaEntity>> GetAll()
         {
-
-            return Ok(_BancoEmpresaItems);
-        }
-
-        [HttpGet("{id}")]
-        public ActionResult<BancoEmpresaItem> GetById(Guid id)
-        {
-            var BancoEmpresaItem = _BancoEmpresaItems.FirstOrDefault(item => item.Id == id);
-            if (BancoEmpresaItem == null)
+            var BancoEmpresaEntity = _BancoEmpresaService.GetAll();
+            if (BancoEmpresaEntity == null)
             {
                 return NotFound();
             }
-            return Ok(BancoEmpresaItem);
+            return Ok(BancoEmpresaEntity);
+        }
+
+        [HttpGet("{id}")]
+        public ActionResult<BancoEmpresaEntity> GetById(Int32 id)
+        {
+            var BancoEmpresaEntity = _BancoEmpresaService.GetById(id);
+            if (BancoEmpresaEntity == null)
+            {
+                return NotFound();
+            }
+            return Ok(BancoEmpresaEntity);
         }
 
         [HttpPost]
-        public ActionResult<BancoEmpresaItem> Create(BancoEmpresaItem BancoEmpresaItem)
+        public ActionResult<BancoEmpresaEntity> Create(BancoEmpresaEntity BancoEmpresaEntity)
         {
-            BancoEmpresaItem.Id = Guid.NewGuid();
-            _BancoEmpresaItems.Add(BancoEmpresaItem);
-            return CreatedAtAction(nameof(GetById), new { id = BancoEmpresaItem.Id }, BancoEmpresaItem);
+            _BancoEmpresaService.Add(BancoEmpresaEntity);
+            return CreatedAtAction(nameof(GetById), new { id = BancoEmpresaEntity.Id }, BancoEmpresaEntity);
         }
 
         [HttpPut("{id}")]
-        public IActionResult Update(Guid id, BancoEmpresaItem BancoEmpresaItem)
+        public IActionResult Update(Int32 id, BancoEmpresaEntity BancoEmpresaEntity)
         {
-            var existingItem = _BancoEmpresaItems.FirstOrDefault(item => item.Id == id);
+            var existingItem = _BancoEmpresaService.Update(BancoEmpresaEntity);
             if (existingItem == null)
             {
                 return NotFound();
             }
-            existingItem.Name = BancoEmpresaItem.Name;
-            existingItem.IsComplete = BancoEmpresaItem.IsComplete;
+
             return NoContent();
         }
 
         [HttpDelete("{id}")]
-        public IActionResult Delete(Guid id)
+        public IActionResult Delete(Int32 id)
         {
-            var existingItem = _BancoEmpresaItems.FirstOrDefault(item => item.Id == id);
+            var existingItem = _BancoEmpresaService.Delete(id);
             if (existingItem == null)
             {
                 return NotFound();
             }
-            _BancoEmpresaItems.Remove(existingItem);
             return NoContent();
         }
     }
 
-    public class BancoEmpresaItem
-    {
-        public Guid Id { get; set; }
-        public string Name { get; set; }
-        public bool IsComplete { get; set; }
-    }
+
 }

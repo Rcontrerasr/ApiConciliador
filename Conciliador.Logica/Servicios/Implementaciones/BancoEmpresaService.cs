@@ -23,11 +23,13 @@ namespace Conciliador.Logica.Servicios.Implementaciones
             return true;
         }
 
-        public async Task<bool> Delete(Guid id)
+        public async Task<bool> Delete(Int32 id)
         {
             _BancoEmpresaRepository.Delete(id);
             return true;
         }
+
+
 
         public async Task<List<BancoEmpresaEntity>> GetAll()
         {
@@ -35,14 +37,16 @@ namespace Conciliador.Logica.Servicios.Implementaciones
 
         }
 
-        public async Task<BancoEmpresaEntity> GetById(Guid id)
+        public async Task<BancoEmpresaEntity> GetById(Int32 id)
         {
             return _BancoEmpresaRepository.GetById(id);
         }
 
+
+
         public async Task<List<BancoEmpresaEntity>> GetByStatus(bool status)
         {
-           var BancoEmpresaList=_BancoEmpresaRepository.FindBy(t=>t.Cuenta == "").ToList();
+            var BancoEmpresaList = _BancoEmpresaRepository.FindBy(t => t.Cuenta == "").ToList();
             return BancoEmpresaList;
         }
 
