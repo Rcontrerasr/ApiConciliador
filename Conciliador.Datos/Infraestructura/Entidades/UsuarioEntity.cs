@@ -23,6 +23,7 @@ namespace Conciliador.Datos.Infraestructura.Entidades
         public int Rol { get; set; }
 
         public string Estado { get; set; }
+        public string Estado2 { get; set; }
 
         public DateTime UltimaConexion { get; set; }
 
