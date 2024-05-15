@@ -80,13 +80,5 @@ namespace Conciliador.Logica.Servicios.Implementaciones
         }
     }
 
-    public interface IUsuarioRepository
-    {
-        void Insert(UsuarioEntity entity);
-        void Delete(Guid id);
-        IEnumerable<UsuarioEntity> GetAll();
-        UsuarioEntity GetById(Guid id);
-        IEnumerable<UsuarioEntity> FindBy(Func<UsuarioEntity, bool> predicate);
-        void Update(UsuarioEntity entity);
-    }
+    
 }

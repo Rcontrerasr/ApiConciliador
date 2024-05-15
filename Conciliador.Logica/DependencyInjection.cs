@@ -1,15 +1,13 @@
-﻿using Conciliador.Datos.Infraestructura;
+﻿
+
+
+using Conciliador.Datos.Infraestructura;
 using Conciliador.Datos.Infraestructura.IRespositorios;
 using Conciliador.Datos.Infraestructura.Repositorios;
 using Conciliador.Logica.Servicios.Implementaciones;
 using Conciliador.Logica.Servicios.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Conciliador.Logica
 {
@@ -29,11 +27,26 @@ namespace Conciliador.Logica
         {
             #region Repositorios
             services.AddTransient<ITodoRepository, TodoRepository> ();
+            services.AddTransient<IBancoEmpresaRepository, BancoEmpresaRepository> ();
+            services.AddTransient<IBancosRepository, BancosRepository> ();
+            services.AddTransient<IEmpresaRepository, EmpresaRepository> ();
+            services.AddTransient<IModuloRepository, ModuloRepository> ();
+            services.AddTransient<IModuloRolesRepository, ModuloRolesRepository> ();
+            services.AddTransient<IUsuarioRepository, UsuarioRepository> ();
+            services.AddTransient<IConversionCentrosCostoRepository, ConversionCentrosCostoRepository> ();
+
           
 
             #endregion 
             #region Servicios
             services.AddTransient<ITodoService, TodoService>();
+            services.AddTransient<IBancoEmpresaService, BancoEmpresaService>();
+            services.AddTransient<IBancosService, BancosService>();
+            services.AddTransient<IEmpresaService, EmpresaService>();
+            services.AddTransient<IModuloService, ModuloService>();
+            services.AddTransient<IModuloRolesService, ModuloRolesService>();
+            services.AddTransient<IUsuarioService, UsuarioService>();
+            services.AddTransient<IConversionCentrosCostoService, ConversionCentrosCostoService>();
 
             #endregion
 
