@@ -9,11 +9,11 @@ namespace Conciliador.Logica.Servicios.Interfaces
 {
     public interface IUsuarioService
     {
-        Task<Boolean>Add(TodoEntity entity);
-        Task<Boolean>Update(TodoEntity entity);
-        Task<Boolean>Delete(Guid id);
-        Task<List<TodoEntity>>GetAll();
-        Task<TodoEntity>GetById(Guid id);
-        Task<List<TodoEntity>>GetByStatus(Boolean status);
+        Task<Boolean>Add(UsuarioEntity entity);
+        Task<Boolean>Update(UsuarioEntity entity);
+        Task<Boolean>Delete(Int32 id);
+        Task<List<UsuarioEntity>>GetAll();
+        Task<UsuarioEntity>GetById(Int32 id);
+        Task<List<UsuarioEntity>>GetByStatus(Boolean status);
     }
 }

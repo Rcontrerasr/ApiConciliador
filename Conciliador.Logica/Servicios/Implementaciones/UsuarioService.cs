@@ -1,6 +1,5 @@
 ﻿using Conciliador.Datos.Infraestructura.Entidades;
 using Conciliador.Datos.Infraestructura.IRespositorios;
-using Conciliador.Datos.Infraestructura.Repositorios;
 using Conciliador.Logica.Servicios.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -12,73 +11,49 @@ namespace Conciliador.Logica.Servicios.Implementaciones
 {
     public class UsuarioService : IUsuarioService
     {
-        private readonly IUsuarioRepository _usuarioRepository;
+        private readonly IUsuarioRepository _UsuarioRepository;
 
-        public UsuarioService(IUsuarioRepository usuarioRepository)
+        public UsuarioService(IUsuarioRepository UsuarioRepository)
         {
-            _usuarioRepository = usuarioRepository ?? throw new ArgumentNullException(nameof(usuarioRepository));
+            this._UsuarioRepository = UsuarioRepository;
         }
-
         public async Task<bool> Add(UsuarioEntity entity)
         {
-            _usuarioRepository.Insert(entity);
+            _UsuarioRepository.Insert(entity);
             return true;
         }
 
-        public Task<bool> Add(TodoEntity entity)
+        public async Task<bool> Delete(Int32 id)
         {
-            throw new NotImplementedException();
-        }
-
-        public async Task<bool> Delete(Guid id)
-        {
-            _usuarioRepository.Delete(id);
+            _UsuarioRepository.Delete(id);
             return true;
         }
+
+      
 
         public async Task<List<UsuarioEntity>> GetAll()
         {
-            return _usuarioRepository.GetAll().ToList();
+            return _UsuarioRepository.GetAll().ToList();
+
         }
 
-        public async Task<UsuarioEntity> GetById(Guid id)
+        public async Task<UsuarioEntity> GetById(Int32 id)
         {
-            return _usuarioRepository.GetById(id);
+            return _UsuarioRepository.GetById(id);
         }
 
-        //public async Task<List<UsuarioEntity>> GetByStatus(string status)
-        //{
-        //    var Usuarios = _usuarioRepository.FindBy(e => e.Estado == status).ToList();
-        //    return Usuarios;
-        //}
+       
 
-
-        public Task<List<TodoEntity>> GetByStatus(bool status)
+        public async Task<List<UsuarioEntity>> GetByStatus(bool status)
         {
-            throw new NotImplementedException();
+            var UsuarioList = _UsuarioRepository.FindBy(t => t.Estado == "").ToList();
+            return UsuarioList;
         }
 
         public async Task<bool> Update(UsuarioEntity entity)
         {
-            _usuarioRepository.Update(entity);
+            _UsuarioRepository.Update(entity);
             return true;
         }
-
-        public Task<bool> Update(TodoEntity entity)
-        {
-            throw new NotImplementedException();
-        }
-
-        Task<List<TodoEntity>> IUsuarioService.GetAll()
-        {
-            throw new NotImplementedException();
-        }
-
-        Task<TodoEntity> IUsuarioService.GetById(Guid id)
-        {
-            throw new NotImplementedException();
-        }
     }
-
-    
 }

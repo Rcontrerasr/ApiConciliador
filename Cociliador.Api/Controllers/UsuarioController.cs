@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Conciliador.Datos.Infraestructura.Entidades;
+using Conciliador.Logica.Servicios.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -9,76 +11,74 @@ using Microsoft.Identity.Web.Resource;
 
 namespace UsuarioList.Controllers
 {
-    [Authorize]
     [ApiController]
+    [AllowAnonymous]
     [Route("[controller]")]
     public class UsuarioController : ControllerBase
     {
         private readonly ILogger<UsuarioController> _logger;
         private readonly IHttpContextAccessor _contextAccessor;
-        private static List<UsuarioItem> _UsuarioItems = new List<UsuarioItem>();
+        private readonly IUsuarioService _UsuarioService;
 
-        public UsuarioController(ILogger<UsuarioController> logger, IHttpContextAccessor contextAccessor)
+        public UsuarioController(ILogger<UsuarioController> logger, IHttpContextAccessor contextAccessor, IUsuarioService UsuarioService)
         {
             _logger = logger;
             _contextAccessor = contextAccessor;
+            _UsuarioService = UsuarioService;
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<UsuarioItem>> GetAll()
+        public ActionResult<IEnumerable<UsuarioEntity>> GetAll()
         {
-            return Ok(_UsuarioItems);
-        }
-
-        [HttpGet("{id}")]
-        public ActionResult<UsuarioItem> GetById(Guid id)
-        {
-            var UsuarioItem = _UsuarioItems.FirstOrDefault(item => item.Id == id);
-            if (UsuarioItem == null)
+            var UsuarioEntity = _UsuarioService.GetAll();
+            if (UsuarioEntity == null)
             {
                 return NotFound();
             }
-            return Ok(UsuarioItem);
+            return Ok(UsuarioEntity);
+        }
+
+        [HttpGet("{id}")]
+        public ActionResult<UsuarioEntity> GetById(Int32 id)
+        {
+            var UsuarioEntity = _UsuarioService.GetById(id);
+            if (UsuarioEntity == null)
+            {
+                return NotFound();
+            }
+            return Ok(UsuarioEntity);
         }
 
         [HttpPost]
-        public ActionResult<UsuarioItem> Create(UsuarioItem UsuarioItem)
+        public ActionResult<UsuarioEntity> Create(UsuarioEntity UsuarioEntity)
         {
-            UsuarioItem.Id = Guid.NewGuid();
-            _UsuarioItems.Add(UsuarioItem);
-            return CreatedAtAction(nameof(GetById), new { id = UsuarioItem.Id }, UsuarioItem);
+            _UsuarioService.Add(UsuarioEntity);
+            return CreatedAtAction(nameof(GetById), new { id = UsuarioEntity.Id }, UsuarioEntity);
         }
 
         [HttpPut("{id}")]
-        public IActionResult Update(Guid id, UsuarioItem UsuarioItem)
+        public IActionResult Update(Int32 id, UsuarioEntity UsuarioEntity)
         {
-            var existingItem = _UsuarioItems.FirstOrDefault(item => item.Id == id);
+            var existingItem = _UsuarioService.Update(UsuarioEntity);
             if (existingItem == null)
             {
                 return NotFound();
             }
-            existingItem.Name = UsuarioItem.Name;
-            existingItem.IsComplete = UsuarioItem.IsComplete;
+
             return NoContent();
         }
 
         [HttpDelete("{id}")]
-        public IActionResult Delete(Guid id)
+        public IActionResult Delete(Int32 id)
         {
-            var existingItem = _UsuarioItems.FirstOrDefault(item => item.Id == id);
+            var existingItem = _UsuarioService.Delete(id);
             if (existingItem == null)
             {
                 return NotFound();
             }
-            _UsuarioItems.Remove(existingItem);
             return NoContent();
         }
     }
 
-    public class UsuarioItem
-    {
-        public Guid Id { get; set; }
-        public string Name { get; set; }
-        public bool IsComplete { get; set; }
-    }
+
 }
