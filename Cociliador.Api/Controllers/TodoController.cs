@@ -57,7 +57,7 @@ namespace TodoList.Controllers
         }
 
         [HttpPut("{id}")]
-        public IActionResult Update(Guid id, TodoEntity TodoEntity)
+        public IActionResult Update(Int32 id, TodoEntity TodoEntity)
         {
             var existingItem = _todoService.Update(TodoEntity);
             if (existingItem == null)
