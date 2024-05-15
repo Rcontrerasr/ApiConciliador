@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Conciliador.Datos.Infraestructura.Entidades;
+using Conciliador.Logica.Servicios.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -9,76 +11,74 @@ using Microsoft.Identity.Web.Resource;
 
 namespace EmpresaList.Controllers
 {
-    [Authorize]
     [ApiController]
+    [AllowAnonymous]
     [Route("[controller]")]
     public class EmpresaController : ControllerBase
     {
         private readonly ILogger<EmpresaController> _logger;
         private readonly IHttpContextAccessor _contextAccessor;
-        private static List<EmpresaItem> _EmpresaItems = new List<EmpresaItem>();
+        private readonly IEmpresaService _EmpresaService;
 
-        public EmpresaController(ILogger<EmpresaController> logger, IHttpContextAccessor contextAccessor)
+        public EmpresaController(ILogger<EmpresaController> logger, IHttpContextAccessor contextAccessor, IEmpresaService EmpresaService)
         {
             _logger = logger;
             _contextAccessor = contextAccessor;
+            _EmpresaService = EmpresaService;
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<EmpresaItem>> GetAll()
+        public ActionResult<IEnumerable<EmpresaEntity>> GetAll()
         {
-            return Ok(_EmpresaItems);
-        }
-
-        [HttpGet("{id}")]
-        public ActionResult<EmpresaItem> GetById(Guid id)
-        {
-            var EmpresaItem = _EmpresaItems.FirstOrDefault(item => item.Id == id);
-            if (EmpresaItem == null)
+            var EmpresaEntity = _EmpresaService.GetAll();
+            if (EmpresaEntity == null)
             {
                 return NotFound();
             }
-            return Ok(EmpresaItem);
+            return Ok(EmpresaEntity);
+        }
+
+        [HttpGet("{id}")]
+        public ActionResult<EmpresaEntity> GetById(Int32 id)
+        {
+            var EmpresaEntity = _EmpresaService.GetById(id);
+            if (EmpresaEntity == null)
+            {
+                return NotFound();
+            }
+            return Ok(EmpresaEntity);
         }
 
         [HttpPost]
-        public ActionResult<EmpresaItem> Create(EmpresaItem EmpresaItem)
+        public ActionResult<EmpresaEntity> Create(EmpresaEntity EmpresaEntity)
         {
-            EmpresaItem.Id = Guid.NewGuid();
-            _EmpresaItems.Add(EmpresaItem);
-            return CreatedAtAction(nameof(GetById), new { id = EmpresaItem.Id }, EmpresaItem);
+            _EmpresaService.Add(EmpresaEntity);
+            return CreatedAtAction(nameof(GetById), new { id = EmpresaEntity.Id }, EmpresaEntity);
         }
 
         [HttpPut("{id}")]
-        public IActionResult Update(Guid id, EmpresaItem EmpresaItem)
+        public IActionResult Update(Int32 id, EmpresaEntity EmpresaEntity)
         {
-            var existingItem = _EmpresaItems.FirstOrDefault(item => item.Id == id);
+            var existingItem = _EmpresaService.Update(EmpresaEntity);
             if (existingItem == null)
             {
                 return NotFound();
             }
-            existingItem.Name = EmpresaItem.Name;
-            existingItem.IsComplete = EmpresaItem.IsComplete;
+
             return NoContent();
         }
 
         [HttpDelete("{id}")]
-        public IActionResult Delete(Guid id)
+        public IActionResult Delete(Int32 id)
         {
-            var existingItem = _EmpresaItems.FirstOrDefault(item => item.Id == id);
+            var existingItem = _EmpresaService.Delete(id);
             if (existingItem == null)
             {
                 return NotFound();
             }
-            _EmpresaItems.Remove(existingItem);
             return NoContent();
         }
     }
 
-    public class EmpresaItem
-    {
-        public Guid Id { get; set; }
-        public string Name { get; set; }
-        public bool IsComplete { get; set; }
-    }
+
 }

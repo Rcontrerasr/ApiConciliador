@@ -9,11 +9,11 @@ namespace Conciliador.Logica.Servicios.Interfaces
 {
     public interface IEmpresaService
     {
-        Task<Boolean>Add(TodoEntity entity);
-        Task<Boolean>Update(TodoEntity entity);
-        Task<Boolean>Delete(Guid id);
-        Task<List<TodoEntity>>GetAll();
-        Task<TodoEntity>GetById(Guid id);
-        Task<List<TodoEntity>>GetByStatus(Boolean status);
+        Task<Boolean>Add(EmpresaEntity entity);
+        Task<Boolean>Update(EmpresaEntity entity);
+        Task<Boolean>Delete(Int32 id);
+        Task<List<EmpresaEntity>>GetAll();
+        Task<EmpresaEntity>GetById(Int32 id);
+        Task<List<EmpresaEntity>>GetByStatus(Boolean status);
     }
 }

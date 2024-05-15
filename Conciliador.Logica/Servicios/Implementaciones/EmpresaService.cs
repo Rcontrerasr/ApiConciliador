@@ -11,70 +11,49 @@ namespace Conciliador.Logica.Servicios.Implementaciones
 {
     public class EmpresaService : IEmpresaService
     {
-        private readonly IEmpresaRepository _empresaRepository;
+        private readonly IEmpresaRepository _EmpresaRepository;
 
-        public EmpresaService(IEmpresaRepository empresaRepository)
+        public EmpresaService(IEmpresaRepository EmpresaRepository)
         {
-            _empresaRepository = empresaRepository;
+            this._EmpresaRepository = EmpresaRepository;
         }
-
         public async Task<bool> Add(EmpresaEntity entity)
         {
-            _empresaRepository.Insert(entity);
+            _EmpresaRepository.Insert(entity);
             return true;
         }
 
-        public Task<bool> Add(TodoEntity entity)
+        public async Task<bool> Delete(Int32 id)
         {
-            throw new NotImplementedException();
-        }
-
-        public async Task<bool> Delete(Guid id)
-        {
-            _empresaRepository.Delete(id);
+            _EmpresaRepository.Delete(id);
             return true;
         }
+
+
 
         public async Task<List<EmpresaEntity>> GetAll()
         {
-            return _empresaRepository.GetAll().ToList();
+            return _EmpresaRepository.GetAll().ToList();
+
         }
 
-        public async Task<EmpresaEntity> GetById(Guid id)
+        public async Task<EmpresaEntity> GetById(Int32 id)
         {
-            return _empresaRepository.GetById(id);
+            return _EmpresaRepository.GetById(id);
         }
 
-        public async Task<List<EmpresaEntity>> GetByStatus(string status)
-        {
-            var empresas = _empresaRepository.FindBy(e => e.Estado == status).ToList();
-            return empresas;
-        }
 
-        public Task<List<TodoEntity>> GetByStatus(bool status)
+
+        public async Task<List<EmpresaEntity>> GetByStatus(bool status)
         {
-            throw new NotImplementedException();
+            var EmpresaList = _EmpresaRepository.FindBy(t => t.Estado == "").ToList();
+            return EmpresaList;
         }
 
         public async Task<bool> Update(EmpresaEntity entity)
         {
-            _empresaRepository.Update(entity);
+            _EmpresaRepository.Update(entity);
             return true;
-        }
-
-        public Task<bool> Update(TodoEntity entity)
-        {
-            throw new NotImplementedException();
-        }
-
-        Task<List<TodoEntity>> IEmpresaService.GetAll()
-        {
-            throw new NotImplementedException();
-        }
-
-        Task<TodoEntity> IEmpresaService.GetById(Guid id)
-        {
-            throw new NotImplementedException();
         }
     }
 }
