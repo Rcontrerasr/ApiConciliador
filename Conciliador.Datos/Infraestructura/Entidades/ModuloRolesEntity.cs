@@ -13,15 +13,17 @@ namespace Conciliador.Datos.Infraestructura.Entidades
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Int32 Id { get; set; }
+        public Int32 IdRol { get; set; }
+        public Int32 Idtabla { get; set; }
 
-        public string NombreRol { get; set; }
+        //public string NombreRol { get; set; }
 
-        public string Estado { get; set; }
+        //public string Estado { get; set; }
 
-        public DateTime FechaCreacion { get; set; }
+        //public DateTime FechaCreacion { get; set; }
 
-        public DateTime FechaActualizacion { get; set; }
+        //public DateTime FechaActualizacion { get; set; }
 
-        public string UsuarioCreacionModificacion { get; set; }
+        //public string UsuarioCreacionModificacion { get; set; }
     }
 }

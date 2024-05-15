@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Conciliador.Datos.Infraestructura.Entidades;
+using Conciliador.Logica.Servicios.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -9,76 +11,74 @@ using Microsoft.Identity.Web.Resource;
 
 namespace ModuloRolesList.Controllers
 {
-    [Authorize]
     [ApiController]
+    [AllowAnonymous]
     [Route("[controller]")]
     public class ModuloRolesController : ControllerBase
     {
         private readonly ILogger<ModuloRolesController> _logger;
         private readonly IHttpContextAccessor _contextAccessor;
-        private static List<ModuloRolesItem> _ModuloRolesItems = new List<ModuloRolesItem>();
+        private readonly IModuloRolesService _ModuloRolesService;
 
-        public ModuloRolesController(ILogger<ModuloRolesController> logger, IHttpContextAccessor contextAccessor)
+        public ModuloRolesController(ILogger<ModuloRolesController> logger, IHttpContextAccessor contextAccessor, IModuloRolesService ModuloRolesService)
         {
             _logger = logger;
             _contextAccessor = contextAccessor;
+            _ModuloRolesService = ModuloRolesService;
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<ModuloRolesItem>> GetAll()
+        public ActionResult<IEnumerable<ModuloRolesEntity>> GetAll()
         {
-            return Ok(_ModuloRolesItems);
-        }
-
-        [HttpGet("{id}")]
-        public ActionResult<ModuloRolesItem> GetById(Guid id)
-        {
-            var ModuloRolesItem = _ModuloRolesItems.FirstOrDefault(item => item.Id == id);
-            if (ModuloRolesItem == null)
+            var ModuloRolesEntity = _ModuloRolesService.GetAll();
+            if (ModuloRolesEntity == null)
             {
                 return NotFound();
             }
-            return Ok(ModuloRolesItem);
+            return Ok(ModuloRolesEntity);
+        }
+
+        [HttpGet("{id}")]
+        public ActionResult<ModuloRolesEntity> GetById(Int32 id)
+        {
+            var ModuloRolesEntity = _ModuloRolesService.GetById(id);
+            if (ModuloRolesEntity == null)
+            {
+                return NotFound();
+            }
+            return Ok(ModuloRolesEntity);
         }
 
         [HttpPost]
-        public ActionResult<ModuloRolesItem> Create(ModuloRolesItem ModuloRolesItem)
+        public ActionResult<ModuloRolesEntity> Create(ModuloRolesEntity ModuloRolesEntity)
         {
-            ModuloRolesItem.Id = Guid.NewGuid();
-            _ModuloRolesItems.Add(ModuloRolesItem);
-            return CreatedAtAction(nameof(GetById), new { id = ModuloRolesItem.Id }, ModuloRolesItem);
+            _ModuloRolesService.Add(ModuloRolesEntity);
+            return CreatedAtAction(nameof(GetById), new { id = ModuloRolesEntity.Id }, ModuloRolesEntity);
         }
 
         [HttpPut("{id}")]
-        public IActionResult Update(Guid id, ModuloRolesItem ModuloRolesItem)
+        public IActionResult Update(Int32 id, ModuloRolesEntity ModuloRolesEntity)
         {
-            var existingItem = _ModuloRolesItems.FirstOrDefault(item => item.Id == id);
+            var existingItem = _ModuloRolesService.Update(ModuloRolesEntity);
             if (existingItem == null)
             {
                 return NotFound();
             }
-            existingItem.Name = ModuloRolesItem.Name;
-            existingItem.IsComplete = ModuloRolesItem.IsComplete;
+
             return NoContent();
         }
 
         [HttpDelete("{id}")]
-        public IActionResult Delete(Guid id)
+        public IActionResult Delete(Int32 id)
         {
-            var existingItem = _ModuloRolesItems.FirstOrDefault(item => item.Id == id);
+            var existingItem = _ModuloRolesService.Delete(id);
             if (existingItem == null)
             {
                 return NotFound();
             }
-            _ModuloRolesItems.Remove(existingItem);
             return NoContent();
         }
     }
 
-    public class ModuloRolesItem
-    {
-        public Guid Id { get; set; }
-        public string Name { get; set; }
-        public bool IsComplete { get; set; }
-    }
+
 }

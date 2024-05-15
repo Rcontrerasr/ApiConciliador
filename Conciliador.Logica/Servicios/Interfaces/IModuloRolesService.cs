@@ -9,11 +9,11 @@ namespace Conciliador.Logica.Servicios.Interfaces
 {
     public interface IModuloRolesService
     {
-        Task<Boolean>Add(TodoEntity entity);
-        Task<Boolean>Update(TodoEntity entity);
-        Task<Boolean>Delete(Guid id);
-        Task<List<TodoEntity>>GetAll();
-        Task<TodoEntity>GetById(Guid id);
-        Task<List<TodoEntity>>GetByStatus(Boolean status);
+        Task<Boolean>Add(ModuloRolesEntity entity);
+        Task<Boolean>Update(ModuloRolesEntity entity);
+        Task<Boolean>Delete(Int32 id);
+        Task<List<ModuloRolesEntity>>GetAll();
+        Task<ModuloRolesEntity>GetById(Int32 id);
+        Task<List<ModuloRolesEntity>>GetByStatus(Boolean status);
     }
 }
