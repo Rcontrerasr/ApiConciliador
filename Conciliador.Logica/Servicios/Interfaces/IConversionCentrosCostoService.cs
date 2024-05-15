@@ -12,9 +12,9 @@ namespace Conciliador.Logica.Servicios.Interfaces
     {
         Task<Boolean>Add(ConversionCentrosCostoEntity entity);
         Task<Boolean>Update(ConversionCentrosCostoEntity entity);
-        Task<Boolean>Delete(Guid id);
+        Task<Boolean>Delete(Int32 id);
         Task<List<ConversionCentrosCostoEntity>>GetAll();
-        Task<ConversionCentrosCostoEntity>GetById(Guid id);
+        Task<ConversionCentrosCostoEntity>GetById(Int32 id);
         Task<List<ConversionCentrosCostoEntity>>GetByStatus(Boolean status);
     }
 }

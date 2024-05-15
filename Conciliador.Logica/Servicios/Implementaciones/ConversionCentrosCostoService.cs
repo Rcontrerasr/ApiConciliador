@@ -23,11 +23,13 @@ namespace Conciliador.Logica.Servicios.Implementaciones
             return true;
         }
 
-        public async Task<bool> Delete(Guid id)
+        public async Task<bool> Delete(Int32 id)
         {
             _ConversionCentrosCostoRepository.Delete(id);
             return true;
         }
+
+
 
         public async Task<List<ConversionCentrosCostoEntity>> GetAll()
         {
@@ -35,20 +37,17 @@ namespace Conciliador.Logica.Servicios.Implementaciones
 
         }
 
-        public async Task<ConversionCentrosCostoEntity> GetById(Guid id)
+        public async Task<ConversionCentrosCostoEntity> GetById(Int32 id)
         {
             return _ConversionCentrosCostoRepository.GetById(id);
         }
 
-        public async Task<List<ConversionCentrosCostoEntity>> GetByStatus(string status)
-        {
-            var ConversionCentrosCostoList = _ConversionCentrosCostoRepository.FindBy(t => t.Estado == status).ToList();
-            return ConversionCentrosCostoList;
-        }
 
-        public Task<List<ConversionCentrosCostoEntity>> GetByStatus(bool status)
+
+        public async Task<List<ConversionCentrosCostoEntity>> GetByStatus(bool status)
         {
-            throw new NotImplementedException();
+            var ConversionCentrosCostoList = _ConversionCentrosCostoRepository.FindBy(t => t.Estado == "").ToList();
+            return ConversionCentrosCostoList;
         }
 
         public async Task<bool> Update(ConversionCentrosCostoEntity entity)

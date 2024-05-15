@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Conciliador.Datos.Infraestructura.Entidades;
+using Conciliador.Logica.Servicios.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -9,76 +11,74 @@ using Microsoft.Identity.Web.Resource;
 
 namespace ConversionCentrosCostoList.Controllers
 {
-    [Authorize]
     [ApiController]
+    [AllowAnonymous]
     [Route("[controller]")]
     public class ConversionCentrosCostoController : ControllerBase
     {
         private readonly ILogger<ConversionCentrosCostoController> _logger;
         private readonly IHttpContextAccessor _contextAccessor;
-        private static List<ConversionCentrosCostoItem> _ConversionCentrosCostoItems = new List<ConversionCentrosCostoItem>();
+        private readonly IConversionCentrosCostoService _ConversionCentrosCostoService;
 
-        public ConversionCentrosCostoController(ILogger<ConversionCentrosCostoController> logger, IHttpContextAccessor contextAccessor)
+        public ConversionCentrosCostoController(ILogger<ConversionCentrosCostoController> logger, IHttpContextAccessor contextAccessor, IConversionCentrosCostoService ConversionCentrosCostoService)
         {
             _logger = logger;
             _contextAccessor = contextAccessor;
+            _ConversionCentrosCostoService = ConversionCentrosCostoService;
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<ConversionCentrosCostoItem>> GetAll()
+        public ActionResult<IEnumerable<ConversionCentrosCostoEntity>> GetAll()
         {
-            return Ok(_ConversionCentrosCostoItems);
-        }
-
-        [HttpGet("{id}")]
-        public ActionResult<ConversionCentrosCostoItem> GetById(Guid id)
-        {
-            var ConversionCentrosCostoItem = _ConversionCentrosCostoItems.FirstOrDefault(item => item.Id == id);
-            if (ConversionCentrosCostoItem == null)
+            var ConversionCentrosCostoEntity = _ConversionCentrosCostoService.GetAll();
+            if (ConversionCentrosCostoEntity == null)
             {
                 return NotFound();
             }
-            return Ok(ConversionCentrosCostoItem);
+            return Ok(ConversionCentrosCostoEntity);
+        }
+
+        [HttpGet("{id}")]
+        public ActionResult<ConversionCentrosCostoEntity> GetById(Int32 id)
+        {
+            var ConversionCentrosCostoEntity = _ConversionCentrosCostoService.GetById(id);
+            if (ConversionCentrosCostoEntity == null)
+            {
+                return NotFound();
+            }
+            return Ok(ConversionCentrosCostoEntity);
         }
 
         [HttpPost]
-        public ActionResult<ConversionCentrosCostoItem> Create(ConversionCentrosCostoItem ConversionCentrosCostoItem)
+        public ActionResult<ConversionCentrosCostoEntity> Create(ConversionCentrosCostoEntity ConversionCentrosCostoEntity)
         {
-            ConversionCentrosCostoItem.Id = Guid.NewGuid();
-            _ConversionCentrosCostoItems.Add(ConversionCentrosCostoItem);
-            return CreatedAtAction(nameof(GetById), new { id = ConversionCentrosCostoItem.Id }, ConversionCentrosCostoItem);
+            _ConversionCentrosCostoService.Add(ConversionCentrosCostoEntity);
+            return CreatedAtAction(nameof(GetById), new { id = ConversionCentrosCostoEntity.Id }, ConversionCentrosCostoEntity);
         }
 
         [HttpPut("{id}")]
-        public IActionResult Update(Guid id, ConversionCentrosCostoItem ConversionCentrosCostoItem)
+        public IActionResult Update(Int32 id, ConversionCentrosCostoEntity ConversionCentrosCostoEntity)
         {
-            var existingItem = _ConversionCentrosCostoItems.FirstOrDefault(item => item.Id == id);
+            var existingItem = _ConversionCentrosCostoService.Update(ConversionCentrosCostoEntity);
             if (existingItem == null)
             {
                 return NotFound();
             }
-            existingItem.Name = ConversionCentrosCostoItem.Name;
-            existingItem.IsComplete = ConversionCentrosCostoItem.IsComplete;
+
             return NoContent();
         }
 
         [HttpDelete("{id}")]
-        public IActionResult Delete(Guid id)
+        public IActionResult Delete(Int32 id)
         {
-            var existingItem = _ConversionCentrosCostoItems.FirstOrDefault(item => item.Id == id);
+            var existingItem = _ConversionCentrosCostoService.Delete(id);
             if (existingItem == null)
             {
                 return NotFound();
             }
-            _ConversionCentrosCostoItems.Remove(existingItem);
             return NoContent();
         }
     }
 
-    public class ConversionCentrosCostoItem
-    {
-        public Guid Id { get; set; }
-        public string Name { get; set; }
-        public bool IsComplete { get; set; }
-    }
+
 }
