@@ -24,8 +24,7 @@ namespace Conciliador.Datos.Infraestructura
         public DbSet<CatalogoConversionEntity> catalogoConversionEntities { get; set; }
         public DbSet<CatalogoGeneralEntity> catalogoGeneralEntities { get; set; }
         public DbSet<CatalogoNombreEntity> catalogoNombreEntities { get; set; }
-
-
+        public DbSet<RolesEntity> rolesEntities { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
