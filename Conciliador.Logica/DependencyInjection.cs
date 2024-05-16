@@ -32,6 +32,9 @@ namespace Conciliador.Logica
             services.AddTransient<IModuloRolesRepository, ModuloRolesRepository> ();
             services.AddTransient<IUsuarioRepository, UsuarioRepository> ();
             services.AddTransient<IConversionCentrosCostoRepository, ConversionCentrosCostoRepository> ();
+            services.AddTransient<ICatalogoConversionRepository, CatalogoConversionRepository> ();
+            services.AddTransient<ICatalogoGeneralRepository, CatalogoGeneralRepository> ();
+            services.AddTransient<ICatalogoNombreRepository, CatalogoNombreRepository> ();
 
           
 
@@ -43,6 +46,9 @@ namespace Conciliador.Logica
             services.AddTransient<IModuloRolesService, ModuloRolesService>();
             services.AddTransient<IUsuarioService, UsuarioService>();
             services.AddTransient<IConversionCentrosCostoService, ConversionCentrosCostoService>();
+            services.AddTransient<ICatalogoConversionService, CatalogoConversionService>();
+            services.AddTransient<ICatalogoGeneralService, CatalogoGeneralService>();
+            services.AddTransient<ICatalogoNombreService, CatalogoNombreService>();
 
             #endregion
 
