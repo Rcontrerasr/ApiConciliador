@@ -16,8 +16,7 @@ namespace Conciliador.Datos.Infraestructura
         }
 
 
-        public DbSet<BancoEmpresaEntity> bancoEmpresaEntities { get; set; }
-        public DbSet<BancosEntity> bancosEntities { get; set; }
+ 
         public DbSet<ConversionCentrosCostoEntity> conversionCentrosCostoEntities { get; set; }
         public DbSet<ModuloEntity> moduloEntities { get; set; }
         public DbSet<ModuloRolesEntity> moduloRolesEntities { get; set; }

@@ -26,9 +26,7 @@ namespace Conciliador.Logica
         public static IServiceCollection AddInfrastructureBusiness(this IServiceCollection services)
         {
             #region Repositorios
-            services.AddTransient<ITodoRepository, TodoRepository> ();
-            services.AddTransient<IBancoEmpresaRepository, BancoEmpresaRepository> ();
-            services.AddTransient<IBancosRepository, BancosRepository> ();
+            services.AddTransient<ITodoRepository, TodoRepository> ();          
             services.AddTransient<IEmpresaRepository, EmpresaRepository> ();
             services.AddTransient<IModuloRepository, ModuloRepository> ();
             services.AddTransient<IModuloRolesRepository, ModuloRolesRepository> ();
@@ -39,9 +37,7 @@ namespace Conciliador.Logica
 
             #endregion 
             #region Servicios
-            services.AddTransient<ITodoService, TodoService>();
-            services.AddTransient<IBancoEmpresaService, BancoEmpresaService>();
-            services.AddTransient<IBancosService, BancosService>();
+            services.AddTransient<ITodoService, TodoService>();          
             services.AddTransient<IEmpresaService, EmpresaService>();
             services.AddTransient<IModuloService, ModuloService>();
             services.AddTransient<IModuloRolesService, ModuloRolesService>();
