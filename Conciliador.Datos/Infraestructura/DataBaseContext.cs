@@ -14,8 +14,6 @@ namespace Conciliador.Datos.Infraestructura
             : base(options)
         {
         }
-
-
  
         public DbSet<ConversionCentrosCostoEntity> conversionCentrosCostoEntities { get; set; }
         public DbSet<ModuloEntity> moduloEntities { get; set; }
@@ -23,6 +21,9 @@ namespace Conciliador.Datos.Infraestructura
         public DbSet<TodoEntity> TodoEntities { get; set; }
         public DbSet<UsuarioEntity> usuarioEntities { get; set; }
         public DbSet<EmpresaEntity> empresaEntities { get; set; }
+        public DbSet<CatalogoConversionEntity> catalogoConversionEntities { get; set; }
+        public DbSet<CatalogoGeneralEntity> catalogoGeneralEntities { get; set; }
+        public DbSet<CatalogoNombreEntity> catalogoNombreEntities { get; set; }
 
 
 
