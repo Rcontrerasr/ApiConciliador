@@ -7,7 +7,7 @@
 //{
 //    [Authorize]
 //    [ApiController]
-//    [Route("[controller]")]
+//    [Route("api/[controller]")]
 //    public class PublicController : ControllerBase
 //    {
 //        private readonly ILogger<PublicController> _logger;

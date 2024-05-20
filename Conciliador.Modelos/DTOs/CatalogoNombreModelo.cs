@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Conciliador.Datos.Infraestructura.Modelos
+namespace Conciliador.Modelos.DTOs
 {
     public class CatalogoNombreModelo
     {

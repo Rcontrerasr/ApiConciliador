@@ -13,7 +13,7 @@ namespace EmpresaList.Controllers
 {
     [ApiController]
     [AllowAnonymous]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class EmpresaController : ControllerBase
     {
         private readonly ILogger<EmpresaController> _logger;

@@ -8,21 +8,12 @@ using System.Threading.Tasks;
 
 namespace Conciliador.Datos.Infraestructura.Entidades
 {
-    public class RolesEntity
+    public class RolesEntity:BaseEntity
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public Int32 Id { get; set; }
-        public int IdTabla { get; set; }
+       
 
         public string NombreRol { get; set; }
 
-        public bool Estado { get; set; }
-
-        public DateTime FechaCreacion { get; set; }
-
-        public DateTime FechaActualizacion { get; set; }
-
-        public string UsuarioCreacionModificacion { get; set; }
+       
     }
 }

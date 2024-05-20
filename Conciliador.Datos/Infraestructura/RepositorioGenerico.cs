@@ -1,4 +1,6 @@
-﻿using Conciliador.Datos.Infraestructura.IRespositorios;
+﻿using Conciliador.Datos.Infraestructura.Entidades;
+using Conciliador.Datos.Infraestructura.IRespositorios;
+using Conciliador.Modelos.Enums;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
@@ -11,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace Conciliador.Datos.Infraestructura
 {
-    public class RepositorioGenerico<T, TContext> : IRepositorioGenerico<T> where T : class where TContext : DbContext
+    public class RepositorioGenerico<T, TContext> : IRepositorioGenerico<T> where T : BaseEntity where TContext : DbContext
     {
         public readonly TContext context;
         private readonly ILogger<T> _logger;
@@ -29,6 +31,7 @@ namespace Conciliador.Datos.Infraestructura
             try
             {
                 var query = context.Set<T>().Where(predicate);
+                query = query.Where(e => e.EstadoRegistro.Equals(EstadoRegistroEntity.Activo));
                 return query;
             }
             catch (Exception ex)
@@ -41,7 +44,7 @@ namespace Conciliador.Datos.Infraestructura
         {
             try
             {
-                return context.Set<T>();//.Where(i => i.fechaEliminacion == null); ;
+                return context.Set<T>().Where(e => e.EstadoRegistro.Equals(EstadoRegistroEntity.Activo));
             }
             catch (Exception ex)
             {
@@ -50,7 +53,7 @@ namespace Conciliador.Datos.Infraestructura
             }
         }
 
-        public bool Insert(T entity)
+        public bool Insert(T entity, string user)
         {
             try
             {
@@ -58,7 +61,10 @@ namespace Conciliador.Datos.Infraestructura
                 {
                     throw new ArgumentNullException("entity");
                 }
-
+                entity.FechaCreacion = DateTime.Now;
+                entity.FechaEdicion = DateTime.Now;
+                entity.CreadoPor = user;
+                entity.EditadoPor = user;
                 context.Add(entity);
                 context.SaveChanges();
 
@@ -73,7 +79,7 @@ namespace Conciliador.Datos.Infraestructura
             }
         }
 
-        public bool Update(T entity)
+        public bool Update(T entity, string user)
         {
             try
             {
@@ -81,7 +87,8 @@ namespace Conciliador.Datos.Infraestructura
                 {
                     throw new ArgumentNullException("entity");
                 }
-
+                entity.FechaEdicion = DateTime.Now;
+                entity.EditadoPor = user;
                 context.Entry(entity).State = EntityState.Modified;
                 context.SaveChanges();
 
@@ -96,7 +103,7 @@ namespace Conciliador.Datos.Infraestructura
             }
         }
 
-        public bool Update(object id, T entity)
+        public bool Update(object id, T entity, string user)
         {
             try
             {
@@ -108,14 +115,21 @@ namespace Conciliador.Datos.Infraestructura
 
                 var original = context.Set<T>().Find(id);
 
-                //var EraseDate = original.fechaEliminacion;
+                var EraseDate = original.FechaEliminacion;
+                var deleteBy = original.EliminadoPor;
+                var CreateDate = original.FechaCreacion;
+                var createBy = original.CreadoPor;
 
                 if (original != null)
                 {
+                    entity.FechaEdicion = DateTime.Now;
+                    entity.EditadoPor = user;
                     context.Entry(original).CurrentValues.SetValues(entity);
 
-                    //original.fechaEliminacion = EraseDate;
-
+                    original.FechaEliminacion = EraseDate;
+                    original.EliminadoPor = deleteBy;
+                    original.FechaCreacion = CreateDate;
+                    original.CreadoPor = createBy;
 
                     context.SaveChanges();
                     _logger.LogInformation("Exito", System.Reflection.MethodBase.GetCurrentMethod().Name, JsonConvert.SerializeObject(entity));
@@ -130,20 +144,24 @@ namespace Conciliador.Datos.Infraestructura
             }
         }
 
-        public bool DeleteEntity(T entity)
+        public bool DeleteEntity(T entity, string user)
         {
             try
             {
-                if (entity == null) return false;
-
-                context.Entry(entity).State = EntityState.Deleted;
+                if (entity == null)
+                {
+                    throw new ArgumentNullException("entity");
+                }
+                entity.FechaEliminacion = DateTime.Now;
+                entity.EliminadoPor = user;
+                entity.EstadoRegistro = EstadoRegistroEntity.Inactivo;
+                context.Entry(entity).State = EntityState.Modified;
                 context.SaveChanges();
 
                 _logger.LogInformation("Exito", System.Reflection.MethodBase.GetCurrentMethod().Name, JsonConvert.SerializeObject(entity));
 
                 return true;
             }
-
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Error", System.Reflection.MethodBase.GetCurrentMethod().Name, JsonConvert.SerializeObject(entity));
@@ -161,10 +179,12 @@ namespace Conciliador.Datos.Infraestructura
                 {
                     var param_S = ((System.Object[])id).Cast<object>().ToArray();
                     entity = context.Set<T>().Find(param_S);
+                    entity=entity!=null && entity.EstadoRegistro.Equals(EstadoRegistroEntity.Inactivo)?null:entity;
                 }
                 else
                 {
                     entity = context.Set<T>().Find(id);
+                    entity = entity != null && entity.EstadoRegistro.Equals(EstadoRegistroEntity.Inactivo) ? null : entity;
                 }
 
                 return entity == null ? null : entity;
@@ -177,39 +197,44 @@ namespace Conciliador.Datos.Infraestructura
 
         public IQueryable<T> Table => context.Set<T>();
 
-        public bool Delete(object id)
+        public bool Delete(object id, string user)
         {
             try
             {
+                var original = context.Set<T>().Find(id);
 
-
-                var entity = GetById(id);
-                if (entity == null)
+                if (original != null)
                 {
-                    throw new ArgumentNullException("entity");
+                    original.FechaEliminacion = DateTime.Now;
+                    original.EliminadoPor = user;
+
+                    context.SaveChanges();
+                    _logger.LogInformation("Exito", System.Reflection.MethodBase.GetCurrentMethod().Name, JsonConvert.SerializeObject(original));
                 }
-
-                // entity.fechaEliminacion = DateTime.Now;
-                this.context.Entry(entity).State = EntityState.Deleted;
-                this.context.SaveChanges();
-
-                _logger.LogInformation("Exito", System.Reflection.MethodBase.GetCurrentMethod().Name, JsonConvert.SerializeObject(entity));
 
                 return true;
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Error", System.Reflection.MethodBase.GetCurrentMethod().Name, id);
+                _logger.LogError(ex, "Error", System.Reflection.MethodBase.GetCurrentMethod().Name, "id:" + id);
                 throw;
             }
         }
 
 
-        public bool DeleteAll(List<T> list)
+        public bool DeleteAll(List<T> list, string user)
         {
             try
             {
-                context.Set<T>().RemoveRange(list);
+                list.ForEach(entity =>
+                {
+                    entity.FechaEliminacion = DateTime.Now;
+                    entity.EliminadoPor = user;
+                    entity.EstadoRegistro = EstadoRegistroEntity.Inactivo;
+
+                });
+
+                context.Set<T>().UpdateRange(list);
                 this.context.SaveChanges();
 
                 _logger.LogInformation("Exito", System.Reflection.MethodBase.GetCurrentMethod().Name, JsonConvert.SerializeObject(list));
@@ -224,12 +249,21 @@ namespace Conciliador.Datos.Infraestructura
         }
 
 
-        public bool SaveAll(List<T> list)
+        public bool SaveAll(List<T> list, string user)
         {
             try
             {
 
-                context.Set<T>().AddRange(list);
+                list.ForEach(entity =>
+                {
+                    entity.FechaCreacion = DateTime.Now;
+                    entity.FechaEdicion = DateTime.Now;
+                    entity.CreadoPor = user;
+                    entity.EditadoPor = user;
+
+                });
+
+                context.Set<T>().UpdateRange(list);
                 context.SaveChanges();
 
                 _logger.LogInformation("Exito", System.Reflection.MethodBase.GetCurrentMethod().Name, JsonConvert.SerializeObject(list));
@@ -243,15 +277,16 @@ namespace Conciliador.Datos.Infraestructura
             }
         }
 
-        public bool UpdateAll(List<T> list)
+        public bool UpdateAll(List<T> list, string user)
         {
             try
             {
-                //list.ForEach(entity =>
-                //{
+                list.ForEach(entity =>
+                {
+                    entity.FechaEdicion = DateTime.Now;
+                    entity.EditadoPor = user;
 
-                //    context.Entry(entity).State = EntityState.Modified;
-                //});
+                });
 
                 context.Set<T>().UpdateRange(list);
                 context.SaveChanges();

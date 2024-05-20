@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using Conciliador.Datos.Infraestructura.Entidades;
 using Conciliador.Logica.Servicios.Interfaces;
+using Conciliador.Modelos.DTOs;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Microsoft.Identity.Web.Resource;
@@ -13,7 +15,7 @@ namespace RolesList.Controllers
 {
     [ApiController]
     [AllowAnonymous]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class RolesController : ControllerBase
     {
         private readonly ILogger<RolesController> _logger;
@@ -28,55 +30,78 @@ namespace RolesList.Controllers
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<RolesEntity>> GetAll()
+        public async Task<IActionResult> GetAll()
         {
-            var RolesEntity = _RolesService.GetAll();
-            if (RolesEntity == null)
+            var result = await _RolesService.GetAll();
+            var response = new ServiceResponseDTO<List<RolesDto>>()
             {
-                return NotFound();
-            }
-            return Ok(RolesEntity);
+                Data = result,
+                Message = "ok",
+                Success = true,
+                CountRecords = result.Count
+            };
+
+            return Ok(response);
         }
 
         [HttpGet("{id}")]
-        public ActionResult<RolesEntity> GetById(Int32 id)
+        public async Task<IActionResult> GetById(Int32 id)
         {
-            var RolesEntity = _RolesService.GetById(id);
-            if (RolesEntity == null)
+            var result = await _RolesService.GetById(id);
+            var response = new ServiceResponseDTO<RolesDto>()
             {
-                return NotFound();
-            }
-            return Ok(RolesEntity);
+                Data = result,
+                Message = "ok",
+                Success = true,
+                CountRecords = result!=null?1:0
+            };
+
+            return Ok(response);
         }
 
         [HttpPost]
-        public ActionResult<RolesEntity> Create(RolesEntity RolesEntity)
+        public async Task<IActionResult> Create(RolesDto RolesDto)
         {
-            _RolesService.Add(RolesEntity);
-            return CreatedAtAction(nameof(GetById), new { id = RolesEntity.Id }, RolesEntity);
+            var result = await _RolesService.Add(RolesDto);
+            var response = new ServiceResponseDTO<Boolean>()
+            {
+                Data = result,
+                Message = "ok",
+                Success = true,
+                CountRecords = result ?1:0
+            };
+
+            return Ok(response);
         }
 
         [HttpPut("{id}")]
-        public IActionResult Update(Int32 id, RolesEntity RolesEntity)
+        public async Task<IActionResult> Update(Int32 id, RolesDto RolesDto)
         {
-            var existingItem = _RolesService.Update(RolesEntity);
-            if (existingItem == null)
+            var result = await _RolesService.Update(RolesDto);
+            var response = new ServiceResponseDTO<Boolean>()
             {
-                return NotFound();
-            }
+                Data = result,
+                Message = "ok",
+                Success = true,
+                CountRecords = result ? 1 : 0
+            };
 
-            return NoContent();
+            return Ok(response);
         }
 
         [HttpDelete("{id}")]
-        public IActionResult Delete(Int32 id)
+        public async Task<IActionResult> Delete(Int32 id)
         {
-            var existingItem = _RolesService.Delete(id);
-            if (existingItem == null)
+            var result = await _RolesService.Delete(id);
+            var response = new ServiceResponseDTO<Boolean>()
             {
-                return NotFound();
-            }
-            return NoContent();
+                Data = result,
+                Message = "ok",
+                Success = true,
+                CountRecords = result ? 1 : 0
+            };
+
+            return Ok(response);
         }
     }
 

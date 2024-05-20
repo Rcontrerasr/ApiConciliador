@@ -1,14 +1,14 @@
 ﻿using Conciliador.Datos.Infraestructura.Entidades;
+using Conciliador.Modelos.DTOs;
 
 namespace Conciliador.Logica.Servicios.Interfaces
 {
     public interface IRolesService
     {
-        Task<Boolean> Add(RolesEntity entity);
-        Task<Boolean> Update(RolesEntity entity);
+        Task<Boolean> Add(RolesDto entity);
+        Task<Boolean> Update(RolesDto entity);
         Task<Boolean> Delete(Int32 id);
-        Task<List<RolesEntity>> GetAll();
-        Task<RolesEntity> GetById(Int32 id);
-        Task<List<RolesEntity>> GetByStatus(Boolean status);
+        Task<List<RolesDto>> GetAll();
+        Task<RolesDto> GetById(Int32 id);
     }
 }

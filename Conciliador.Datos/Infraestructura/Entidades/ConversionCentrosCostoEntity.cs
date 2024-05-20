@@ -8,18 +8,11 @@ using System.Threading.Tasks;
 
 namespace Conciliador.Datos.Infraestructura.Entidades
 {
-    public class ConversionCentrosCostoEntity
+    public class ConversionCentrosCostoEntity:BaseEntity
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public Int32 Id { get; set; }
         public string CodigoConversion { get; set; }
         public string CentroCostoConversion { get; set; }
         public int BancoConversion { get; set; }
-        public string Estado { get; set; }
-        public DateTime FechaCreacion { get; set; }
-        public DateTime FechaActualizacion { get; set; }
-        public string UsuarioCreacionModificacion { get; set; }
 
     } 
 }

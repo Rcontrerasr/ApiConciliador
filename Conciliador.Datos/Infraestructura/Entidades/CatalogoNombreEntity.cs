@@ -8,15 +8,10 @@ using System.Threading.Tasks;
 
 namespace Conciliador.Datos.Infraestructura.Entidades
 {
-    public class CatalogoNombreEntity
+    public class CatalogoNombreEntity: BaseEntity
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
+        
         public string Codigo { get; set; }
         public string Descripcion { get; set; }
-        public DateTime FechaCreacion { get; set; }
-        public DateTime FechaActualizacion { get; set; }
-        public string UsuarioCreacionModificacion { get; set; }
     }
 }

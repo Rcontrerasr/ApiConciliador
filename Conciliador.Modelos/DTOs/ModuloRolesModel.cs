@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace Conciliador.Datos.Infraestructura.Modelos
+namespace Conciliador.Modelos.DTOs
 {
     public class ModuloRolesModel
     {

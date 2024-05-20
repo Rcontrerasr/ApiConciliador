@@ -46,7 +46,7 @@ namespace Conciliador.Logica.Servicios.Implementaciones
 
         public async Task<List<ConversionCentrosCostoEntity>> GetByStatus(bool status)
         {
-            var ConversionCentrosCostoList = _ConversionCentrosCostoRepository.FindBy(t => t.Estado == "").ToList();
+            var ConversionCentrosCostoList = _ConversionCentrosCostoRepository.GetAll().ToList();
             return ConversionCentrosCostoList;
         }
 

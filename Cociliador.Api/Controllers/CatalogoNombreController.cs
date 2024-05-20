@@ -13,7 +13,7 @@ namespace CatalogoNombreList.Controllers
 {
     [ApiController]
     [AllowAnonymous]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class CatalogoNombreController : ControllerBase
     {
         private readonly ILogger<CatalogoNombreController> _logger;

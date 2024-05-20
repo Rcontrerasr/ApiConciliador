@@ -13,7 +13,7 @@ namespace CatalogoConversionList.Controllers
 {
     [ApiController]
     [AllowAnonymous]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class CatalogoConversionController : ControllerBase
     {
         private readonly ILogger<CatalogoConversionController> _logger;

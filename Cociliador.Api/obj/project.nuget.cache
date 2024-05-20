@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "vfPm1KK2pPH3fqUsuPKzoOAyTEWyq1x4Y+Jn9vFn6hdax6G/SjzXZgFgWMsJxE8SIUWV2xEfXdqEEJS2NzNXfg==",
+  "dgSpecHash": "u0e4cm/bPkiZzw/Uuy1e53qmHrHGmfTPNCKCXsZuQIJ20fkYv143i+WhsPLzEbuXarkjmCr8DG9YC2cLppxRuQ==",
   "success": true,
   "projectFilePath": "C:\\Roa\\ProjectKfc\\ApiConciliador\\Cociliador.Api\\Cociliador.Api.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\roberto.contreras\\.nuget\\packages\\automapper\\13.0.1\\automapper.13.0.1.nupkg.sha512",
     "C:\\Users\\roberto.contreras\\.nuget\\packages\\azure.core\\1.35.0\\azure.core.1.35.0.nupkg.sha512",
     "C:\\Users\\roberto.contreras\\.nuget\\packages\\azure.identity\\1.10.3\\azure.identity.1.10.3.nupkg.sha512",
     "C:\\Users\\roberto.contreras\\.nuget\\packages\\azure.security.keyvault.certificates\\4.1.0\\azure.security.keyvault.certificates.4.1.0.nupkg.sha512",

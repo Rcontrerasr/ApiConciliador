@@ -1,9 +1,12 @@
 using Conciliador.Logica;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.Identity.Web;
+using AutoMapper;
+using Conciliador.Logica.Utils;
 
 var builder = WebApplication.CreateBuilder(args);
-
+builder.Services.AddAutoMapper(typeof(AutoMapperProfiles));
 // Add services to the container.
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddMicrosoftIdentityWebApi(builder.Configuration.GetSection("AzureAdB2C"));
@@ -12,6 +15,7 @@ var connectionStr =builder.Configuration.GetConnectionString("ConciliadorConnect
 
 builder.Services.AddDbContextBusiness(connectionStr);
 builder.Services.AddInfrastructureBusiness();
+
 
 builder.Services.AddControllers();
 

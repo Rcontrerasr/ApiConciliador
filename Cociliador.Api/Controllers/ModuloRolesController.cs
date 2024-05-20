@@ -13,7 +13,7 @@ namespace ModuloRolesList.Controllers
 {
     [ApiController]
     [AllowAnonymous]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class ModuloRolesController : ControllerBase
     {
         private readonly ILogger<ModuloRolesController> _logger;

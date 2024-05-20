@@ -42,26 +42,32 @@ namespace Conciliador.Datos.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("CreadoPor")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("EditadoPor")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("EliminadoPor")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("EquivalenciaConversion")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Estado")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("FechaActualizacion")
-                        .HasColumnType("datetime2");
+                    b.Property<int>("EstadoRegistro")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("FechaCreacion")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("IdTabla")
-                        .HasColumnType("int");
+                    b.Property<DateTime>("FechaEdicion")
+                        .HasColumnType("datetime2");
 
-                    b.Property<string>("UsuarioCreacionModificacion")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<DateTime?>("FechaEliminacion")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("ValorRelacionado")
                         .IsRequired()
@@ -69,7 +75,7 @@ namespace Conciliador.Datos.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("catalogoConversionEntities");
+                    b.ToTable("CatalogoConversion", (string)null);
                 });
 
             modelBuilder.Entity("Conciliador.Datos.Infraestructura.Entidades.CatalogoGeneralEntity", b =>
@@ -84,15 +90,32 @@ namespace Conciliador.Datos.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("CreadoPor")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Descripcion")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("EditadoPor")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("EliminadoPor")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("EstadoRegistro")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("FechaCreacion")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("IdTabla")
-                        .HasColumnType("int");
+                    b.Property<DateTime>("FechaEdicion")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("FechaEliminacion")
+                        .HasColumnType("datetime2");
 
                     b.Property<int>("Orden")
                         .HasColumnType("int");
@@ -101,13 +124,9 @@ namespace Conciliador.Datos.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("UsuarioCreacionModificacion")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.HasKey("Id");
 
-                    b.ToTable("catalogoGeneralEntities");
+                    b.ToTable("CatalogoGeneral", (string)null);
                 });
 
             modelBuilder.Entity("Conciliador.Datos.Infraestructura.Entidades.CatalogoNombreEntity", b =>
@@ -122,23 +141,36 @@ namespace Conciliador.Datos.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("CreadoPor")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Descripcion")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("FechaActualizacion")
-                        .HasColumnType("datetime2");
+                    b.Property<string>("EditadoPor")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("EliminadoPor")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("EstadoRegistro")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("FechaCreacion")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("UsuarioCreacionModificacion")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<DateTime>("FechaEdicion")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("FechaEliminacion")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
-                    b.ToTable("catalogoNombreEntities");
+                    b.ToTable("CatalogoNombre", (string)null);
                 });
 
             modelBuilder.Entity("Conciliador.Datos.Infraestructura.Entidades.ConversionCentrosCostoEntity", b =>
@@ -160,23 +192,32 @@ namespace Conciliador.Datos.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Estado")
+                    b.Property<string>("CreadoPor")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("FechaActualizacion")
-                        .HasColumnType("datetime2");
+                    b.Property<string>("EditadoPor")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("EliminadoPor")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("EstadoRegistro")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("FechaCreacion")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("UsuarioCreacionModificacion")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<DateTime>("FechaEdicion")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("FechaEliminacion")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
-                    b.ToTable("conversionCentrosCostoEntities");
+                    b.ToTable("ConversionCentroCosto", (string)null);
                 });
 
             modelBuilder.Entity("Conciliador.Datos.Infraestructura.Entidades.EmpresaEntity", b =>
@@ -191,31 +232,40 @@ namespace Conciliador.Datos.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("CreadoPor")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("DireccionEmpresa")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Estado")
+                    b.Property<string>("EditadoPor")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("FechaActualizacion")
-                        .HasColumnType("datetime2");
+                    b.Property<string>("EliminadoPor")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("EstadoRegistro")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("FechaCreacion")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("FechaEdicion")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("FechaEliminacion")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("NombreEmpresa")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("UsuarioCreacionModificacion")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.HasKey("Id");
 
-                    b.ToTable("empresaEntities");
+                    b.ToTable("Empresa", (string)null);
                 });
 
             modelBuilder.Entity("Conciliador.Datos.Infraestructura.Entidades.ModuloEntity", b =>
@@ -230,31 +280,40 @@ namespace Conciliador.Datos.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("CreadoPor")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("DireccionModulo")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Estado")
+                    b.Property<string>("EditadoPor")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("FechaActualizacion")
-                        .HasColumnType("datetime2");
+                    b.Property<string>("EliminadoPor")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("EstadoRegistro")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("FechaCreacion")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("FechaEdicion")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("FechaEliminacion")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("NombreModulo")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("UsuarioCreacionModificacion")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.HasKey("Id");
 
-                    b.ToTable("moduloEntities");
+                    b.ToTable("Modulo", (string)null);
                 });
 
             modelBuilder.Entity("Conciliador.Datos.Infraestructura.Entidades.ModuloRolesEntity", b =>
@@ -265,15 +324,35 @@ namespace Conciliador.Datos.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("IdRol")
+                    b.Property<string>("CreadoPor")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("EditadoPor")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("EliminadoPor")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("EstadoRegistro")
                         .HasColumnType("int");
 
-                    b.Property<int>("Idtabla")
+                    b.Property<DateTime>("FechaCreacion")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("FechaEdicion")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("FechaEliminacion")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("IdRol")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.ToTable("moduloRolesEntities");
+                    b.ToTable("moduloRoles", (string)null);
                 });
 
             modelBuilder.Entity("Conciliador.Datos.Infraestructura.Entidades.RolesEntity", b =>
@@ -284,49 +363,36 @@ namespace Conciliador.Datos.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<bool>("Estado")
-                        .HasColumnType("bit");
+                    b.Property<string>("CreadoPor")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("FechaActualizacion")
-                        .HasColumnType("datetime2");
+                    b.Property<string>("EditadoPor")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("EliminadoPor")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("EstadoRegistro")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("FechaCreacion")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("IdTabla")
-                        .HasColumnType("int");
+                    b.Property<DateTime>("FechaEdicion")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("FechaEliminacion")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("NombreRol")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("UsuarioCreacionModificacion")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.HasKey("Id");
 
-                    b.ToTable("rolesEntities");
-                });
-
-            modelBuilder.Entity("Conciliador.Datos.Infraestructura.Entidades.TodoEntity", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<bool>("Status")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Task")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("TodoEntities");
+                    b.ToTable("Roles", (string)null);
                 });
 
             modelBuilder.Entity("Conciliador.Datos.Infraestructura.Entidades.UsuarioEntity", b =>
@@ -341,14 +407,27 @@ namespace Conciliador.Datos.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Estado")
+                    b.Property<string>("CreadoPor")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("FechaActualizacion")
-                        .HasColumnType("datetime2");
+                    b.Property<string>("EditadoPor")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("EliminadoPor")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("EstadoRegistro")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("FechaCreacion")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("FechaEdicion")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("FechaEliminacion")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Identificacion")
@@ -362,16 +441,9 @@ namespace Conciliador.Datos.Migrations
                     b.Property<int>("Rol")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("UltimaConexion")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("UsuarioCreacionModificacion")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.HasKey("Id");
 
-                    b.ToTable("usuarioEntities");
+                    b.ToTable("Usuario", (string)null);
                 });
 #pragma warning restore 612, 618
         }

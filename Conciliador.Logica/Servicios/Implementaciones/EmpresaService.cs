@@ -46,7 +46,7 @@ namespace Conciliador.Logica.Servicios.Implementaciones
 
         public async Task<List<EmpresaEntity>> GetByStatus(bool status)
         {
-            var EmpresaList = _EmpresaRepository.FindBy(t => t.Estado == "").ToList();
+            var EmpresaList = _EmpresaRepository.GetAll().ToList();
             return EmpresaList;
         }
 

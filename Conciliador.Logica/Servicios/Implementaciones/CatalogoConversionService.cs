@@ -46,7 +46,7 @@ namespace Conciliador.Logica.Servicios.Implementaciones
 
         public async Task<List<CatalogoConversionEntity>> GetByStatus(bool status)
         {
-            var CatalogoConversionList = _CatalogoConversionRepository.FindBy(t => t.Estado == "").ToList();
+            var CatalogoConversionList = _CatalogoConversionRepository.GetAll().ToList();
             return CatalogoConversionList;
         }
 

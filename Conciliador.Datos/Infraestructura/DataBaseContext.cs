@@ -15,19 +15,27 @@ namespace Conciliador.Datos.Infraestructura
         {
         }
  
-        public DbSet<ConversionCentrosCostoEntity> conversionCentrosCostoEntities { get; set; }
-        public DbSet<ModuloEntity> moduloEntities { get; set; }
+        public DbSet<ConversionCentrosCostoEntity> ConversionCentrosCostoEntities { get; set; }
+        public DbSet<ModuloEntity> ModuloEntities { get; set; }
         public DbSet<ModuloRolesEntity> moduloRolesEntities { get; set; }
-        public DbSet<TodoEntity> TodoEntities { get; set; }
-        public DbSet<UsuarioEntity> usuarioEntities { get; set; }
-        public DbSet<EmpresaEntity> empresaEntities { get; set; }
-        public DbSet<CatalogoConversionEntity> catalogoConversionEntities { get; set; }
-        public DbSet<CatalogoGeneralEntity> catalogoGeneralEntities { get; set; }
-        public DbSet<CatalogoNombreEntity> catalogoNombreEntities { get; set; }
-        public DbSet<RolesEntity> rolesEntities { get; set; }
+        public DbSet<UsuarioEntity> UsuarioEntities { get; set; }
+        public DbSet<EmpresaEntity> EmpresaEntities { get; set; }
+        public DbSet<CatalogoConversionEntity> CatalogoConversionEntities { get; set; }
+        public DbSet<CatalogoGeneralEntity> CatalogoGeneralEntities { get; set; }
+        public DbSet<CatalogoNombreEntity> CatalogoNombreEntities { get; set; }
+        public DbSet<RolesEntity> RolesEntities { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<ConversionCentrosCostoEntity>().ToTable("ConversionCentroCosto");
+            modelBuilder.Entity<ModuloEntity>().ToTable("Modulo");
+            modelBuilder.Entity<ModuloRolesEntity>().ToTable("moduloRoles");
+            modelBuilder.Entity<UsuarioEntity>().ToTable("Usuario");
+            modelBuilder.Entity<EmpresaEntity>().ToTable("Empresa");
+            modelBuilder.Entity<CatalogoConversionEntity>().ToTable("CatalogoConversion");
+            modelBuilder.Entity<CatalogoGeneralEntity>().ToTable("CatalogoGeneral");
+            modelBuilder.Entity<CatalogoNombreEntity>().ToTable("CatalogoNombre");
+            modelBuilder.Entity<RolesEntity>().ToTable("Roles");
            
 
         }

@@ -46,7 +46,7 @@ namespace Conciliador.Logica.Servicios.Implementaciones
 
         public async Task<List<UsuarioEntity>> GetByStatus(bool status)
         {
-            var UsuarioList = _UsuarioRepository.FindBy(t => t.Estado == "").ToList();
+            var UsuarioList = _UsuarioRepository.GetAll().ToList();
             return UsuarioList;
         }
 

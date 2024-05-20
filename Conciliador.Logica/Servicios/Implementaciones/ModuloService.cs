@@ -11,49 +11,34 @@ namespace Conciliador.Logica.Servicios.Implementaciones
 {
     public class ModuloService : IModuloService
     {
-        private readonly IModuloRepository _ModuloRepository;
-
-        public ModuloService(IModuloRepository ModuloRepository)
+        public Task<bool> Add(ModuloEntity entity)
         {
-            this._ModuloRepository = ModuloRepository;
-        }
-        public async Task<bool> Add(ModuloEntity entity)
-        {
-            _ModuloRepository.Insert(entity);
-            return true;
+            throw new NotImplementedException();
         }
 
-        public async Task<bool> Delete(Int32 id)
+        public Task<bool> Delete(int id)
         {
-            _ModuloRepository.Delete(id);
-            return true;
+            throw new NotImplementedException();
         }
 
-
-
-        public async Task<List<ModuloEntity>> GetAll()
+        public Task<List<ModuloEntity>> GetAll()
         {
-            return _ModuloRepository.GetAll().ToList();
-
+            throw new NotImplementedException();
         }
 
-        public async Task<ModuloEntity> GetById(Int32 id)
+        public Task<ModuloEntity> GetById(int id)
         {
-            return _ModuloRepository.GetById(id);
+            throw new NotImplementedException();
         }
 
-
-
-        public async Task<List<ModuloEntity>> GetByStatus(bool status)
+        public Task<List<ModuloEntity>> GetByStatus(bool status)
         {
-            var ModuloList = _ModuloRepository.FindBy(t => t.Estado == "").ToList();
-            return ModuloList;
+            throw new NotImplementedException();
         }
 
-        public async Task<bool> Update(ModuloEntity entity)
+        public Task<bool> Update(ModuloEntity entity)
         {
-            _ModuloRepository.Update(entity);
-            return true;
+            throw new NotImplementedException();
         }
     }
 }

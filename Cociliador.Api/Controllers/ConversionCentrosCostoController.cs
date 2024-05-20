@@ -13,7 +13,7 @@ namespace ConversionCentrosCostoList.Controllers
 {
     [ApiController]
     [AllowAnonymous]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class ConversionCentrosCostoController : ControllerBase
     {
         private readonly ILogger<ConversionCentrosCostoController> _logger;
