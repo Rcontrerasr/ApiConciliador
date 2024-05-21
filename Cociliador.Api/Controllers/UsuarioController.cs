@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using Conciliador.Datos.Infraestructura.Entidades;
 using Conciliador.Logica.Servicios.Interfaces;
+using Conciliador.Modelos.DTOs;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Microsoft.Identity.Web.Resource;
@@ -28,55 +30,78 @@ namespace UsuarioList.Controllers
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<UsuarioEntity>> GetAll()
+        public async Task<IActionResult> GetAll()
         {
-            var UsuarioEntity = _UsuarioService.GetAll();
-            if (UsuarioEntity == null)
+            var result = await _UsuarioService.GetAll();
+            var response = new ServiceResponseDTO<List<UsuarioDto>>()
             {
-                return NotFound();
-            }
-            return Ok(UsuarioEntity);
+                Data = result,
+                Message = "ok",
+                Success = true,
+                CountRecords = result.Count
+            };
+
+            return Ok(response);
         }
 
         [HttpGet("{id}")]
-        public ActionResult<UsuarioEntity> GetById(Int32 id)
+        public async Task<IActionResult> GetById(Int32 id)
         {
-            var UsuarioEntity = _UsuarioService.GetById(id);
-            if (UsuarioEntity == null)
+            var result = await _UsuarioService.GetById(id);
+            var response = new ServiceResponseDTO<UsuarioDto>()
             {
-                return NotFound();
-            }
-            return Ok(UsuarioEntity);
+                Data = result,
+                Message = "ok",
+                Success = true,
+                CountRecords = result != null ? 1 : 0
+            };
+
+            return Ok(response);
         }
 
         [HttpPost]
-        public ActionResult<UsuarioEntity> Create(UsuarioEntity UsuarioEntity)
+        public async Task<IActionResult> Create(UsuarioDto UsuarioDto)
         {
-            _UsuarioService.Add(UsuarioEntity);
-            return CreatedAtAction(nameof(GetById), new { id = UsuarioEntity.Id }, UsuarioEntity);
+            var result = await _UsuarioService.Add(UsuarioDto);
+            var response = new ServiceResponseDTO<Boolean>()
+            {
+                Data = result,
+                Message = "ok",
+                Success = true,
+                CountRecords = result ? 1 : 0
+            };
+
+            return Ok(response);
         }
 
         [HttpPut("{id}")]
-        public IActionResult Update(Int32 id, UsuarioEntity UsuarioEntity)
+        public async Task<IActionResult> Update(Int32 id, UsuarioDto UsuarioDto)
         {
-            var existingItem = _UsuarioService.Update(UsuarioEntity);
-            if (existingItem == null)
+            var result = await _UsuarioService.Update(UsuarioDto);
+            var response = new ServiceResponseDTO<Boolean>()
             {
-                return NotFound();
-            }
+                Data = result,
+                Message = "ok",
+                Success = true,
+                CountRecords = result ? 1 : 0
+            };
 
-            return NoContent();
+            return Ok(response);
         }
 
         [HttpDelete("{id}")]
-        public IActionResult Delete(Int32 id)
+        public async Task<IActionResult> Delete(Int32 id)
         {
-            var existingItem = _UsuarioService.Delete(id);
-            if (existingItem == null)
+            var result = await _UsuarioService.Delete(id);
+            var response = new ServiceResponseDTO<Boolean>()
             {
-                return NotFound();
-            }
-            return NoContent();
+                Data = result,
+                Message = "ok",
+                Success = true,
+                CountRecords = result ? 1 : 0
+            };
+
+            return Ok(response);
         }
     }
 

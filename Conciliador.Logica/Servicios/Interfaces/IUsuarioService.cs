@@ -1,4 +1,5 @@
 ﻿using Conciliador.Datos.Infraestructura.Entidades;
+using Conciliador.Modelos.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,11 +10,11 @@ namespace Conciliador.Logica.Servicios.Interfaces
 {
     public interface IUsuarioService
     {
-        Task<Boolean>Add(UsuarioEntity entity);
-        Task<Boolean>Update(UsuarioEntity entity);
+        Task<Boolean>Add(UsuarioDto entity);
+        Task<Boolean>Update(UsuarioDto entity);
         Task<Boolean>Delete(Int32 id);
-        Task<List<UsuarioEntity>>GetAll();
-        Task<UsuarioEntity>GetById(Int32 id);
-        Task<List<UsuarioEntity>>GetByStatus(Boolean status);
+        Task<List<UsuarioDto>>GetAll();
+        Task<UsuarioDto>GetById(Int32 id);
+        Task<List<UsuarioDto>>GetByStatus(Boolean status);
     }
 }
