@@ -19,6 +19,7 @@ namespace Conciliador.Logica.Utils
             CreateMap<UsuarioEntity, UsuarioDto>().ReverseMap();
             CreateMap<ModuloEntity, ModuloDto>().ReverseMap();
             CreateMap<ModuloRolesEntity, ModuloRolesDto>().ReverseMap();
+            CreateMap<EmpresaEntity, EmpresaDto>().ReverseMap();
         }
     
     }

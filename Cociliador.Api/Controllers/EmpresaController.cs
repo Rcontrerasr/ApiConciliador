@@ -1,13 +1,7 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using Conciliador.Datos.Infraestructura.Entidades;
 using Conciliador.Logica.Servicios.Interfaces;
+using Conciliador.Modelos.DTOs;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using Microsoft.Identity.Web.Resource;
 
 namespace EmpresaList.Controllers
 {
@@ -28,55 +22,78 @@ namespace EmpresaList.Controllers
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<EmpresaEntity>> GetAll()
+        public async Task<IActionResult> GetAll()
         {
-            var EmpresaEntity = _EmpresaService.GetAll();
-            if (EmpresaEntity == null)
+            var result = await _EmpresaService.GetAll();
+            var response = new ServiceResponseDTO<List<EmpresaDto>>()
             {
-                return NotFound();
-            }
-            return Ok(EmpresaEntity);
+                Data = result,
+                Message = "ok",
+                Success = true,
+                CountRecords = result.Count
+            };
+
+            return Ok(response);
         }
 
         [HttpGet("{id}")]
-        public ActionResult<EmpresaEntity> GetById(Int32 id)
+        public async Task<IActionResult> GetById(Int32 id)
         {
-            var EmpresaEntity = _EmpresaService.GetById(id);
-            if (EmpresaEntity == null)
+            var result = await _EmpresaService.GetById(id);
+            var response = new ServiceResponseDTO<EmpresaDto>()
             {
-                return NotFound();
-            }
-            return Ok(EmpresaEntity);
+                Data = result,
+                Message = "ok",
+                Success = true,
+                CountRecords = result != null ? 1 : 0
+            };
+
+            return Ok(response);
         }
 
         [HttpPost]
-        public ActionResult<EmpresaEntity> Create(EmpresaEntity EmpresaEntity)
+        public async Task<IActionResult> Create(EmpresaDto EmpresaDto)
         {
-            _EmpresaService.Add(EmpresaEntity);
-            return CreatedAtAction(nameof(GetById), new { id = EmpresaEntity.Id }, EmpresaEntity);
+            var result = await _EmpresaService.Add(EmpresaDto);
+            var response = new ServiceResponseDTO<Boolean>()
+            {
+                Data = result,
+                Message = "ok",
+                Success = true,
+                CountRecords = result ? 1 : 0
+            };
+
+            return Ok(response);
         }
 
         [HttpPut("{id}")]
-        public IActionResult Update(Int32 id, EmpresaEntity EmpresaEntity)
+        public async Task<IActionResult> Update(Int32 id, EmpresaDto EmpresaDto)
         {
-            var existingItem = _EmpresaService.Update(EmpresaEntity);
-            if (existingItem == null)
+            var result = await _EmpresaService.Update(EmpresaDto);
+            var response = new ServiceResponseDTO<Boolean>()
             {
-                return NotFound();
-            }
+                Data = result,
+                Message = "ok",
+                Success = true,
+                CountRecords = result ? 1 : 0
+            };
 
-            return NoContent();
+            return Ok(response);
         }
 
         [HttpDelete("{id}")]
-        public IActionResult Delete(Int32 id)
+        public async Task<IActionResult> Delete(Int32 id)
         {
-            var existingItem = _EmpresaService.Delete(id);
-            if (existingItem == null)
+            var result = await _EmpresaService.Delete(id);
+            var response = new ServiceResponseDTO<Boolean>()
             {
-                return NotFound();
-            }
-            return NoContent();
+                Data = result,
+                Message = "ok",
+                Success = true,
+                CountRecords = result ? 1 : 0
+            };
+
+            return Ok(response);
         }
     }
 

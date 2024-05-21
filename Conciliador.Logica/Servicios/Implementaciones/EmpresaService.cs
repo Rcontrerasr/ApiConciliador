@@ -1,6 +1,8 @@
-﻿using Conciliador.Datos.Infraestructura.Entidades;
+﻿using AutoMapper;
+using Conciliador.Datos.Infraestructura.Entidades;
 using Conciliador.Datos.Infraestructura.IRespositorios;
 using Conciliador.Logica.Servicios.Interfaces;
+using Conciliador.Modelos.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,48 +14,49 @@ namespace Conciliador.Logica.Servicios.Implementaciones
     public class EmpresaService : IEmpresaService
     {
         private readonly IEmpresaRepository _EmpresaRepository;
+        private readonly IMapper _mapper;
 
-        public EmpresaService(IEmpresaRepository EmpresaRepository)
+        public EmpresaService(IEmpresaRepository EmpresaRepository, IMapper mapper)
         {
             this._EmpresaRepository = EmpresaRepository;
+            _mapper = mapper;
         }
-        public async Task<bool> Add(EmpresaEntity entity)
+        public async Task<bool> Add(EmpresaDto entityDto)
         {
-            _EmpresaRepository.Insert(entity);
-            return true;
+            if (entityDto == null) throw new Exception("La entidad Empresa es requerida");
+            var entity = _mapper.Map<EmpresaEntity>(entityDto);
+            return _EmpresaRepository.Insert(entity);
         }
 
         public async Task<bool> Delete(Int32 id)
         {
-            _EmpresaRepository.Delete(id);
-            return true;
+            return _EmpresaRepository.Delete(id);
         }
 
-
-
-        public async Task<List<EmpresaEntity>> GetAll()
+        public async Task<List<EmpresaDto>> GetAll()
         {
-            return _EmpresaRepository.GetAll().ToList();
+            var entities = _EmpresaRepository.GetAll().ToList();
+            var responseDTOs = _mapper.Map<List<EmpresaDto>>(entities);
+            return responseDTOs;
 
         }
 
-        public async Task<EmpresaEntity> GetById(Int32 id)
+        public async Task<EmpresaDto> GetById(Int32 id)
         {
-            return _EmpresaRepository.GetById(id);
+            var entity = _EmpresaRepository.GetById(id);
+            return _mapper.Map<EmpresaDto>(entity);
         }
 
-
-
-        public async Task<List<EmpresaEntity>> GetByStatus(bool status)
+        public Task<List<EmpresaDto>> GetByStatus(bool status)
         {
-            var EmpresaList = _EmpresaRepository.GetAll().ToList();
-            return EmpresaList;
+            throw new NotImplementedException();
         }
 
-        public async Task<bool> Update(EmpresaEntity entity)
+        public async Task<bool> Update(EmpresaDto entityDto)
         {
-            _EmpresaRepository.Update(entity);
-            return true;
+            if (entityDto == null) throw new Exception("La entidad Empresa es requerida");
+            var entity = _mapper.Map<EmpresaEntity>(entityDto);
+            return _EmpresaRepository.Update(entity);
         }
     }
 }
