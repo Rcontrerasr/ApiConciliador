@@ -1,6 +1,8 @@
-﻿using Conciliador.Datos.Infraestructura.Entidades;
+﻿using AutoMapper;
+using Conciliador.Datos.Infraestructura.Entidades;
 using Conciliador.Datos.Infraestructura.IRespositorios;
 using Conciliador.Logica.Servicios.Interfaces;
+using Conciliador.Modelos.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,48 +14,49 @@ namespace Conciliador.Logica.Servicios.Implementaciones
     public class ModuloRolesService : IModuloRolesService
     {
         private readonly IModuloRolesRepository _ModuloRolesRepository;
+        private readonly IMapper _mapper;
 
-        public ModuloRolesService(IModuloRolesRepository ModuloRolesRepository)
+        public ModuloRolesService(IModuloRolesRepository ModuloRolesRepository, IMapper mapper)
         {
             this._ModuloRolesRepository = ModuloRolesRepository;
+            _mapper = mapper;
         }
-        public async Task<bool> Add(ModuloRolesEntity entity)
+        public async Task<bool> Add(ModuloRolesDto entityDto)
         {
-            _ModuloRolesRepository.Insert(entity);
-            return true;
+            if (entityDto == null) throw new Exception("La entidad ModuloRoles es requerida");
+            var entity = _mapper.Map<ModuloRolesEntity>(entityDto);
+            return _ModuloRolesRepository.Insert(entity);
         }
 
         public async Task<bool> Delete(Int32 id)
         {
-            _ModuloRolesRepository.Delete(id);
-            return true;
+            return _ModuloRolesRepository.Delete(id);
         }
 
-
-
-        public async Task<List<ModuloRolesEntity>> GetAll()
+        public async Task<List<ModuloRolesDto>> GetAll()
         {
-            return _ModuloRolesRepository.GetAll().ToList();
+            var entities = _ModuloRolesRepository.GetAll().ToList();
+            var responseDTOs = _mapper.Map<List<ModuloRolesDto>>(entities);
+            return responseDTOs;
 
         }
 
-        public async Task<ModuloRolesEntity> GetById(Int32 id)
+        public async Task<ModuloRolesDto> GetById(Int32 id)
         {
-            return _ModuloRolesRepository.GetById(id);
+            var entity = _ModuloRolesRepository.GetById(id);
+            return _mapper.Map<ModuloRolesDto>(entity);
         }
 
-
-
-        public async Task<List<ModuloRolesEntity>> GetByStatus(bool status)
+        public Task<List<ModuloRolesDto>> GetByStatus(bool status)
         {
-            var ModuloRolesList = _ModuloRolesRepository.FindBy(t => t.Id == 0 ).ToList();
-            return ModuloRolesList;
+            throw new NotImplementedException();
         }
 
-        public async Task<bool> Update(ModuloRolesEntity entity)
+        public async Task<bool> Update(ModuloRolesDto entityDto)
         {
-            _ModuloRolesRepository.Update(entity);
-            return true;
+            if (entityDto == null) throw new Exception("La entidad ModuloRoles es requerida");
+            var entity = _mapper.Map<ModuloRolesEntity>(entityDto);
+            return _ModuloRolesRepository.Update(entity);
         }
     }
 }

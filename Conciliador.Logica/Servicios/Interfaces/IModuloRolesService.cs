@@ -1,19 +1,14 @@
-﻿using Conciliador.Datos.Infraestructura.Entidades;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Conciliador.Modelos.DTOs;
 
 namespace Conciliador.Logica.Servicios.Interfaces
 {
     public interface IModuloRolesService
     {
-        Task<Boolean>Add(ModuloRolesEntity entity);
-        Task<Boolean>Update(ModuloRolesEntity entity);
+        Task<Boolean>Add(ModuloRolesDto entity);
+        Task<Boolean>Update(ModuloRolesDto entity);
         Task<Boolean>Delete(Int32 id);
-        Task<List<ModuloRolesEntity>>GetAll();
-        Task<ModuloRolesEntity>GetById(Int32 id);
-        Task<List<ModuloRolesEntity>>GetByStatus(Boolean status);
+        Task<List<ModuloRolesDto>>GetAll();
+        Task<ModuloRolesDto>GetById(Int32 id);
+        Task<List<ModuloRolesDto>>GetByStatus(Boolean status);
     }
 }
