@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using Conciliador.Datos.Infraestructura.Entidades;
 using Conciliador.Logica.Servicios.Interfaces;
+using Conciliador.Modelos.DTOs;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Microsoft.Identity.Web.Resource;
@@ -28,55 +30,78 @@ namespace ModuloList.Controllers
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<ModuloEntity>> GetAll()
+        public async Task<IActionResult> GetAll()
         {
-            var ModuloEntity = _ModuloService.GetAll();
-            if (ModuloEntity == null)
+            var result = await _ModuloService.GetAll();
+            var response = new ServiceResponseDTO<List<ModuloDto>>()
             {
-                return NotFound();
-            }
-            return Ok(ModuloEntity);
+                Data = result,
+                Message = "ok",
+                Success = true,
+                CountRecords = result.Count
+            };
+
+            return Ok(response);
         }
 
         [HttpGet("{id}")]
-        public ActionResult<ModuloEntity> GetById(Int32 id)
+        public async Task<IActionResult> GetById(Int32 id)
         {
-            var ModuloEntity = _ModuloService.GetById(id);
-            if (ModuloEntity == null)
+            var result = await _ModuloService.GetById(id);
+            var response = new ServiceResponseDTO<ModuloDto>()
             {
-                return NotFound();
-            }
-            return Ok(ModuloEntity);
+                Data = result,
+                Message = "ok",
+                Success = true,
+                CountRecords = result != null ? 1 : 0
+            };
+
+            return Ok(response);
         }
 
         [HttpPost]
-        public ActionResult<ModuloEntity> Create(ModuloEntity ModuloEntity)
+        public async Task<IActionResult> Create(ModuloDto ModuloDto)
         {
-            _ModuloService.Add(ModuloEntity);
-            return CreatedAtAction(nameof(GetById), new { id = ModuloEntity.Id }, ModuloEntity);
+            var result = await _ModuloService.Add(ModuloDto);
+            var response = new ServiceResponseDTO<Boolean>()
+            {
+                Data = result,
+                Message = "ok",
+                Success = true,
+                CountRecords = result ? 1 : 0
+            };
+
+            return Ok(response);
         }
 
         [HttpPut("{id}")]
-        public IActionResult Update(Int32 id, ModuloEntity ModuloEntity)
+        public async Task<IActionResult> Update(Int32 id, ModuloDto ModuloDto)
         {
-            var existingItem = _ModuloService.Update(ModuloEntity);
-            if (existingItem == null)
+            var result = await _ModuloService.Update(ModuloDto);
+            var response = new ServiceResponseDTO<Boolean>()
             {
-                return NotFound();
-            }
+                Data = result,
+                Message = "ok",
+                Success = true,
+                CountRecords = result ? 1 : 0
+            };
 
-            return NoContent();
+            return Ok(response);
         }
 
         [HttpDelete("{id}")]
-        public IActionResult Delete(Int32 id)
+        public async Task<IActionResult> Delete(Int32 id)
         {
-            var existingItem = _ModuloService.Delete(id);
-            if (existingItem == null)
+            var result = await _ModuloService.Delete(id);
+            var response = new ServiceResponseDTO<Boolean>()
             {
-                return NotFound();
-            }
-            return NoContent();
+                Data = result,
+                Message = "ok",
+                Success = true,
+                CountRecords = result ? 1 : 0
+            };
+
+            return Ok(response);
         }
     }
 

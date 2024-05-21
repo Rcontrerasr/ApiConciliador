@@ -14,8 +14,10 @@ namespace Conciliador.Logica.Utils
         //https://medium.com/@supino0017/automapper-for-object-mapping-in-net-8-5b20a034de8c
         public AutoMapperProfiles()
         {
-            CreateMap<RolesEntity, RolesDto>().ReverseMap();//mapea desde RolesEntity hacia RolesDto y viceversa
-            CreateMap<UsuarioEntity, UsuarioDto>().ReverseMap();//mapea desde RolesEntity hacia RolesDto y viceversa
+            //mapea desde el Entity hacia el Dto y viceversa
+            CreateMap<RolesEntity, RolesDto>().ReverseMap();
+            CreateMap<UsuarioEntity, UsuarioDto>().ReverseMap();
+            CreateMap<ModuloEntity, ModuloDto>().ReverseMap();
         }
     
     }
