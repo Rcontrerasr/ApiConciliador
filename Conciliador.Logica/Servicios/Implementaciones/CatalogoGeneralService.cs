@@ -1,6 +1,8 @@
-﻿using Conciliador.Datos.Infraestructura.Entidades;
+﻿using AutoMapper;
+using Conciliador.Datos.Infraestructura.Entidades;
 using Conciliador.Datos.Infraestructura.IRespositorios;
 using Conciliador.Logica.Servicios.Interfaces;
+using Conciliador.Modelos.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,48 +14,49 @@ namespace Conciliador.Logica.Servicios.Implementaciones
     public class CatalogoGeneralService : ICatalogoGeneralService
     {
         private readonly ICatalogoGeneralRepository _CatalogoGeneralRepository;
+        private readonly IMapper _mapper;
 
-        public CatalogoGeneralService(ICatalogoGeneralRepository CatalogoGeneralRepository)
+        public CatalogoGeneralService(ICatalogoGeneralRepository CatalogoGeneralRepository, IMapper mapper)
         {
             this._CatalogoGeneralRepository = CatalogoGeneralRepository;
+            _mapper = mapper;
         }
-        public async Task<bool> Add(CatalogoGeneralEntity entity)
+        public async Task<bool> Add(CatalogoGeneralDto entityDto)
         {
-            _CatalogoGeneralRepository.Insert(entity);
-            return true;
+            if (entityDto == null) throw new Exception("La entidad CatalogoGeneral es requerida");
+            var entity = _mapper.Map<CatalogoGeneralEntity>(entityDto);
+            return _CatalogoGeneralRepository.Insert(entity);
         }
 
         public async Task<bool> Delete(Int32 id)
         {
-            _CatalogoGeneralRepository.Delete(id);
-            return true;
+            return _CatalogoGeneralRepository.Delete(id);
         }
 
-      
-
-        public async Task<List<CatalogoGeneralEntity>> GetAll()
+        public async Task<List<CatalogoGeneralDto>> GetAll()
         {
-            return _CatalogoGeneralRepository.GetAll().ToList();
+            var entities = _CatalogoGeneralRepository.GetAll().ToList();
+            var responseDTOs = _mapper.Map<List<CatalogoGeneralDto>>(entities);
+            return responseDTOs;
 
         }
 
-        public async Task<CatalogoGeneralEntity> GetById(Int32 id)
+        public async Task<CatalogoGeneralDto> GetById(Int32 id)
         {
-            return _CatalogoGeneralRepository.GetById(id);
+            var entity = _CatalogoGeneralRepository.GetById(id);
+            return _mapper.Map<CatalogoGeneralDto>(entity);
         }
 
-       
-
-        public async Task<List<CatalogoGeneralEntity>> GetByStatus(bool status)
+        public Task<List<CatalogoGeneralDto>> GetByStatus(bool status)
         {
-            var CatalogoGeneralList = _CatalogoGeneralRepository.FindBy(t => t.Orden == 0).ToList();
-            return CatalogoGeneralList;
+            throw new NotImplementedException();
         }
 
-        public async Task<bool> Update(CatalogoGeneralEntity entity)
+        public async Task<bool> Update(CatalogoGeneralDto entityDto)
         {
-            _CatalogoGeneralRepository.Update(entity);
-            return true;
+            if (entityDto == null) throw new Exception("La entidad CatalogoGeneral es requerida");
+            var entity = _mapper.Map<CatalogoGeneralEntity>(entityDto);
+            return _CatalogoGeneralRepository.Update(entity);
         }
     }
 }

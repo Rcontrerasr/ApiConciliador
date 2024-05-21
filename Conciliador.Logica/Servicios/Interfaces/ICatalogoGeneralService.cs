@@ -1,14 +1,15 @@
 ﻿using Conciliador.Datos.Infraestructura.Entidades;
+using Conciliador.Modelos.DTOs;
 
 namespace Conciliador.Logica.Servicios.Interfaces
 {
     public interface ICatalogoGeneralService
     {
-        Task<Boolean>Add(CatalogoGeneralEntity entity);
-        Task<Boolean>Update(CatalogoGeneralEntity entity);
+        Task<Boolean>Add(CatalogoGeneralDto entity);
+        Task<Boolean>Update(CatalogoGeneralDto entity);
         Task<Boolean>Delete(Int32 id);
-        Task<List<CatalogoGeneralEntity>>GetAll();
-        Task<CatalogoGeneralEntity>GetById(Int32 id);
-        Task<List<CatalogoGeneralEntity>>GetByStatus(Boolean status);
+        Task<List<CatalogoGeneralDto>>GetAll();
+        Task<CatalogoGeneralDto>GetById(Int32 id);
+        Task<List<CatalogoGeneralDto>>GetByStatus(Boolean status);
     }
 }

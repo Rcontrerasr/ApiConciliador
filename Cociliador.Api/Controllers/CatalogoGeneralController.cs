@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using Conciliador.Datos.Infraestructura.Entidades;
 using Conciliador.Logica.Servicios.Interfaces;
+using Conciliador.Modelos.DTOs;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Microsoft.Identity.Web.Resource;
@@ -28,55 +30,78 @@ namespace CatalogoGeneralList.Controllers
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<CatalogoGeneralEntity>> GetAll()
+        public async Task<IActionResult> GetAll()
         {
-            var CatalogoGeneralEntity = _CatalogoGeneralService.GetAll();
-            if (CatalogoGeneralEntity == null)
+            var result = await _CatalogoGeneralService.GetAll();
+            var response = new ServiceResponseDTO<List<CatalogoGeneralDto>>()
             {
-                return NotFound();
-            }
-            return Ok(CatalogoGeneralEntity);
+                Data = result,
+                Message = "ok",
+                Success = true,
+                CountRecords = result.Count
+            };
+
+            return Ok(response);
         }
 
         [HttpGet("{id}")]
-        public ActionResult<CatalogoGeneralEntity> GetById(Int32 id)
+        public async Task<IActionResult> GetById(Int32 id)
         {
-            var CatalogoGeneralEntity = _CatalogoGeneralService.GetById(id);
-            if (CatalogoGeneralEntity == null)
+            var result = await _CatalogoGeneralService.GetById(id);
+            var response = new ServiceResponseDTO<CatalogoGeneralDto>()
             {
-                return NotFound();
-            }
-            return Ok(CatalogoGeneralEntity);
+                Data = result,
+                Message = "ok",
+                Success = true,
+                CountRecords = result != null ? 1 : 0
+            };
+
+            return Ok(response);
         }
 
         [HttpPost]
-        public ActionResult<CatalogoGeneralEntity> Create(CatalogoGeneralEntity CatalogoGeneralEntity)
+        public async Task<IActionResult> Create(CatalogoGeneralDto CatalogoGeneralDto)
         {
-            _CatalogoGeneralService.Add(CatalogoGeneralEntity);
-            return CreatedAtAction(nameof(GetById), new { id = CatalogoGeneralEntity.Id }, CatalogoGeneralEntity);
+            var result = await _CatalogoGeneralService.Add(CatalogoGeneralDto);
+            var response = new ServiceResponseDTO<Boolean>()
+            {
+                Data = result,
+                Message = "ok",
+                Success = true,
+                CountRecords = result ? 1 : 0
+            };
+
+            return Ok(response);
         }
 
         [HttpPut("{id}")]
-        public IActionResult Update(Int32 id, CatalogoGeneralEntity CatalogoGeneralEntity)
+        public async Task<IActionResult> Update(Int32 id, CatalogoGeneralDto CatalogoGeneralDto)
         {
-            var existingItem = _CatalogoGeneralService.Update(CatalogoGeneralEntity);
-            if (existingItem == null)
+            var result = await _CatalogoGeneralService.Update(CatalogoGeneralDto);
+            var response = new ServiceResponseDTO<Boolean>()
             {
-                return NotFound();
-            }
+                Data = result,
+                Message = "ok",
+                Success = true,
+                CountRecords = result ? 1 : 0
+            };
 
-            return NoContent();
+            return Ok(response);
         }
 
         [HttpDelete("{id}")]
-        public IActionResult Delete(Int32 id)
+        public async Task<IActionResult> Delete(Int32 id)
         {
-            var existingItem = _CatalogoGeneralService.Delete(id);
-            if (existingItem == null)
+            var result = await _CatalogoGeneralService.Delete(id);
+            var response = new ServiceResponseDTO<Boolean>()
             {
-                return NotFound();
-            }
-            return NoContent();
+                Data = result,
+                Message = "ok",
+                Success = true,
+                CountRecords = result ? 1 : 0
+            };
+
+            return Ok(response);
         }
     }
 
