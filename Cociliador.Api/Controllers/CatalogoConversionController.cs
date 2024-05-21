@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using Conciliador.Datos.Infraestructura.Entidades;
 using Conciliador.Logica.Servicios.Interfaces;
+using Conciliador.Modelos.DTOs;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Microsoft.Identity.Web.Resource;
@@ -28,55 +30,78 @@ namespace CatalogoConversionList.Controllers
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<CatalogoConversionEntity>> GetAll()
+        public async Task<IActionResult> GetAll()
         {
-            var CatalogoConversionEntity = _CatalogoConversionService.GetAll();
-            if (CatalogoConversionEntity == null)
+            var result = await _CatalogoConversionService.GetAll();
+            var response = new ServiceResponseDTO<List<CatalogoConversionDto>>()
             {
-                return NotFound();
-            }
-            return Ok(CatalogoConversionEntity);
+                Data = result,
+                Message = "ok",
+                Success = true,
+                CountRecords = result.Count
+            };
+
+            return Ok(response);
         }
 
         [HttpGet("{id}")]
-        public ActionResult<CatalogoConversionEntity> GetById(Int32 id)
+        public async Task<IActionResult> GetById(Int32 id)
         {
-            var CatalogoConversionEntity = _CatalogoConversionService.GetById(id);
-            if (CatalogoConversionEntity == null)
+            var result = await _CatalogoConversionService.GetById(id);
+            var response = new ServiceResponseDTO<CatalogoConversionDto>()
             {
-                return NotFound();
-            }
-            return Ok(CatalogoConversionEntity);
+                Data = result,
+                Message = "ok",
+                Success = true,
+                CountRecords = result != null ? 1 : 0
+            };
+
+            return Ok(response);
         }
 
         [HttpPost]
-        public ActionResult<CatalogoConversionEntity> Create(CatalogoConversionEntity CatalogoConversionEntity)
+        public async Task<IActionResult> Create(CatalogoConversionDto CatalogoConversionDto)
         {
-            _CatalogoConversionService.Add(CatalogoConversionEntity);
-            return CreatedAtAction(nameof(GetById), new { id = CatalogoConversionEntity.Id }, CatalogoConversionEntity);
+            var result = await _CatalogoConversionService.Add(CatalogoConversionDto);
+            var response = new ServiceResponseDTO<Boolean>()
+            {
+                Data = result,
+                Message = "ok",
+                Success = true,
+                CountRecords = result ? 1 : 0
+            };
+
+            return Ok(response);
         }
 
         [HttpPut("{id}")]
-        public IActionResult Update(Int32 id, CatalogoConversionEntity CatalogoConversionEntity)
+        public async Task<IActionResult> Update(Int32 id, CatalogoConversionDto CatalogoConversionDto)
         {
-            var existingItem = _CatalogoConversionService.Update(CatalogoConversionEntity);
-            if (existingItem == null)
+            var result = await _CatalogoConversionService.Update(CatalogoConversionDto);
+            var response = new ServiceResponseDTO<Boolean>()
             {
-                return NotFound();
-            }
+                Data = result,
+                Message = "ok",
+                Success = true,
+                CountRecords = result ? 1 : 0
+            };
 
-            return NoContent();
+            return Ok(response);
         }
 
         [HttpDelete("{id}")]
-        public IActionResult Delete(Int32 id)
+        public async Task<IActionResult> Delete(Int32 id)
         {
-            var existingItem = _CatalogoConversionService.Delete(id);
-            if (existingItem == null)
+            var result = await _CatalogoConversionService.Delete(id);
+            var response = new ServiceResponseDTO<Boolean>()
             {
-                return NotFound();
-            }
-            return NoContent();
+                Data = result,
+                Message = "ok",
+                Success = true,
+                CountRecords = result ? 1 : 0
+            };
+
+            return Ok(response);
         }
     }
 

@@ -1,14 +1,14 @@
-﻿using Conciliador.Datos.Infraestructura.Entidades;
+﻿using Conciliador.Modelos.DTOs;
 
 namespace Conciliador.Logica.Servicios.Interfaces
 {
     public interface ICatalogoConversionService
     {
-        Task<Boolean>Add(CatalogoConversionEntity entity);
-        Task<Boolean>Update(CatalogoConversionEntity entity);
+        Task<Boolean>Add(CatalogoConversionDto entity);
+        Task<Boolean>Update(CatalogoConversionDto entity);
         Task<Boolean>Delete(Int32 id);
-        Task<List<CatalogoConversionEntity>>GetAll();
-        Task<CatalogoConversionEntity>GetById(Int32 id);
-        Task<List<CatalogoConversionEntity>>GetByStatus(Boolean status);
+        Task<List<CatalogoConversionDto>>GetAll();
+        Task<CatalogoConversionDto>GetById(Int32 id);
+        Task<List<CatalogoConversionDto>>GetByStatus(Boolean status);
     }
 }
