@@ -22,6 +22,8 @@ namespace Conciliador.Logica.Utils
             CreateMap<EmpresaEntity, EmpresaDto>().ReverseMap();
             CreateMap<CatalogoConversionEntity, CatalogoConversionDto>().ReverseMap();
             CreateMap<CatalogoGeneralEntity, CatalogoGeneralDto>().ReverseMap();
+            CreateMap<CatalogoNombreEntity, CatalogoNombreDto>().ReverseMap();
+            
         }
     
     }

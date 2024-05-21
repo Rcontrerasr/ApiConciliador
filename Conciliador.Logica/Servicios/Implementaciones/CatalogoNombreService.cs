@@ -1,6 +1,8 @@
-﻿using Conciliador.Datos.Infraestructura.Entidades;
+﻿using AutoMapper;
+using Conciliador.Datos.Infraestructura.Entidades;
 using Conciliador.Datos.Infraestructura.IRespositorios;
 using Conciliador.Logica.Servicios.Interfaces;
+using Conciliador.Modelos.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,48 +14,49 @@ namespace Conciliador.Logica.Servicios.Implementaciones
     public class CatalogoNombreService : ICatalogoNombreService
     {
         private readonly ICatalogoNombreRepository _CatalogoNombreRepository;
+        private readonly IMapper _mapper;
 
-        public CatalogoNombreService(ICatalogoNombreRepository CatalogoNombreRepository)
+        public CatalogoNombreService(ICatalogoNombreRepository CatalogoNombreRepository, IMapper mapper)
         {
             this._CatalogoNombreRepository = CatalogoNombreRepository;
+            _mapper = mapper;
         }
-        public async Task<bool> Add(CatalogoNombreEntity entity)
+        public async Task<bool> Add(CatalogoNombreDto entityDto)
         {
-            _CatalogoNombreRepository.Insert(entity);
-            return true;
+            if (entityDto == null) throw new Exception("La entidad CatalogoNombre es requerida");
+            var entity = _mapper.Map<CatalogoNombreEntity>(entityDto);
+            return _CatalogoNombreRepository.Insert(entity);
         }
 
         public async Task<bool> Delete(Int32 id)
         {
-            _CatalogoNombreRepository.Delete(id);
-            return true;
+            return _CatalogoNombreRepository.Delete(id);
         }
 
-      
-
-        public async Task<List<CatalogoNombreEntity>> GetAll()
+        public async Task<List<CatalogoNombreDto>> GetAll()
         {
-            return _CatalogoNombreRepository.GetAll().ToList();
+            var entities = _CatalogoNombreRepository.GetAll().ToList();
+            var responseDTOs = _mapper.Map<List<CatalogoNombreDto>>(entities);
+            return responseDTOs;
 
         }
 
-        public async Task<CatalogoNombreEntity> GetById(Int32 id)
+        public async Task<CatalogoNombreDto> GetById(Int32 id)
         {
-            return _CatalogoNombreRepository.GetById(id);
+            var entity = _CatalogoNombreRepository.GetById(id);
+            return _mapper.Map<CatalogoNombreDto>(entity);
         }
 
-       
-
-        public async Task<List<CatalogoNombreEntity>> GetByStatus(bool status)
+        public Task<List<CatalogoNombreDto>> GetByStatus(bool status)
         {
-            var CatalogoNombreList = _CatalogoNombreRepository.FindBy(t => t.Codigo == "").ToList();
-            return CatalogoNombreList;
+            throw new NotImplementedException();
         }
 
-        public async Task<bool> Update(CatalogoNombreEntity entity)
+        public async Task<bool> Update(CatalogoNombreDto entityDto)
         {
-            _CatalogoNombreRepository.Update(entity);
-            return true;
+            if (entityDto == null) throw new Exception("La entidad CatalogoNombre es requerida");
+            var entity = _mapper.Map<CatalogoNombreEntity>(entityDto);
+            return _CatalogoNombreRepository.Update(entity);
         }
     }
 }
