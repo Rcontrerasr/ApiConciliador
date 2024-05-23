@@ -4,6 +4,7 @@ namespace Conciliador.Modelos.DTOs
 {
     public class CatalogoConversionDto
     {
+        public Int32 Id { get; set; }
         public string ConjuntoConversion { get; set; }
         public string CodigoConversion { get; set; }
         public string EquivalenciaConversion { get; set; }

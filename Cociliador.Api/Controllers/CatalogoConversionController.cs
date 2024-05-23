@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
+using ClosedXML.Excel;
 using Conciliador.Datos.Infraestructura.Entidades;
 using Conciliador.Logica.Servicios.Interfaces;
 using Conciliador.Modelos.DTOs;
@@ -103,6 +105,104 @@ namespace CatalogoConversionList.Controllers
 
             return Ok(response);
         }
+
+
+        [HttpGet]
+        [Route("exporta-excel")]
+        public async Task<FileResult> ExportarCatalogoConversionAExcel()
+        {
+            var CatalogoConversion = await _CatalogoConversionService.GetAll();
+            var nombreArchivo = "CatalogoConversion.xlsx";
+            return GenerarExcel(nombreArchivo, CatalogoConversion);
+        }
+
+
+        [HttpPost]
+        [Route("importa-excel")]
+        public async Task<IActionResult> ImportarCatalogoConversionDesdeExcel(IFormFile file)
+        {
+            if (file == null || file.Length == 0)
+                return BadRequest("El archivo está vacío o no se ha proporcionado.");
+
+            using (var stream = new MemoryStream())
+            {
+                await file.CopyToAsync(stream);
+
+                using (var workbook = new XLWorkbook(stream))
+                {
+                    var worksheet = workbook.Worksheets.FirstOrDefault();
+                    if (worksheet == null)
+                        return BadRequest("No se encontró ninguna hoja en el archivo Excel.");
+
+                    var catalogoConversionList = new List<CatalogoConversionDto>();
+
+                    foreach (var row in worksheet.RowsUsed().Skip(1)) // Omite la fila de encabezado
+                    {
+                        var catalogoConversion = new CatalogoConversionDto
+                        {
+                            Id = 0,//row.Cell(1).GetValue<int>(),
+                            ConjuntoConversion = row.Cell(2).GetValue<string>(),
+                            CodigoConversion = row.Cell(3).GetValue<string>(),
+                            EquivalenciaConversion = row.Cell(4).GetValue<string>(),
+                            ConjuntoRelacionado = row.Cell(5).GetValue<string>(),
+                            Estado = row.Cell(6).GetValue<string>(),
+                            ValorRelacionado = row.Cell(7).GetValue<string>(),
+                        };
+
+                        catalogoConversionList.Add(catalogoConversion);
+                    }
+
+                    foreach (var item in catalogoConversionList)
+                    {
+
+
+                        await _CatalogoConversionService.Add(item);
+                    }
+
+                }
+            }
+
+            return Ok("Archivo importado y datos guardados exitosamente.");
+        }
+        private FileResult GenerarExcel(string nombreArchivo, List<CatalogoConversionDto> CatalogoConversion)
+        {
+            DataTable dataTable = new DataTable(" CatalogoConversion");
+            dataTable.Columns.AddRange(new DataColumn[]
+            {
+                new DataColumn("Id"),
+                new DataColumn("ConjuntoConversion"),
+                new DataColumn("CodigoConversion"),
+                new DataColumn("EquivalenciaConversion"),
+                new DataColumn("ConjuntoRelacionado"),
+                new DataColumn("Estado"),
+                new DataColumn("ValorRelacionado"),
+           
+
+            });
+
+            foreach (var item in CatalogoConversion)
+            {
+                dataTable.Rows.Add(item.Id,item.ConjuntoConversion, item.CodigoConversion,
+                    item.EquivalenciaConversion,item.ConjuntoRelacionado,item.Estado,item.ValorRelacionado);
+            }
+
+
+            using (XLWorkbook wb = new XLWorkbook())
+            {
+                wb.Worksheets.Add(dataTable);
+
+                using (MemoryStream stream = new MemoryStream())
+                {
+                    wb.SaveAs(stream);
+                    return File(stream.ToArray(),
+                        "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                        nombreArchivo);
+                }
+            }
+
+
+        }
+
     }
 
 
