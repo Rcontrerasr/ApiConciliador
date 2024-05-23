@@ -1,39 +1,31 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using Conciliador.Datos.Infraestructura.Entidades;
 using Conciliador.Logica.Servicios.Interfaces;
 using Conciliador.Modelos.DTOs;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using Microsoft.Identity.Web.Resource;
 
-namespace ConversionCentrosCostoList.Controllers
+namespace MenuList.Controllers
 {
     [ApiController]
     [AllowAnonymous]
     [Route("api/[controller]")]
-    public class ConversionCentrosCostoController : ControllerBase
+    public class MenuController : ControllerBase
     {
-        private readonly ILogger<ConversionCentrosCostoController> _logger;
+        private readonly ILogger<MenuController> _logger;
         private readonly IHttpContextAccessor _contextAccessor;
-        private readonly IConversionCentrosCostoService _ConversionCentrosCostoService;
+        private readonly IMenuService _MenuService;
 
-        public ConversionCentrosCostoController(ILogger<ConversionCentrosCostoController> logger, IHttpContextAccessor contextAccessor, IConversionCentrosCostoService ConversionCentrosCostoService)
+        public MenuController(ILogger<MenuController> logger, IHttpContextAccessor contextAccessor, IMenuService MenuService)
         {
             _logger = logger;
             _contextAccessor = contextAccessor;
-            _ConversionCentrosCostoService = ConversionCentrosCostoService;
+            _MenuService = MenuService;
         }
 
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            var result = await _ConversionCentrosCostoService.GetAll();
-            var response = new ServiceResponseDTO<List<ConversionCentrosCostoDto>>()
+            var result = await _MenuService.GetAll();
+            var response = new ServiceResponseDTO<List<MenuDto>>()
             {
                 Data = result,
                 Message = "ok",
@@ -47,8 +39,8 @@ namespace ConversionCentrosCostoList.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(Int32 id)
         {
-            var result = await _ConversionCentrosCostoService.GetById(id);
-            var response = new ServiceResponseDTO<ConversionCentrosCostoDto>()
+            var result = await _MenuService.GetById(id);
+            var response = new ServiceResponseDTO<MenuDto>()
             {
                 Data = result,
                 Message = "ok",
@@ -60,9 +52,9 @@ namespace ConversionCentrosCostoList.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(ConversionCentrosCostoDto ConversionCentrosCostoDto)
+        public async Task<IActionResult> Create(MenuDto MenuDto)
         {
-            var result = await _ConversionCentrosCostoService.Add(ConversionCentrosCostoDto);
+            var result = await _MenuService.Add(MenuDto);
             var response = new ServiceResponseDTO<Boolean>()
             {
                 Data = result,
@@ -75,9 +67,9 @@ namespace ConversionCentrosCostoList.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update(Int32 id, ConversionCentrosCostoDto ConversionCentrosCostoDto)
+        public async Task<IActionResult> Update(Int32 id, MenuDto MenuDto)
         {
-            var result = await _ConversionCentrosCostoService.Update(ConversionCentrosCostoDto);
+            var result = await _MenuService.Update(MenuDto);
             var response = new ServiceResponseDTO<Boolean>()
             {
                 Data = result,
@@ -92,7 +84,7 @@ namespace ConversionCentrosCostoList.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(Int32 id)
         {
-            var result = await _ConversionCentrosCostoService.Delete(id);
+            var result = await _MenuService.Delete(id);
             var response = new ServiceResponseDTO<Boolean>()
             {
                 Data = result,

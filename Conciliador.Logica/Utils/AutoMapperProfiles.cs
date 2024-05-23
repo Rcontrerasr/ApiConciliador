@@ -23,6 +23,8 @@ namespace Conciliador.Logica.Utils
             CreateMap<CatalogoConversionEntity, CatalogoConversionDto>().ReverseMap();
             CreateMap<CatalogoGeneralEntity, CatalogoGeneralDto>().ReverseMap();
             CreateMap<CatalogoNombreEntity, CatalogoNombreDto>().ReverseMap();
+            CreateMap<ConversionCentrosCostoEntity, ConversionCentrosCostoDto>().ReverseMap();
+            CreateMap<MenuEntity, MenuDto>().ReverseMap();
             
         }
     

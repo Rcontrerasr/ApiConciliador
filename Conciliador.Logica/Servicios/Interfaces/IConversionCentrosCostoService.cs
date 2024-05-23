@@ -1,5 +1,6 @@
 ﻿using Conciliador.Datos.Infraestructura.Entidades;
 using Conciliador.Datos.Infraestructura.Entidades;
+using Conciliador.Modelos.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,11 +11,11 @@ namespace Conciliador.Logica.Servicios.Interfaces
 {
     public interface IConversionCentrosCostoService
     {
-        Task<Boolean>Add(ConversionCentrosCostoEntity entity);
-        Task<Boolean>Update(ConversionCentrosCostoEntity entity);
+        Task<Boolean>Add(ConversionCentrosCostoDto entity);
+        Task<Boolean>Update(ConversionCentrosCostoDto entity);
         Task<Boolean>Delete(Int32 id);
-        Task<List<ConversionCentrosCostoEntity>>GetAll();
-        Task<ConversionCentrosCostoEntity>GetById(Int32 id);
-        Task<List<ConversionCentrosCostoEntity>>GetByStatus(Boolean status);
+        Task<List<ConversionCentrosCostoDto>>GetAll();
+        Task<ConversionCentrosCostoDto>GetById(Int32 id);
+        Task<List<ConversionCentrosCostoDto>>GetByStatus(Boolean status);
     }
 }

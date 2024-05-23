@@ -35,6 +35,7 @@ namespace Conciliador.Logica
             services.AddTransient<ICatalogoGeneralRepository, CatalogoGeneralRepository> ();
             services.AddTransient<ICatalogoNombreRepository, CatalogoNombreRepository> ();
             services.AddTransient<IRolesRepository, RolesRepository> ();
+            services.AddTransient<IMenuRepository, MenuRepository> ();
 
           
 
@@ -49,6 +50,7 @@ namespace Conciliador.Logica
             services.AddTransient<ICatalogoGeneralService, CatalogoGeneralService>();
             services.AddTransient<ICatalogoNombreService, CatalogoNombreService>();
             services.AddTransient<IRolesService, RolesService>();
+            services.AddTransient<IMenuService, MenuService>();
 
             #endregion
 

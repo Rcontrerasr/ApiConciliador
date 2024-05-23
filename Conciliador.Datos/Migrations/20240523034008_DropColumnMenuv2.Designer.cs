@@ -4,6 +4,7 @@ using Conciliador.Datos.Infraestructura;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Conciliador.Datos.Migrations
 {
     [DbContext(typeof(DataBaseContext))]
-    partial class DataBaseContextModelSnapshot : ModelSnapshot
+    [Migration("20240523034008_DropColumnMenuv2")]
+    partial class DropColumnMenuv2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -302,7 +305,7 @@ namespace Conciliador.Datos.Migrations
                     b.Property<DateTime?>("FechaEliminacion")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("IdMenuPadre")
+                    b.Property<int?>("IdMenuPadreNavigationId")
                         .HasColumnType("int");
 
                     b.Property<string>("Url")
@@ -310,7 +313,7 @@ namespace Conciliador.Datos.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("IdMenuPadre");
+                    b.HasIndex("IdMenuPadreNavigationId");
 
                     b.ToTable("Menu", (string)null);
                 });
@@ -497,7 +500,7 @@ namespace Conciliador.Datos.Migrations
                 {
                     b.HasOne("Conciliador.Datos.Infraestructura.Entidades.MenuEntity", "IdMenuPadreNavigation")
                         .WithMany("InverseIdMenuPadreNavigation")
-                        .HasForeignKey("IdMenuPadre");
+                        .HasForeignKey("IdMenuPadreNavigationId");
 
                     b.Navigation("IdMenuPadreNavigation");
                 });

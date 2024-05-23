@@ -24,6 +24,7 @@ namespace Conciliador.Datos.Infraestructura
         public DbSet<CatalogoGeneralEntity> CatalogoGeneralEntities { get; set; }
         public DbSet<CatalogoNombreEntity> CatalogoNombreEntities { get; set; }
         public DbSet<RolesEntity> RolesEntities { get; set; }
+        public DbSet<MenuEntity> MenuEntities { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -36,6 +37,7 @@ namespace Conciliador.Datos.Infraestructura
             modelBuilder.Entity<CatalogoGeneralEntity>().ToTable("CatalogoGeneral");
             modelBuilder.Entity<CatalogoNombreEntity>().ToTable("CatalogoNombre");
             modelBuilder.Entity<RolesEntity>().ToTable("Roles");
+            modelBuilder.Entity<MenuEntity>().ToTable("Menu");
            
 
         }
