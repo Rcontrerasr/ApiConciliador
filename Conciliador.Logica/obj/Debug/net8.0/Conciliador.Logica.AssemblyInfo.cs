@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Conciliador.Logica")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+acd56fa400ca44c9558a70d394d495115dfab1b4")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+dc8690ae5b0c8a462ac4fc729895b180ab4a330c")]
 [assembly: System.Reflection.AssemblyProductAttribute("Conciliador.Logica")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Conciliador.Logica")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

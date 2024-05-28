@@ -26,6 +26,16 @@ namespace Conciliador.Datos.Infraestructura
         public DbSet<RolesEntity> RolesEntities { get; set; }
         public DbSet<MenuEntity> MenuEntities { get; set; }
 
+        public DbSet<TipoConciliacionEntity> TipoConciliacionEntities { get; set; }
+        public DbSet<TipoFuenteEntity> TipoFuenteEntities { get; set; }
+        public DbSet<TipoCatalogoEntity> TipoCatalogoEntities { get; set; }
+        public DbSet<PlantillaEntity> PlantillaEntities { get; set; }
+        public DbSet<ColumnasExcelEntity> ColumnasExcelEntities { get; set; }
+        public DbSet<CabeceraPlantillaEntity> CabeceraPlantillaEntities { get; set; }
+        public DbSet<RegistroCabeceraPlantillaEntity> RegistroCabeceraPlantillaEntities { get; set; }
+        public DbSet<DetallesPlantillaEntity> DetallesPlantillaEntities { get; set; }
+        public DbSet<RegistroDetallePlantillaEntity> RegistroDetallePlantillaEntities { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<ConversionCentrosCostoEntity>().ToTable("ConversionCentroCosto");
@@ -38,7 +48,19 @@ namespace Conciliador.Datos.Infraestructura
             modelBuilder.Entity<CatalogoNombreEntity>().ToTable("CatalogoNombre");
             modelBuilder.Entity<RolesEntity>().ToTable("Roles");
             modelBuilder.Entity<MenuEntity>().ToTable("Menu");
-           
+
+            modelBuilder.Entity<TipoConciliacionEntity>().ToTable("TipoConciliacion");
+            modelBuilder.Entity<TipoFuenteEntity>().ToTable("TipoFuente");
+            modelBuilder.Entity<TipoCatalogoEntity>().ToTable("TipoCatalogo");
+            modelBuilder.Entity<PlantillaEntity>().ToTable("Plantilla");
+            modelBuilder.Entity<ColumnasExcelEntity>().ToTable("ColumnasExcel");
+            modelBuilder.Entity<CabeceraPlantillaEntity>().ToTable("CabeceraPlantilla");
+            modelBuilder.Entity<RegistroCabeceraPlantillaEntity>().ToTable("RegistroCabeceraPlantilla");
+            modelBuilder.Entity<DetallesPlantillaEntity>().ToTable("DetallesPlantilla");
+            modelBuilder.Entity<RegistroDetallePlantillaEntity>().ToTable("RegistroDetallePlantilla");
+
+
+
 
         }
     }
