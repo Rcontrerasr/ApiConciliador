@@ -43,6 +43,7 @@ namespace Conciliador.Logica
             services.AddTransient<IDetallesPlantillaRepository, DetallesPlantillaRepository>();
             services.AddTransient<IMenuRepository, MenuRepository>();
             services.AddTransient<IRegistroDetallePlantillaRepository, RegistroDetallePlantillaRepository>();
+            services.AddTransient<ICabeceraPlantillaRepository, CabeceraPlantillaRepository>();
 
 
 
@@ -68,6 +69,7 @@ namespace Conciliador.Logica
             services.AddTransient<IRegistroCabeceraPlantillaService, RegistroCabeceraPlantillaService>();
             services.AddTransient<IDetallesPlantillasService, DetallesPlantillaService>();
             services.AddTransient<IRegistroDetallePlantillaService, RegistroDetallePlantillaService>();
+            services.AddTransient<ICabeceraPlantillaService, CabeceraPlantillaService>();
 
             #endregion
 

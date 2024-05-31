@@ -35,6 +35,7 @@ namespace Conciliador.Logica.Utils
             CreateMap<RegistroCabeceraPlantillaEntity, RegistroCabeceraPlantillaDto>().ReverseMap();
             CreateMap<DetallesPlantillaEntity, DetallesPlantillaDto>().ReverseMap();
             CreateMap<RegistroDetallePlantillaEntity, RegistroDetallePlantillaDto>().ReverseMap();
+            CreateMap<CabeceraPlantillaEntity, CabeceraPlantillaDto>().ReverseMap();
             
         }
     

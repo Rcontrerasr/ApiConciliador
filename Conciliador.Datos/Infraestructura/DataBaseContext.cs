@@ -56,6 +56,7 @@ namespace Conciliador.Datos.Infraestructura
             modelBuilder.Entity<RegistroCabeceraPlantillaEntity>().ToTable("RegistroCabeceraPlantilla");
             modelBuilder.Entity<DetallesPlantillaEntity>().ToTable("DetallesPlantilla");
             modelBuilder.Entity<RegistroDetallePlantillaEntity>().ToTable("RegistroDetallePlantilla");
+            modelBuilder.Entity<CabeceraPlantillaEntity>().ToTable("CabeceraPlantilla");
 
 
 
