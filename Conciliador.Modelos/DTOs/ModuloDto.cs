@@ -5,11 +5,14 @@ namespace Conciliador.Modelos.DTOs
 {
     public class ModuloDto
     {
-        public Int32 Id { get; set; }
-        public string NombreModulo { get; set; }
-        public string CodigoModulo { get; set; }
-        public string DireccionModulo { get; set; }
-        public string Estado { get; set; }
-    
+
+
+        public int Id { get; set; }
+        public string? Descripcion { get; set; }
+        public string? Url { get; set; }
+        public int? IdMenuPadre { get; set; }
+        public ICollection<ModuloDto> InverseIdMenuPadreNavigation { get; set; } = new List<ModuloDto>();
+
+
     }
 }

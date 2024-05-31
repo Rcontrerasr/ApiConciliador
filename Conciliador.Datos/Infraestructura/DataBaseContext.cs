@@ -16,7 +16,6 @@ namespace Conciliador.Datos.Infraestructura
         }
  
         public DbSet<ConversionCentrosCostoEntity> ConversionCentrosCostoEntities { get; set; }
-        public DbSet<ModuloEntity> ModuloEntities { get; set; }
         public DbSet<ModuloRolesEntity> moduloRolesEntities { get; set; }
         public DbSet<UsuarioEntity> UsuarioEntities { get; set; }
         public DbSet<EmpresaEntity> EmpresaEntities { get; set; }
@@ -24,7 +23,7 @@ namespace Conciliador.Datos.Infraestructura
         public DbSet<CatalogoGeneralEntity> CatalogoGeneralEntities { get; set; }
         public DbSet<CatalogoNombreEntity> CatalogoNombreEntities { get; set; }
         public DbSet<RolesEntity> RolesEntities { get; set; }
-        public DbSet<MenuEntity> MenuEntities { get; set; }
+        public DbSet<ModuloEntity> ModuloEntities { get; set; }
 
         public DbSet<TipoConciliacionEntity> TipoConciliacionEntities { get; set; }
         public DbSet<TipoFuenteEntity> TipoFuenteEntities { get; set; }
@@ -38,7 +37,6 @@ namespace Conciliador.Datos.Infraestructura
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<ConversionCentrosCostoEntity>().ToTable("ConversionCentroCosto");
-            modelBuilder.Entity<ModuloEntity>().ToTable("Modulo");
             modelBuilder.Entity<ModuloRolesEntity>().ToTable("moduloRoles");
             modelBuilder.Entity<UsuarioEntity>().ToTable("Usuario");
             modelBuilder.Entity<EmpresaEntity>().ToTable("Empresa");
@@ -46,7 +44,7 @@ namespace Conciliador.Datos.Infraestructura
             modelBuilder.Entity<CatalogoGeneralEntity>().ToTable("CatalogoGeneral");
             modelBuilder.Entity<CatalogoNombreEntity>().ToTable("CatalogoNombre");
             modelBuilder.Entity<RolesEntity>().ToTable("Roles");
-            modelBuilder.Entity<MenuEntity>().ToTable("Menu");
+            modelBuilder.Entity<ModuloEntity>().ToTable("Modulo");
 
             modelBuilder.Entity<TipoConciliacionEntity>().ToTable("TipoConciliacion");
             modelBuilder.Entity<TipoFuenteEntity>().ToTable("TipoFuente");

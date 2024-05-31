@@ -4,6 +4,7 @@ using Conciliador.Datos.Infraestructura;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Conciliador.Datos.Migrations
 {
     [DbContext(typeof(DataBaseContext))]
-    partial class DataBaseContextModelSnapshot : ModelSnapshot
+    [Migration("20240531201205_DeleteTableModuloMenu")]
+    partial class DeleteTableModuloMenu
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -436,7 +439,7 @@ namespace Conciliador.Datos.Migrations
                     b.ToTable("Empresa", (string)null);
                 });
 
-            modelBuilder.Entity("Conciliador.Datos.Infraestructura.Entidades.ModuloEntity", b =>
+            modelBuilder.Entity("Conciliador.Datos.Infraestructura.Entidades.MenuEntity", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -470,7 +473,7 @@ namespace Conciliador.Datos.Migrations
                     b.Property<DateTime?>("FechaEliminacion")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("IdModuloPadre")
+                    b.Property<int?>("IdMenuPadre")
                         .HasColumnType("int");
 
                     b.Property<string>("Url")
@@ -478,9 +481,9 @@ namespace Conciliador.Datos.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("IdModuloPadre");
+                    b.HasIndex("IdMenuPadre");
 
-                    b.ToTable("Modulo", (string)null);
+                    b.ToTable("Menu", (string)null);
                 });
 
             modelBuilder.Entity("Conciliador.Datos.Infraestructura.Entidades.ModuloRolesEntity", b =>
@@ -899,18 +902,18 @@ namespace Conciliador.Datos.Migrations
                     b.ToTable("Usuario", (string)null);
                 });
 
-            modelBuilder.Entity("Conciliador.Datos.Infraestructura.Entidades.ModuloEntity", b =>
+            modelBuilder.Entity("Conciliador.Datos.Infraestructura.Entidades.MenuEntity", b =>
                 {
-                    b.HasOne("Conciliador.Datos.Infraestructura.Entidades.ModuloEntity", "IdModuloPadreNavigation")
-                        .WithMany("InverseIdModuloPadreNavigation")
-                        .HasForeignKey("IdModuloPadre");
+                    b.HasOne("Conciliador.Datos.Infraestructura.Entidades.MenuEntity", "IdMenuPadreNavigation")
+                        .WithMany("InverseIdMenuPadreNavigation")
+                        .HasForeignKey("IdMenuPadre");
 
-                    b.Navigation("IdModuloPadreNavigation");
+                    b.Navigation("IdMenuPadreNavigation");
                 });
 
-            modelBuilder.Entity("Conciliador.Datos.Infraestructura.Entidades.ModuloEntity", b =>
+            modelBuilder.Entity("Conciliador.Datos.Infraestructura.Entidades.MenuEntity", b =>
                 {
-                    b.Navigation("InverseIdModuloPadreNavigation");
+                    b.Navigation("InverseIdMenuPadreNavigation");
                 });
 #pragma warning restore 612, 618
         }

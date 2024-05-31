@@ -17,14 +17,13 @@ namespace Conciliador.Logica.Utils
             //mapea desde el Entity hacia el Dto y viceversa
             CreateMap<RolesEntity, RolesDto>().ReverseMap();
             CreateMap<UsuarioEntity, UsuarioDto>().ReverseMap();
-            CreateMap<ModuloEntity, ModuloDto>().ReverseMap();
             CreateMap<ModuloRolesEntity, ModuloRolesDto>().ReverseMap();
             CreateMap<EmpresaEntity, EmpresaDto>().ReverseMap();
             CreateMap<CatalogoConversionEntity, CatalogoConversionDto>().ReverseMap();
             CreateMap<CatalogoGeneralEntity, CatalogoGeneralDto>().ReverseMap();
             CreateMap<CatalogoNombreEntity, CatalogoNombreDto>().ReverseMap();
             CreateMap<ConversionCentrosCostoEntity, ConversionCentrosCostoDto>().ReverseMap();
-            CreateMap<MenuEntity, MenuDto>().ReverseMap();
+            CreateMap<ModuloEntity, ModuloDto>().ReverseMap();
 
 
             CreateMap<TipoConciliacionEntity, TipoConciliacionDto>().ReverseMap();

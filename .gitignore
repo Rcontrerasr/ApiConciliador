@@ -443,3 +443,13 @@ conciliador.datos.assemblyinfo.css
 
 
 # End of https://www.toptal.com/developers/gitignore/api/visualstudio,visualstudiocode
+/Conciliador.Modelos/obj/Debug/net8.0/Conciliador.Modelos.AssemblyInfo.cs
+/Conciliador.Modelos/obj/Debug/net8.0/Conciliador.Modelos.AssemblyInfoInputs.cache
+/Conciliador.Datos/obj/Debug/net8.0/Conciliador.Datos.AssemblyInfo.cs
+/Conciliador.Datos/obj/Debug/net8.0/Conciliador.Datos.AssemblyInfoInputs.cache
+/Conciliador.Logica/obj/Debug/net8.0/Conciliador.Logica.AssemblyInfo.cs
+/Conciliador.Logica/obj/Debug/net8.0/Conciliador.Logica.AssemblyInfoInputs.cache
+/Conciliador.Logica/obj/Debug/net8.0/Conciliador.Logica.csproj.AssemblyReference.cache
+/Cociliador.Api/obj/Debug/net8.0/Cociliador.Api.AssemblyInfoInputs.cache
+/Cociliador.Api/obj/Debug/net8.0/Cociliador.Api.csproj.AssemblyReference.cache
+/Cociliador.Api/obj/Debug/net8.0/Cociliador.Api.AssemblyInfo.cs

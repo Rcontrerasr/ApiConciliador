@@ -2,7 +2,8 @@
 
 namespace Conciliador.Datos.Infraestructura.IRespositorios
 {
-    public interface IModuloRepository:IRepositorioGenerico<ModuloEntity>
+
+    public interface IModuloRepository : IRepositorioGenerico<ModuloEntity>
     {
     }
 }

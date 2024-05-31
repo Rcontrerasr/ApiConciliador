@@ -3,11 +3,8 @@ using Conciliador.Datos.Infraestructura.Entidades;
 using Conciliador.Datos.Infraestructura.IRespositorios;
 using Conciliador.Logica.Servicios.Interfaces;
 using Conciliador.Modelos.DTOs;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+
 
 namespace Conciliador.Logica.Servicios.Implementaciones
 {
@@ -35,7 +32,9 @@ namespace Conciliador.Logica.Servicios.Implementaciones
 
         public async Task<List<ModuloDto>> GetAll()
         {
-            var entities = _ModuloRepository.GetAll().ToList();
+            var entities = _ModuloRepository.FindBy(m=>m.IdModuloPadre==null)
+                .Include(m=>m.InverseIdModuloPadreNavigation)
+                .ToList();
             var responseDTOs = _mapper.Map<List<ModuloDto>>(entities);
             return responseDTOs;
 

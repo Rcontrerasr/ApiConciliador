@@ -1,10 +1,5 @@
-﻿using Conciliador.Datos.Infraestructura.Entidades;
-using Conciliador.Modelos.DTOs;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Conciliador.Modelos.DTOs;
+
 
 namespace Conciliador.Logica.Servicios.Interfaces
 {
