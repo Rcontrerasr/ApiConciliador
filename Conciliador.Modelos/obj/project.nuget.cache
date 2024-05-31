@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "Px8PD0KiO480dF9whEttMV8okKnpdP/M47tDXaHY8H+MG95XnyNyHfw1dY6QKRjW1Y1a8pn+NNWZHgKrv0JISQ==",
+  "dgSpecHash": "SxZ/20WZGA3c3FJqIxz9Bt93gS2SfaTuo8rcPD7VaXW8p2iyih7ObRh05M/3kNjMIPoH1VfM+3BTTb7t0P8k4A==",
   "success": true,
-  "projectFilePath": "C:\\Roa\\ProjectKfc\\ApiConciliador\\Conciliador.Modelos\\Conciliador.Modelos.csproj",
+  "projectFilePath": "C:\\Roa\\ProjectKfc\\ApiConciliador_Backend\\Conciliador.Modelos\\Conciliador.Modelos.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }

@@ -1,7 +1,4 @@
-﻿
-
-
-using Conciliador.Datos.Infraestructura;
+﻿using Conciliador.Datos.Infraestructura;
 using Conciliador.Datos.Infraestructura.IRespositorios;
 using Conciliador.Datos.Infraestructura.Repositorios;
 using Conciliador.Logica.Servicios.Implementaciones;
@@ -26,20 +23,31 @@ namespace Conciliador.Logica
         public static IServiceCollection AddInfrastructureBusiness(this IServiceCollection services)
         {
             #region Repositorios
-            services.AddTransient<IEmpresaRepository, EmpresaRepository> ();
-            services.AddTransient<IModuloRepository, ModuloRepository> ();
-            services.AddTransient<IModuloRolesRepository, ModuloRolesRepository> ();
-            services.AddTransient<IUsuarioRepository, UsuarioRepository> ();
-            services.AddTransient<IConversionCentrosCostoRepository, ConversionCentrosCostoRepository> ();
-            services.AddTransient<ICatalogoConversionRepository, CatalogoConversionRepository> ();
-            services.AddTransient<ICatalogoGeneralRepository, CatalogoGeneralRepository> ();
-            services.AddTransient<ICatalogoNombreRepository, CatalogoNombreRepository> ();
-            services.AddTransient<IRolesRepository, RolesRepository> ();
-            services.AddTransient<IMenuRepository, MenuRepository> ();
+            services.AddTransient<IEmpresaRepository, EmpresaRepository>();
+            services.AddTransient<IModuloRepository, ModuloRepository>();
+            services.AddTransient<IModuloRolesRepository, ModuloRolesRepository>();
+            services.AddTransient<IUsuarioRepository, UsuarioRepository>();
+            services.AddTransient<IConversionCentrosCostoRepository, ConversionCentrosCostoRepository>();
+            services.AddTransient<ICatalogoConversionRepository, CatalogoConversionRepository>();
+            services.AddTransient<ICatalogoGeneralRepository, CatalogoGeneralRepository>();
+            services.AddTransient<ICatalogoNombreRepository, CatalogoNombreRepository>();
+            services.AddTransient<IRolesRepository, RolesRepository>();
+            services.AddTransient<IMenuRepository, MenuRepository>();
 
-          
+            services.AddTransient<ITipoConciliacionRepository, TipoConciliacionRepository>();
+            services.AddTransient<ITipoFuenteRepository, TipoFuenteRepository>();
+            services.AddTransient<ITipoCatalogoRepository, TipoCatalogoRepository>();
+            services.AddTransient<IPlantillaRepository, PlantillaRepository>();
+            services.AddTransient<IColumnasExcelRepository, ColumnasExcelRepository>();
+            services.AddTransient<IRegistroCabeceraPlantillaRepository, RegistroCabeceraPlantillaRepository>();
+            services.AddTransient<IDetallesPlantillaRepository, DetallesPlantillaRepository>();
+            services.AddTransient<IMenuRepository, MenuRepository>();
+            services.AddTransient<IRegistroDetallePlantillaRepository, RegistroDetallePlantillaRepository>();
 
-            #endregion 
+
+
+
+            #endregion
             #region Servicios
             services.AddTransient<IEmpresaService, EmpresaService>();
             services.AddTransient<IModuloService, ModuloService>();
@@ -52,9 +60,18 @@ namespace Conciliador.Logica
             services.AddTransient<IRolesService, RolesService>();
             services.AddTransient<IMenuService, MenuService>();
 
+            services.AddTransient<ITipoConciliacionService, TipoConciliacionService>();
+            services.AddTransient<ITipoFuenteService, TipoFuenteService>();
+            services.AddTransient<ITipoCatalogoService, TipoCatalogoService>();
+            services.AddTransient<IPlantillasService, PlantillaService>();
+            services.AddTransient<IColumnasExcelService, ColumnasExcelService>();
+            services.AddTransient<IRegistroCabeceraPlantillaService, RegistroCabeceraPlantillaService>();
+            services.AddTransient<IDetallesPlantillasService, DetallesPlantillaService>();
+            services.AddTransient<IRegistroDetallePlantillaService, RegistroDetallePlantillaService>();
+
             #endregion
 
-           
+
 
 
             return services;

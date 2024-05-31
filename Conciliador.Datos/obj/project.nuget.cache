@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "IWDWSYLDSrJ+dWX5EalohLtexpeLEN1I7SOQ7Ezms7mtm5fEpdjT6+kxE5iJbF2ZCqf8Vk+kBlOnwBziBhs6pA==",
+  "dgSpecHash": "Sx/Vbm+8TpI7KTXL5YuuYXdUVA6PYUksSSL/nV9UjUtbhhykCzdQ1epRUH0Jl7V/e0nxZb87yz02XgbsHD/BQw==",
   "success": true,
-  "projectFilePath": "C:\\Roa\\ProjectKfc\\ApiConciliador\\Conciliador.Datos\\Conciliador.Datos.csproj",
+  "projectFilePath": "C:\\Roa\\ProjectKfc\\ApiConciliador_Backend\\Conciliador.Datos\\Conciliador.Datos.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\roberto.contreras\\.nuget\\packages\\azure.core\\1.35.0\\azure.core.1.35.0.nupkg.sha512",
     "C:\\Users\\roberto.contreras\\.nuget\\packages\\azure.identity\\1.10.3\\azure.identity.1.10.3.nupkg.sha512",

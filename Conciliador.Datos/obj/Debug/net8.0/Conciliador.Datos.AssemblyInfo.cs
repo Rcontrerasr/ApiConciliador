@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Conciliador.Datos")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+dc8690ae5b0c8a462ac4fc729895b180ab4a330c")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+53b0ed7f50c00ec5f101580852766daec5f65a62")]
 [assembly: System.Reflection.AssemblyProductAttribute("Conciliador.Datos")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Conciliador.Datos")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

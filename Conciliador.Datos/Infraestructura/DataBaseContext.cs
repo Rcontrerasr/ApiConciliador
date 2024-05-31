@@ -31,7 +31,6 @@ namespace Conciliador.Datos.Infraestructura
         public DbSet<TipoCatalogoEntity> TipoCatalogoEntities { get; set; }
         public DbSet<PlantillaEntity> PlantillaEntities { get; set; }
         public DbSet<ColumnasExcelEntity> ColumnasExcelEntities { get; set; }
-        public DbSet<CabeceraPlantillaEntity> CabeceraPlantillaEntities { get; set; }
         public DbSet<RegistroCabeceraPlantillaEntity> RegistroCabeceraPlantillaEntities { get; set; }
         public DbSet<DetallesPlantillaEntity> DetallesPlantillaEntities { get; set; }
         public DbSet<RegistroDetallePlantillaEntity> RegistroDetallePlantillaEntities { get; set; }
@@ -54,7 +53,6 @@ namespace Conciliador.Datos.Infraestructura
             modelBuilder.Entity<TipoCatalogoEntity>().ToTable("TipoCatalogo");
             modelBuilder.Entity<PlantillaEntity>().ToTable("Plantilla");
             modelBuilder.Entity<ColumnasExcelEntity>().ToTable("ColumnasExcel");
-            modelBuilder.Entity<CabeceraPlantillaEntity>().ToTable("CabeceraPlantilla");
             modelBuilder.Entity<RegistroCabeceraPlantillaEntity>().ToTable("RegistroCabeceraPlantilla");
             modelBuilder.Entity<DetallesPlantillaEntity>().ToTable("DetallesPlantilla");
             modelBuilder.Entity<RegistroDetallePlantillaEntity>().ToTable("RegistroDetallePlantilla");

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "pmaUWrWpPmOfEn/LBU4/CB1F6NkOVIPd5JrE+rGgtAQ3EUxeBYHLJcxfXD9QJO0rJbEsEZ97Kbkep9KxqRb1PA==",
+  "dgSpecHash": "SsgxhZ2EQoABpRZAW2DqSpCBYxB+/RUnQ6uew/JuaWMXyP71IBCS7t8YzKirhlPcW3lSwPObEKUGOJ8z5binTg==",
   "success": true,
-  "projectFilePath": "C:\\Roa\\ProjectKfc\\ApiConciliador\\Cociliador.Api\\Cociliador.Api.csproj",
+  "projectFilePath": "C:\\Roa\\ProjectKfc\\ApiConciliador_Backend\\Cociliador.Api\\Cociliador.Api.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\roberto.contreras\\.nuget\\packages\\automapper\\13.0.1\\automapper.13.0.1.nupkg.sha512",
     "C:\\Users\\roberto.contreras\\.nuget\\packages\\azure.core\\1.35.0\\azure.core.1.35.0.nupkg.sha512",
