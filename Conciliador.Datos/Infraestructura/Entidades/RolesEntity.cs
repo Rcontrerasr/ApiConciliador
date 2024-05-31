@@ -13,7 +13,8 @@ namespace Conciliador.Datos.Infraestructura.Entidades
        
 
         public string NombreRol { get; set; }
+        public string Estado { get; set; }
 
-       
+
     }
 }

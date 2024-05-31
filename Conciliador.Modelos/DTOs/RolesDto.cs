@@ -6,5 +6,7 @@ namespace Conciliador.Modelos.DTOs
     {
         public int Id { get; set; }
         public string NombreRol { get; set; }
+        public string Estado { get; set; }
+
     }
 }
