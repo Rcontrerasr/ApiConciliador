@@ -10,9 +10,20 @@ namespace Conciliador.Datos.Infraestructura.Entidades
 {
     public class ModuloRolesEntity:BaseEntity
     {
-        
-        public Int32 IdRol { get; set; }
 
-       
+
+
+
+        [ForeignKey("Modulo")]
+        public int IdModulo { get; set; }
+        public ModuloEntity Modulo { get; set; }
+
+
+
+        [ForeignKey("Rol")]
+        public int IdRol { get; set; }
+        public RolesEntity Rol { get; set; }
+
+
     }
 }

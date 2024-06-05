@@ -11,9 +11,13 @@ namespace Conciliador.Datos.Infraestructura.Entidades
     public class CatalogoGeneralEntity: BaseEntity
     {
        
-        public string TipoCatalogoGeneral { get; set; }
         public string Codigo { get; set; }
         public string Descripcion { get; set; }
         public int Orden { get; set; }
+
+
+        [ForeignKey("TipoCatalogo")]
+        public int IdTipoCatalogo { get; set; }
+        public TipoCatalogoEntity TipoCatalogo { get; set; }
     }
 }

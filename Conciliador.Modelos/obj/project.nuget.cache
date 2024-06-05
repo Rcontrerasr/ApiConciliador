@@ -1,8 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "SxZ/20WZGA3c3FJqIxz9Bt93gS2SfaTuo8rcPD7VaXW8p2iyih7ObRh05M/3kNjMIPoH1VfM+3BTTb7t0P8k4A==",
+  "dgSpecHash": "K65VnoVmX2jtdVtJ0SI+Ij1XAjeD/nwZbuK5b8TlUJwehm04w4wnU/3IftwmtTjfqXSzKRe4umimLXr/y4bIdQ==",
   "success": true,
   "projectFilePath": "C:\\Roa\\ProjectKfc\\ApiConciliador_Backend\\Conciliador.Modelos\\Conciliador.Modelos.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\roberto.contreras\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\7.0.18\\microsoft.windowsdesktop.app.ref.7.0.18.nupkg.sha512",
+    "C:\\Users\\roberto.contreras\\.nuget\\packages\\microsoft.netcore.app.ref\\7.0.18\\microsoft.netcore.app.ref.7.0.18.nupkg.sha512",
+    "C:\\Users\\roberto.contreras\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\7.0.18\\microsoft.aspnetcore.app.ref.7.0.18.nupkg.sha512"
+  ],
   "logs": []
 }

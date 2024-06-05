@@ -12,9 +12,13 @@ namespace Conciliador.Datos.Infraestructura.Entidades
     {
 
         public int Id { get; set; }
-        public int IdPlantilla { get; set; }
         public string NombreColumna { get; set; }
         public bool Estado { get; set; }
 
+
+
+        [ForeignKey("Plantilla")]
+        public int IdPlantilla { get; set; }
+        public PlantillaEntity Plantilla { get; set; }
     }
 }

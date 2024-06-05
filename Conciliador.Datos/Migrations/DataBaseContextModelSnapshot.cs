@@ -17,7 +17,7 @@ namespace Conciliador.Datos.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.5")
+                .HasAnnotation("ProductVersion", "7.0.20")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -60,11 +60,21 @@ namespace Conciliador.Datos.Migrations
                     b.Property<DateTime?>("FechaEliminacion")
                         .HasColumnType("datetime2");
 
+                    b.Property<int>("IdCatalogoGeneral")
+                        .HasColumnType("int");
+
+                    b.Property<int>("IdPlantilla")
+                        .HasColumnType("int");
+
                     b.Property<string>("Nombre")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("IdCatalogoGeneral");
+
+                    b.HasIndex("IdPlantilla");
 
                     b.ToTable("CabeceraPlantilla", (string)null);
                 });
@@ -164,14 +174,15 @@ namespace Conciliador.Datos.Migrations
                     b.Property<DateTime?>("FechaEliminacion")
                         .HasColumnType("datetime2");
 
+                    b.Property<int>("IdTipoCatalogo")
+                        .HasColumnType("int");
+
                     b.Property<int>("Orden")
                         .HasColumnType("int");
 
-                    b.Property<string>("TipoCatalogoGeneral")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.HasKey("Id");
+
+                    b.HasIndex("IdTipoCatalogo");
 
                     b.ToTable("CatalogoGeneral", (string)null);
                 });
@@ -262,6 +273,8 @@ namespace Conciliador.Datos.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("IdPlantilla");
 
                     b.ToTable("ColumnasExcel", (string)null);
                 });
@@ -358,10 +371,10 @@ namespace Conciliador.Datos.Migrations
                     b.Property<DateTime?>("FechaEliminacion")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("IdCatalogoGeneral")
+                    b.Property<int>("IdCatalogoGeneral")
                         .HasColumnType("int");
 
-                    b.Property<int>("IdPlanilla")
+                    b.Property<int>("IdPlantilla")
                         .HasColumnType("int");
 
                     b.Property<string>("NombreCatalogo")
@@ -384,6 +397,10 @@ namespace Conciliador.Datos.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("IdCatalogoGeneral");
+
+                    b.HasIndex("IdPlantilla");
 
                     b.ToTable("DetallesPlantilla", (string)null);
                 });
@@ -514,10 +531,17 @@ namespace Conciliador.Datos.Migrations
                     b.Property<DateTime?>("FechaEliminacion")
                         .HasColumnType("datetime2");
 
+                    b.Property<int>("IdModulo")
+                        .HasColumnType("int");
+
                     b.Property<int>("IdRol")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("IdModulo");
+
+                    b.HasIndex("IdRol");
 
                     b.ToTable("moduloRoles", (string)null);
                 });
@@ -559,7 +583,7 @@ namespace Conciliador.Datos.Migrations
                     b.Property<int>("IdEmpresa")
                         .HasColumnType("int");
 
-                    b.Property<int>("IdRoles")
+                    b.Property<int>("IdRol")
                         .HasColumnType("int");
 
                     b.Property<int>("IdTipoConciliacion")
@@ -576,6 +600,14 @@ namespace Conciliador.Datos.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("IdEmpresa");
+
+                    b.HasIndex("IdRol");
+
+                    b.HasIndex("IdTipoConciliacion");
+
+                    b.HasIndex("IdTipoFuente");
 
                     b.ToTable("Plantilla", (string)null);
                 });
@@ -625,10 +657,12 @@ namespace Conciliador.Datos.Migrations
                     b.Property<DateTime>("Hora")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("IdPlanilla")
+                    b.Property<int>("IdPlantilla")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("IdPlantilla");
 
                     b.ToTable("RegistroCabeceraPlantilla", (string)null);
                 });
@@ -678,6 +712,12 @@ namespace Conciliador.Datos.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("IdCabeceraPlantilla");
+
+                    b.HasIndex("IdDetallePlantilla");
+
+                    b.HasIndex("IdRegistroCabeceraPlantilla");
 
                     b.ToTable("RegistroDetallePlantilla", (string)null);
                 });
@@ -887,6 +927,9 @@ namespace Conciliador.Datos.Migrations
                     b.Property<DateTime?>("FechaEliminacion")
                         .HasColumnType("datetime2");
 
+                    b.Property<int>("IdRol")
+                        .HasColumnType("int");
+
                     b.Property<string>("Identificacion")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -895,12 +938,71 @@ namespace Conciliador.Datos.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Rol")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
+                    b.HasIndex("IdRol");
+
                     b.ToTable("Usuario", (string)null);
+                });
+
+            modelBuilder.Entity("Conciliador.Datos.Infraestructura.Entidades.CabeceraPlantillaEntity", b =>
+                {
+                    b.HasOne("Conciliador.Datos.Infraestructura.Entidades.CatalogoGeneralEntity", "CatalogoGeneral")
+                        .WithMany()
+                        .HasForeignKey("IdCatalogoGeneral")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Conciliador.Datos.Infraestructura.Entidades.PlantillaEntity", "Plantilla")
+                        .WithMany()
+                        .HasForeignKey("IdPlantilla")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("CatalogoGeneral");
+
+                    b.Navigation("Plantilla");
+                });
+
+            modelBuilder.Entity("Conciliador.Datos.Infraestructura.Entidades.CatalogoGeneralEntity", b =>
+                {
+                    b.HasOne("Conciliador.Datos.Infraestructura.Entidades.TipoCatalogoEntity", "TipoCatalogo")
+                        .WithMany()
+                        .HasForeignKey("IdTipoCatalogo")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("TipoCatalogo");
+                });
+
+            modelBuilder.Entity("Conciliador.Datos.Infraestructura.Entidades.ColumnasExcelEntity", b =>
+                {
+                    b.HasOne("Conciliador.Datos.Infraestructura.Entidades.PlantillaEntity", "Plantilla")
+                        .WithMany()
+                        .HasForeignKey("IdPlantilla")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Plantilla");
+                });
+
+            modelBuilder.Entity("Conciliador.Datos.Infraestructura.Entidades.DetallesPlantillaEntity", b =>
+                {
+                    b.HasOne("Conciliador.Datos.Infraestructura.Entidades.CatalogoGeneralEntity", "CatalogoGeneral")
+                        .WithMany()
+                        .HasForeignKey("IdCatalogoGeneral")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Conciliador.Datos.Infraestructura.Entidades.PlantillaEntity", "Plantilla")
+                        .WithMany()
+                        .HasForeignKey("IdPlantilla")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("CatalogoGeneral");
+
+                    b.Navigation("Plantilla");
                 });
 
             modelBuilder.Entity("Conciliador.Datos.Infraestructura.Entidades.ModuloEntity", b =>
@@ -910,6 +1012,109 @@ namespace Conciliador.Datos.Migrations
                         .HasForeignKey("IdModuloPadre");
 
                     b.Navigation("IdModuloPadreNavigation");
+                });
+
+            modelBuilder.Entity("Conciliador.Datos.Infraestructura.Entidades.ModuloRolesEntity", b =>
+                {
+                    b.HasOne("Conciliador.Datos.Infraestructura.Entidades.ModuloEntity", "Modulo")
+                        .WithMany()
+                        .HasForeignKey("IdModulo")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Conciliador.Datos.Infraestructura.Entidades.RolesEntity", "Rol")
+                        .WithMany()
+                        .HasForeignKey("IdRol")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Modulo");
+
+                    b.Navigation("Rol");
+                });
+
+            modelBuilder.Entity("Conciliador.Datos.Infraestructura.Entidades.PlantillaEntity", b =>
+                {
+                    b.HasOne("Conciliador.Datos.Infraestructura.Entidades.EmpresaEntity", "Empresa")
+                        .WithMany()
+                        .HasForeignKey("IdEmpresa")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Conciliador.Datos.Infraestructura.Entidades.RolesEntity", "Rol")
+                        .WithMany()
+                        .HasForeignKey("IdRol")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Conciliador.Datos.Infraestructura.Entidades.TipoConciliacionEntity", "TipoConciliacion")
+                        .WithMany()
+                        .HasForeignKey("IdTipoConciliacion")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Conciliador.Datos.Infraestructura.Entidades.TipoFuenteEntity", "TipoFuente")
+                        .WithMany()
+                        .HasForeignKey("IdTipoFuente")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Empresa");
+
+                    b.Navigation("Rol");
+
+                    b.Navigation("TipoConciliacion");
+
+                    b.Navigation("TipoFuente");
+                });
+
+            modelBuilder.Entity("Conciliador.Datos.Infraestructura.Entidades.RegistroCabeceraPlantillaEntity", b =>
+                {
+                    b.HasOne("Conciliador.Datos.Infraestructura.Entidades.PlantillaEntity", "Plantilla")
+                        .WithMany()
+                        .HasForeignKey("IdPlantilla")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Plantilla");
+                });
+
+            modelBuilder.Entity("Conciliador.Datos.Infraestructura.Entidades.RegistroDetallePlantillaEntity", b =>
+                {
+                    b.HasOne("Conciliador.Datos.Infraestructura.Entidades.CabeceraPlantillaEntity", "CabeceraPlantilla")
+                        .WithMany()
+                        .HasForeignKey("IdCabeceraPlantilla")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("Conciliador.Datos.Infraestructura.Entidades.DetallesPlantillaEntity", "DetallesPlantilla")
+                        .WithMany()
+                        .HasForeignKey("IdDetallePlantilla")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("Conciliador.Datos.Infraestructura.Entidades.RegistroCabeceraPlantillaEntity", "RegistroCabeceraPlantilla")
+                        .WithMany()
+                        .HasForeignKey("IdRegistroCabeceraPlantilla")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("CabeceraPlantilla");
+
+                    b.Navigation("DetallesPlantilla");
+
+                    b.Navigation("RegistroCabeceraPlantilla");
+                });
+
+            modelBuilder.Entity("Conciliador.Datos.Infraestructura.Entidades.UsuarioEntity", b =>
+                {
+                    b.HasOne("Conciliador.Datos.Infraestructura.Entidades.RolesEntity", "Rol")
+                        .WithMany()
+                        .HasForeignKey("IdRol")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Rol");
                 });
 
             modelBuilder.Entity("Conciliador.Datos.Infraestructura.Entidades.ModuloEntity", b =>

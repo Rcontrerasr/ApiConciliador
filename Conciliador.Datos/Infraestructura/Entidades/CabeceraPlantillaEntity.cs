@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Conciliador.Datos.Infraestructura.Entidades
 {
-    public class CabeceraPlantillaEntity:BaseEntity
+    public class CabeceraPlantillaEntity : BaseEntity
     {
 
         public int Id { get; set; }
@@ -16,6 +16,12 @@ namespace Conciliador.Datos.Infraestructura.Entidades
         public string Descripcion { get; set; }
         public bool Estado { get; set; }
 
+        [ForeignKey("Plantilla")]
+        public int IdPlantilla { get; set; }
+        public PlantillaEntity Plantilla { get; set; }
 
+        [ForeignKey("CatalogoGeneral")]
+        public int IdCatalogoGeneral { get; set; }
+        public CatalogoGeneralEntity CatalogoGeneral { get; set; }
     }
 }

@@ -415,41 +415,13 @@ FodyWeavers.xsd
 ### VisualStudio Patch ###
 # Additional files built by Visual Studio
 
-# Ignorar archivos de Cociliador.Api
-../Cociliador.Api/obj/Debug/net8.0/Cociliador.Api.AssemblyInfo.cs
-../Cociliador.Api/obj/Debug/net8.0/Cociliador.Api.AssemblyInfoInputs.cache
-../Cociliador.Api/obj/Debug/net8.0/Cociliador.Api.csproj.AssemblyReference.cache
-
-# Ignorar archivos de Conciliador.Datos
-obj/Debug/net8.0/Conciliador.Datos.AssemblyInfo.cs
-obj/Debug/net8.0/Conciliador.Datos.AssemblyInfoInputs.cache
-
-# Ignorar archivos de Conciliador.Logica
-../Conciliador.Logica/obj/Debug/net8.0/Conciliador.Logica.AssemblyInfo.cs
-../Conciliador.Logica/obj/Debug/net8.0/Conciliador.Logica.AssemblyInfoInputs.cache
-../Conciliador.Logica/obj/Debug/net8.0/Conciliador.Logica.csproj.AssemblyReference.cache
-
-# Ignorar archivos de Conciliador.Modelos
-../Conciliador.Modelos/obj/Debug/net8.0/Conciliador.Modelos.AssemblyInfo.cs
-../Conciliador.Modelos/obj/Debug/net8.0/Conciliador.Modelos.AssemblyInfoInputs.cache
-
-
-# Ignorar todos los archivos dentro de cualquier carpeta obj
-**/obj/
-
 
 # Ignorar archivo de información de ensamblado generado automáticamente
 conciliador.datos.assemblyinfo.css
 
 
 # End of https://www.toptal.com/developers/gitignore/api/visualstudio,visualstudiocode
-/Conciliador.Modelos/obj/Debug/net8.0/Conciliador.Modelos.AssemblyInfo.cs
-/Conciliador.Modelos/obj/Debug/net8.0/Conciliador.Modelos.AssemblyInfoInputs.cache
-/Conciliador.Datos/obj/Debug/net8.0/Conciliador.Datos.AssemblyInfo.cs
-/Conciliador.Datos/obj/Debug/net8.0/Conciliador.Datos.AssemblyInfoInputs.cache
-/Conciliador.Logica/obj/Debug/net8.0/Conciliador.Logica.AssemblyInfo.cs
-/Conciliador.Logica/obj/Debug/net8.0/Conciliador.Logica.AssemblyInfoInputs.cache
-/Conciliador.Logica/obj/Debug/net8.0/Conciliador.Logica.csproj.AssemblyReference.cache
-/Cociliador.Api/obj/Debug/net8.0/Cociliador.Api.AssemblyInfoInputs.cache
-/Cociliador.Api/obj/Debug/net8.0/Cociliador.Api.csproj.AssemblyReference.cache
-/Cociliador.Api/obj/Debug/net8.0/Cociliador.Api.AssemblyInfo.cs
+/Conciliador.Modelos/obj/*
+/Conciliador.Datos/obj/*
+/Conciliador.Logica/obj/*
+/Cociliador.Api/obj/*

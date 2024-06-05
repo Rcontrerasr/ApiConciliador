@@ -14,10 +14,14 @@ namespace Conciliador.Datos.Infraestructura.Entidades
         public int Id { get; set; }
         public DateTime Fecha { get; set; }
         public string CodigoReferencia { get; set; }
-        public int IdPlanilla { get; set; }
+      
         public string CentroCostos { get; set; }
         public DateTime Hora { get; set; }
 
 
+
+        [ForeignKey("Plantilla")]
+        public int IdPlantilla { get; set; }
+        public PlantillaEntity Plantilla { get; set; }
     }
 }

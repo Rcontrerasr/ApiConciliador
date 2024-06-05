@@ -17,8 +17,11 @@ namespace Conciliador.Datos.Infraestructura.Entidades
 
         public string Correo { get; set; }
 
-        public int Rol { get; set; }
 
-       
+        [ForeignKey("Rol")]
+        public int IdRol { get; set; }        
+        public RolesEntity Rol { get; set; }
+
+
     }
 }

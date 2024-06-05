@@ -53,12 +53,28 @@ namespace Conciliador.Datos.Infraestructura
             modelBuilder.Entity<ColumnasExcelEntity>().ToTable("ColumnasExcel");
             modelBuilder.Entity<RegistroCabeceraPlantillaEntity>().ToTable("RegistroCabeceraPlantilla");
             modelBuilder.Entity<DetallesPlantillaEntity>().ToTable("DetallesPlantilla");
-            modelBuilder.Entity<RegistroDetallePlantillaEntity>().ToTable("RegistroDetallePlantilla");
             modelBuilder.Entity<CabeceraPlantillaEntity>().ToTable("CabeceraPlantilla");
 
 
+            modelBuilder.Entity<RegistroDetallePlantillaEntity>().ToTable("RegistroDetallePlantilla");
 
+            modelBuilder.Entity<RegistroDetallePlantillaEntity>()
+            .HasOne(r => r.RegistroCabeceraPlantilla)
+            .WithMany()  
+            .HasForeignKey(r => r.IdRegistroCabeceraPlantilla)
+            .OnDelete(DeleteBehavior.NoAction);
 
+            modelBuilder.Entity<RegistroDetallePlantillaEntity>()
+                .HasOne(r => r.CabeceraPlantilla)
+                .WithMany() 
+                .HasForeignKey(r => r.IdCabeceraPlantilla)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            modelBuilder.Entity<RegistroDetallePlantillaEntity>()
+                .HasOne(r => r.DetallesPlantilla)
+                .WithMany()  
+                .HasForeignKey(r => r.IdDetallePlantilla)
+                .OnDelete(DeleteBehavior.NoAction);
         }
     }
 }
