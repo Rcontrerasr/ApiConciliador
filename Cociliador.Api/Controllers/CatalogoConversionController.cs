@@ -2,16 +2,16 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Threading.Tasks;
 using ClosedXML.Excel;
 using Conciliador.Datos.Infraestructura.Entidades;
 using Conciliador.Logica.Servicios.Interfaces;
 using Conciliador.Modelos.DTOs;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using Microsoft.Identity.Web.Resource;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace CatalogoConversionList.Controllers
 {
@@ -32,6 +32,8 @@ namespace CatalogoConversionList.Controllers
         }
 
         [HttpGet]
+        [SwaggerOperation(Summary = "Obtiene todas las Conversiones de Catálogo", Description = "Devuelve una lista de todas las conversiones de catálogo.")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> GetAll()
         {
             var result = await _CatalogoConversionService.GetAll();
@@ -47,9 +49,17 @@ namespace CatalogoConversionList.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetById(Int32 id)
+        [SwaggerOperation(Summary = "Obtiene una Conversión de Catálogo por ID", Description = "Devuelve una conversión de catálogo específica por su ID.")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> GetById(int id)
         {
             var result = await _CatalogoConversionService.GetById(id);
+            if (result == null)
+            {
+                return NotFound();
+            }
+
             var response = new ServiceResponseDTO<CatalogoConversionDto>()
             {
                 Data = result,
@@ -62,10 +72,13 @@ namespace CatalogoConversionList.Controllers
         }
 
         [HttpPost]
+        [SwaggerOperation(Summary = "Crea una nueva Conversión de Catálogo", Description = "Agrega una nueva conversión de catálogo a la base de datos.")]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> Create(CatalogoConversionDto CatalogoConversionDto)
         {
             var result = await _CatalogoConversionService.Add(CatalogoConversionDto);
-            var response = new ServiceResponseDTO<Boolean>()
+            var response = new ServiceResponseDTO<bool>()
             {
                 Data = result,
                 Message = "ok",
@@ -77,10 +90,18 @@ namespace CatalogoConversionList.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update(Int32 id, CatalogoConversionDto CatalogoConversionDto)
+        [SwaggerOperation(Summary = "Actualiza una Conversión de Catálogo existente", Description = "Actualiza una conversión de catálogo específica por su ID.")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> Update(int id, CatalogoConversionDto CatalogoConversionDto)
         {
             var result = await _CatalogoConversionService.Update(CatalogoConversionDto);
-            var response = new ServiceResponseDTO<Boolean>()
+            if (!result)
+            {
+                return NotFound();
+            }
+
+            var response = new ServiceResponseDTO<bool>()
             {
                 Data = result,
                 Message = "ok",
@@ -92,10 +113,18 @@ namespace CatalogoConversionList.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(Int32 id)
+        [SwaggerOperation(Summary = "Elimina una Conversión de Catálogo existente", Description = "Elimina una conversión de catálogo específica por su ID.")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> Delete(int id)
         {
             var result = await _CatalogoConversionService.Delete(id);
-            var response = new ServiceResponseDTO<Boolean>()
+            if (!result)
+            {
+                return NotFound();
+            }
+
+            var response = new ServiceResponseDTO<bool>()
             {
                 Data = result,
                 Message = "ok",
@@ -106,9 +135,9 @@ namespace CatalogoConversionList.Controllers
             return Ok(response);
         }
 
-
-        [HttpGet]
-        [Route("exporta-excel")]
+        [HttpGet("exporta-excel")]
+        [SwaggerOperation(Summary = "Exporta las Conversiones de Catálogo a un archivo Excel", Description = "Genera y descarga un archivo Excel con todas las conversiones de catálogo.")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<FileResult> ExportarCatalogoConversionAExcel()
         {
             var CatalogoConversion = await _CatalogoConversionService.GetAll();
@@ -116,9 +145,10 @@ namespace CatalogoConversionList.Controllers
             return GenerarExcel(nombreArchivo, CatalogoConversion);
         }
 
-
-        [HttpPost]
-        [Route("importa-excel")]
+        [HttpPost("importa-excel")]
+        [SwaggerOperation(Summary = "Importa Conversiones de Catálogo desde un archivo Excel", Description = "Carga y procesa un archivo Excel para agregar conversiones de catálogo a la base de datos.")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> ImportarCatalogoConversionDesdeExcel(IFormFile file)
         {
             if (file == null || file.Length == 0)
@@ -154,19 +184,17 @@ namespace CatalogoConversionList.Controllers
 
                     foreach (var item in catalogoConversionList)
                     {
-
-
                         await _CatalogoConversionService.Add(item);
                     }
-
                 }
             }
 
             return Ok("Archivo importado y datos guardados exitosamente.");
         }
+
         private FileResult GenerarExcel(string nombreArchivo, List<CatalogoConversionDto> CatalogoConversion)
         {
-            DataTable dataTable = new DataTable(" CatalogoConversion");
+            DataTable dataTable = new DataTable("CatalogoConversion");
             dataTable.Columns.AddRange(new DataColumn[]
             {
                 new DataColumn("Id"),
@@ -176,16 +204,13 @@ namespace CatalogoConversionList.Controllers
                 new DataColumn("ConjuntoRelacionado"),
                 new DataColumn("Estado"),
                 new DataColumn("ValorRelacionado"),
-           
-
             });
 
             foreach (var item in CatalogoConversion)
             {
-                dataTable.Rows.Add(item.Id,item.ConjuntoConversion, item.CodigoConversion,
-                    item.EquivalenciaConversion,item.ConjuntoRelacionado,item.Estado,item.ValorRelacionado);
+                dataTable.Rows.Add(item.Id, item.ConjuntoConversion, item.CodigoConversion,
+                    item.EquivalenciaConversion, item.ConjuntoRelacionado, item.Estado, item.ValorRelacionado);
             }
-
 
             using (XLWorkbook wb = new XLWorkbook())
             {
@@ -199,11 +224,6 @@ namespace CatalogoConversionList.Controllers
                         nombreArchivo);
                 }
             }
-
-
         }
-
     }
-
-
 }

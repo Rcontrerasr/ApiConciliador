@@ -1,20 +1,14 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using Conciliador.Datos.Infraestructura.Entidades;
+using System.Threading.Tasks;
 using Conciliador.Logica.Servicios.Interfaces;
 using Conciliador.Modelos.DTOs;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using Microsoft.Identity.Web.Resource;
+using Swashbuckle.AspNetCore.Annotations;
+using Microsoft.AspNetCore.Http;
 
 namespace CabeceraPlantillaList.Controllers
 {
     [ApiController]
-    [AllowAnonymous]
     [Route("api/[controller]")]
     public class CabeceraPlantillaController : ControllerBase
     {
@@ -30,6 +24,8 @@ namespace CabeceraPlantillaList.Controllers
         }
 
         [HttpGet]
+        [SwaggerOperation(Summary = "Obtiene todas las CabeceraPlantillas", Description = "Devuelve una lista de todas las CabeceraPlantillas.")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> GetAll()
         {
             var result = await _CabeceraPlantillaService.GetAll();
@@ -45,9 +41,17 @@ namespace CabeceraPlantillaList.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetById(Int32 id)
+        [SwaggerOperation(Summary = "Obtiene una CabeceraPlantilla por ID", Description = "Devuelve una CabeceraPlantilla específica por su ID.")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> GetById(int id)
         {
             var result = await _CabeceraPlantillaService.GetById(id);
+            if (result == null)
+            {
+                return NotFound();
+            }
+
             var response = new ServiceResponseDTO<CabeceraPlantillaDto>()
             {
                 Data = result,
@@ -60,10 +64,13 @@ namespace CabeceraPlantillaList.Controllers
         }
 
         [HttpPost]
+        [SwaggerOperation(Summary = "Crea una nueva CabeceraPlantilla", Description = "Agrega una nueva CabeceraPlantilla a la base de datos.")]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> Create(CabeceraPlantillaDto CabeceraPlantillaDto)
         {
             var result = await _CabeceraPlantillaService.Add(CabeceraPlantillaDto);
-            var response = new ServiceResponseDTO<Boolean>()
+            var response = new ServiceResponseDTO<bool>()
             {
                 Data = result,
                 Message = "ok",
@@ -75,10 +82,18 @@ namespace CabeceraPlantillaList.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update(Int32 id, CabeceraPlantillaDto CabeceraPlantillaDto)
+        [SwaggerOperation(Summary = "Actualiza una CabeceraPlantilla existente", Description = "Actualiza una CabeceraPlantilla específica por su ID.")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> Update(int id, CabeceraPlantillaDto CabeceraPlantillaDto)
         {
             var result = await _CabeceraPlantillaService.Update(CabeceraPlantillaDto);
-            var response = new ServiceResponseDTO<Boolean>()
+            if (!result)
+            {
+                return NotFound();
+            }
+
+            var response = new ServiceResponseDTO<bool>()
             {
                 Data = result,
                 Message = "ok",
@@ -90,10 +105,18 @@ namespace CabeceraPlantillaList.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(Int32 id)
+        [SwaggerOperation(Summary = "Elimina una CabeceraPlantilla existente", Description = "Elimina una CabeceraPlantilla específica por su ID.")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> Delete(int id)
         {
             var result = await _CabeceraPlantillaService.Delete(id);
-            var response = new ServiceResponseDTO<Boolean>()
+            if (!result)
+            {
+                return NotFound();
+            }
+
+            var response = new ServiceResponseDTO<bool>()
             {
                 Data = result,
                 Message = "ok",
@@ -104,6 +127,4 @@ namespace CabeceraPlantillaList.Controllers
             return Ok(response);
         }
     }
-
-
 }
